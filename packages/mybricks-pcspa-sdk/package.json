@@ -1,0 +1,43 @@
+{
+  "name": "mybricks-pcspa-sdk",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "GodStream <zpqwangyiyouxiang@163.com>",
+  "homepage": "https://github.com/mybricks-team/mybricks-midback#readme",
+  "license": "ISC",
+  "main": "src/index.tsx",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mybricks-team/mybricks-midback.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/mybricks-pcspa-sdk.test.js"
+  },
+  "bugs": {
+    "url": "https://github.com/mybricks-team/mybricks-midback/issues"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.3.1",
+    "typescript": "^4.2.3",
+    "webpack": "^5.73.0",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.9.3",
+    "webpack-merge": "^5.8.0",
+    "webpackbar": "^5.0.2"
+  },
+  "dependencies": {
+    "@mybricks/plugin-connector-http": "^1.2.1",
+    "@mybricks/plugin-tools": "^1.0.17"
+  }
+}
