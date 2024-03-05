@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { message, Modal, Input, Typography, Calendar } from 'antd'
 import css from './css.less'
 import servicePlugin, {
@@ -160,27 +160,57 @@ const getQuery = () => {
 
 export default function MyDesigner() {
   const designerRef = useRef<{ switchActivity; dump; toJSON }>()
-  const [pageContent] = useState({
+  const [pageContent, setPageContent] = useState({
     fileName: '测试',
-    absoluteNamePath: '/test'
+    absoluteNamePath: '/test',
+    isDebugPermissionEnabled: false,
+    pageSchema: undefined
   })
 
   const [gptOpen, setGptOpen] = useState(false)
   const [gptValue, setGptValue] = useState('')
 
+  useLayoutEffect(() => {
+    const searchParam = getQuery()
+    let contentStr = window.localStorage.getItem(
+      `--mybricks--${searchParam ? searchParam : ''}`
+    )
+
+    if (contentStr) {
+      contentStr = JSON.parse(contentStr)
+
+      setPageContent({
+        ...pageContent,
+        ...contentStr
+      })
+    } else {
+      setPageContent({
+        ...pageContent,
+        pageSchema: {}
+      })
+    }
+  }, [])
+
 
   const save = useCallback(() => {
     //保存
-    console.log(designerRef.current?.dump(), pageContent)
-    // const json = designerRef.current?.dump()
-    // const searchParam = getQuery()
+    const json = designerRef.current?.dump()
+    const searchParam = getQuery()
 
-    // window.localStorage.setItem(
-    //   `--mybricks--${searchParam ? searchParam : ''}`,
-    //   JSON.stringify(json)
-    // )
-    // message.info(`保存完成`)
-  }, [])
+    console.log({
+      ...pageContent,
+      pageSchema: json
+    })
+
+    window.localStorage.setItem(
+      `--mybricks--${searchParam ? searchParam : ''}`,
+      JSON.stringify({
+        ...pageContent,
+        pageSchema: json
+      })
+    )
+    message.info(`保存完成`)
+  }, [pageContent])
 
   /**
    * 预览
@@ -234,8 +264,29 @@ export default function MyDesigner() {
           <button onClick={publish}>发布到本地</button>
         </div>
         <div className={css.designer}>
-          <PcSpaDesigner pageContent={pageContent} ref={designerRef} />
-          {/* <PcSpaDesigner /> */}
+          {
+            pageContent.pageSchema && (
+              <PcSpaDesigner
+                pageContent={pageContent}
+                ref={designerRef}
+                useLocalResources={{
+                  editorOptions: {},
+                  themeCss: ['/public/antd/antd@4.21.6.variable.min.css']
+                }}
+                editorItems={(items) => { // 返回预置editors，同时支持修改
+                  console.log(items)
+                  items['cate0'].title = '测试'
+                  
+                  return items
+                }}
+                envExtra={{ // 扩展额外的 env
+                  test: () => {
+                    console.log('123')
+                  }
+                }}
+              />
+            )
+          }
         </div>
       </div>
     </>

@@ -1,47 +1,66 @@
 import React, { forwardRef, useMemo } from 'react'
+import getDefaultItems from './defaultEditConfig'
+import getDebugEnv from './initialDebugEnv'
+
+export interface PageContent {
+  fileName?: string
+  absoluteNamePath?: string
+  hasPermissionFn?: string
+  pageSchema: Record<string, any>
+  isDebugPermissionEnabled?: boolean
+  [key: string]: any
+}
+
+export interface SdkContext {
+  pageContent: PageContent
+  designerRef: any
+}
 
 interface PcSpaDesignerProps {
-  useLocalResources?: any
-  editorItems?: any
-  plugins?: any
-  pageContent?: {
-    fileName: string
-    absoluteNamePath: string
-    hasPermissionFn: string
-    [key: string]: any
+  useLocalResources?: {
+    editorOptions?: any
+    themeCss?: string[]
   }
+  editorItems?: (items: any) => any
+  plugins?: (plugins: any) => any[]
+  pageContent?: PageContent
+  envExtra?: Record<string, any>
+  // ... toplView shortcuts events
 }
 
 const SPADesigner = (window as any).mybricks.SPADesigner
 
-const defaultPermissionComments = `/**
-*
-* interface Props {
-*   key: string // 权限key
-* }
-*
-* @param {object} props: Props
-* @return {boolean}
-*/
-`
-
-const defaultPermissionFn = `export default function ({ key }) {
-  return true
-}
-`
 
 const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
   console.log('forwardRef props---', props)
-  const { pageContent } = props
-  // const designerRef = useRef()
-
-  // useImperativeHandle(ref, () => designerRef.current)
-
+  const { pageContent, useLocalResources, editorItems, envExtra } = props
+  const sdkContext = {
+    pageContent,
+    designerRef: ref,
+    getCurrentLocale: () => {
+      return `zh`
+    }
+  }
   const config = useMemo(() => {
+    console.log('config------', pageContent.pageSchema)
+    
+    const env =  {
+      ...getDebugEnv(sdkContext),
+      ...envExtra
+    }
+
+    const defaultItems = getDefaultItems(sdkContext)
+    
+    let editViewItems = defaultItems
+    
+    if (editorItems) {
+      editViewItems = editorItems(defaultItems)
+    }
+
     return {
       shortcuts: {},
       plugins: [],
-      comLibLoader(desc) {
+      comLibLoader(desc) { // Todo
         //加载组件库
         return new Promise((resolve, reject) => {
           resolve([
@@ -49,9 +68,9 @@ const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
           ])
         })
       },
-      pageContentLoader() {
+      pageContentLoader () {
         return new Promise((resolve) => {
-          resolve({})
+          resolve(pageContent.pageSchema || {})
         })
       },
       toplView: {
@@ -70,78 +89,19 @@ const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
       },
       editView: {
         items({}, cate0) {
-          cate0.title = `项目`
-          cate0.items = [
-            {
-              items: [
-                {
-                  title: '名称',
-                  type: 'Text',
-                  value: {
-                    get: (context) => {
-                      return pageContent.fileName
-                    },
-                    set: (context, v: any) => {
-                      if (v !== pageContent.fileName) {
-                        pageContent.fileName = v
-                      }
-                    },
-                  },
-                },
-                {
-                  title: '文件路径',
-                  type: 'Text',
-                  options: { readOnly: true },
-                  value: {
-                    get: (context) => {
-                      return pageContent.absoluteNamePath
-                    },
-                    set: (context, v: any) => {
-                      if (v !== pageContent.absoluteNamePath) {
-                        pageContent.absoluteNamePath = v
-                      }
-                    },
-                  },
-                },
-              ],
-            },
-            {
-              title: '全局方法',
-              items: [
-                {
-                  title: '权限校验',
-                  type: 'code',
-                  description: '设置权限校验方法，调试模式下默认不会启用',
-                  options: {
-                    title: '权限校验',
-                    comments: defaultPermissionComments,
-                    displayType: 'button',
-                  },
-                  value: {
-                    get() {
-                      return decodeURIComponent(
-                        pageContent?.hasPermissionFn ||
-                          encodeURIComponent(defaultPermissionFn)
-                      )
-                    },
-                    set(context, v: string) {
-                      pageContent.hasPermissionFn = encodeURIComponent(v)
-                    },
-                  },
-                },
-              ],
-            },
-          ]
+          cate0.title = editViewItems['cate0'].title
+          cate0.items = editViewItems['cate0'].items
         },
+        editorOptions: useLocalResources?.editorOptions
       },
       geoView: {
         scenes: {},
         theme: {
-          css: [],
+          css: useLocalResources?.themeCss,
         },
       },
       com: {
-        env: {},
+        env,
         events: [
           {
             type: 'jump',
@@ -166,8 +126,12 @@ const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
   }, [])
 
   return (
-    <SPADesigner config={config} ref={ref}></SPADesigner>
+    <SPADesigner ref={ref} config={config} ></SPADesigner>
   )
 })
+
+export {
+  
+}
 
 export default PcSpaDesigner
