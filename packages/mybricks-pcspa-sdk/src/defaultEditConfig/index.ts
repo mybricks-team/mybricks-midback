@@ -65,7 +65,7 @@ const getDefaultItems = (context) => {
                 get() {
                   return decodeURIComponent(
                     pageContent?.hasPermissionFn ||
-                      encodeURIComponent(defaultPermissionFn)
+                    encodeURIComponent(defaultPermissionFn)
                   )
                 },
                 set(context, v: string) {
@@ -91,6 +91,7 @@ const getDefaultItems = (context) => {
                 }
               }
             },
+
           ]
         }
       ]

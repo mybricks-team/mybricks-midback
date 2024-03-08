@@ -42,7 +42,7 @@ const getQuery = () => {
 //     pageContentLoader() {
 //       //加载页面内容
 //       // const pageContent = window.localStorage.getItem('--mybricks--')
-  
+
 //       return new Promise((resolve, reject) => {
 //         const searchParam = getQuery()
 //         let pageContent = window.localStorage.getItem(
@@ -50,7 +50,7 @@ const getQuery = () => {
 //         )
 //         if (pageContent) {
 //           pageContent = JSON.parse(pageContent)
-  
+
 //           resolve(pageContent)
 //         } else {
 //           resolve({})
@@ -164,7 +164,24 @@ export default function MyDesigner() {
     fileName: '测试',
     absoluteNamePath: '/test',
     isDebugPermissionEnabled: false,
-    pageSchema: undefined
+    pageSchema: {},
+    envList: [],
+    executeEnv: '',
+    MYBRICKS_HOST: {},
+    i18nLangContent: {},
+    directConnection: false,
+    i18nUsedIdList: [],
+    comlibs: [
+      'https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.25/2024-03-04_20-51-40/edit.js',
+      `https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.16/2024-03-01_16-59-05/edit.js`
+    ],
+    debugMockConfig: {
+      debugQuery: {},
+      debugMainProps: {},
+      localStorageMock: [],
+      debugHeaders: [],
+      sessionStorageMock: [],
+    }
   })
 
   const [gptOpen, setGptOpen] = useState(false)
@@ -201,7 +218,7 @@ export default function MyDesigner() {
       ...pageContent,
       pageSchema: json
     })
-
+    console.log(`pageContent`, pageContent)
     window.localStorage.setItem(
       `--mybricks--${searchParam ? searchParam : ''}`,
       JSON.stringify({
@@ -276,9 +293,12 @@ export default function MyDesigner() {
                 editorItems={(items) => { // 返回预置editors，同时支持修改
                   console.log(items)
                   items['cate0'].title = '测试'
-                  
+
                   return items
                 }}
+                plugins={((plugins) => {
+                  return plugins
+                })}
                 envExtra={{ // 扩展额外的 env
                   test: () => {
                     console.log('123')
