@@ -2,7 +2,7 @@ import initComLib from "./crud/initComLib";
 import upgradeComLib from "./crud/upgradeComLib";
 import deleteComLib from "./crud/deleteComLib";
 import insertComLib from "./crud/insertComLib";
-const comLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
+const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
   return new Promise(async (resolve, reject) => {
     const { cmd } = libDesc;
     try {
@@ -62,4 +62,4 @@ const comLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
   });
 };
 
-export { comLibLoader };
+export { getComLibLoader };

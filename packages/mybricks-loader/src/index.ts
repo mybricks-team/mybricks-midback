@@ -1,1 +1,3 @@
-export default 'Hello father 4!';
+export { getComLibAdder } from "./getComLibAdder";
+export { getComLibLoader } from "./getComLibLoader";
+export { loader } from "./loader";
