@@ -2,6 +2,7 @@ import initComLib from "./crud/initComLib";
 import upgradeComLib from "./crud/upgradeComLib";
 import deleteComLib from "./crud/deleteComLib";
 import insertComLib from "./crud/insertComLib";
+import materialServerIns from "./materialService";
 const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
   return new Promise(async (resolve, reject) => {
     const { cmd } = libDesc;
@@ -12,7 +13,8 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
           case CMD.DELETE_COM:
           case CMD.UPGRADE_COM:
           case CMD.DELETE_COM_LIB:
-            const deleteLib = await deleteComLib(libs, libDesc);
+            const deleteLib = deleteComLib(libs, libDesc);
+            materialServerIns.config.afterDeleteComLib!(deleteLib);
             resolve(true);
             break;
           case CMD.UPGRADE_COM_LIB:

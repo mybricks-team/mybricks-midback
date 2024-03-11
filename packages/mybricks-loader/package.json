@@ -2,6 +2,7 @@
   "name": "mybricks-loader",
   "version": "0.0.1",
   "description": "mybricks-loader",
+  "main": "dist/umd/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
@@ -10,14 +11,16 @@
     "build:deps": "father prebundle",
     "prepublishOnly": "father doctor && npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "mybricks",
+    "loader"
+  ],
   "authors": [
     "1302947749@qq.com"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "files": [
-    "dist",
-    "compiled"
+    "dist"
   ],
   "publishConfig": {
     "access": "public"

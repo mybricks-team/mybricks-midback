@@ -6,12 +6,11 @@
 ## Install
 
 ```bash
-$ pnpm install
+$ yarn add mybricks-loader
 ```
 
-```bash
-$ npm run dev
-$ npm run build
+```ts
+import { getComLibLoader, getComLibAdder, loader, MaterialService } from "mybricks-loader";
 ```
 
 ## Options
@@ -20,4 +19,4 @@ TODO
 
 ## LICENSE
 
-MIT
+ISC
