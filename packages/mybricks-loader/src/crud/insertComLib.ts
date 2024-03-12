@@ -1,14 +1,16 @@
 import { loader } from "../loader";
-const insertComLib = (lib: ComLibType) => {
+import materialServerIns from "../materialService";
+const insertComLib = (lib: ComLibType, libs: Array<ComLibType>) => {
   return new Promise(async (resolve, reject) => {
     if (!lib.namespace) return reject('物料缺少"namespace"');
     try {
-      const loaded = await loader(lib);
-      resolve(loaded);
+      const loadedLib = await loader(lib);
+      resolve(loadedLib);
+      materialServerIns.config.onAddComLib!(lib, [...libs, lib]);
     } catch (error) {
       reject(error);
     }
   });
 };
 
-export default insertComLib
+export default insertComLib;

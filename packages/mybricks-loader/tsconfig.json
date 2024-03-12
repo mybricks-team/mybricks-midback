@@ -1,9 +1,10 @@
 {
   "compilerOptions": {
-    "strict": true,
+    "strict": false,
     "declaration": true,
     "skipLibCheck": true,
     "baseUrl": "./",
     "lib": ["ESNext", "Dom"]
-  }
+  },
+  "compileOnSave": true
 }
