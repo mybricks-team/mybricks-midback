@@ -1,10 +1,20 @@
 import { loadScript } from "./loadScript";
 import { compareVersions } from "compare-versions";
-const ComLib_Edit = "__comlibs_edit_";
+
+const findLibIndexFromGlobal = (lib: ComLibType) => {
+  const prevIndex = window[ComLib_Edit].findIndex(
+    (winLib: any) => winLib.namespace === lib.namespace || winLib.id === lib.id
+  );
+  return prevIndex;
+};
+
 const loader = async (lib: ComLibType) => {
+  const prevIndex = findLibIndexFromGlobal(lib);
+  if (prevIndex > 0) {
+    window[ComLib_Edit].splice(prevIndex, 1);
+  }
   try {
     const { styles } = await loadScript(lib.editJs);
-    //@ts-ignore
     const loadedLib = window[ComLib_Edit].find(
       (winLib: any) =>
         winLib.namespace === lib.namespace || winLib.id === lib.id
@@ -30,4 +40,18 @@ const loader = async (lib: ComLibType) => {
   }
 };
 
-export { loader };
+const initGlobal = () => {
+  if (!window[ComLib_Edit]) {
+    window[ComLib_Edit] = [];
+  }
+
+  if (!window[ComLib_Rt]) {
+    window[ComLib_Rt] = window[ComLib_Edit];
+  }
+
+  if (!window[CloudComponentDependentComponents]) {
+    window[CloudComponentDependentComponents] = {};
+  }
+};
+
+export { loader, initGlobal };

@@ -1,6 +1,11 @@
-type MaterialServerConfig = {
-  afterDeleteComLib?: (lib: ComLibType | undefined) => void;
-};
+type MaterialServerConfig = Partial<{
+  onAddComLib: (lib: ComLibType, libs: Array<ComLibType>) => void;
+  onDeleteComLib: (
+    lib: ComLibType | undefined,
+    libs: Array<ComLibType>
+  ) => void;
+  onUpgradeComLib: (lib: ComLibType, libs: Array<ComLibType>) => void;
+}>;
 class MaterialService {
   config: MaterialServerConfig = {};
   set(config: MaterialServerConfig) {

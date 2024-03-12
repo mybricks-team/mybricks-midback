@@ -38,3 +38,9 @@ interface LibDesc extends ComLibType {
   libId: string;
   libNamespace: string;
 }
+
+const ComLib_Edit = '__comlibs_edit_';
+
+const ComLib_Rt = '__comlibs_rt_';
+
+const CloudComponentDependentComponents = 'CloudComponentDependentComponents';
