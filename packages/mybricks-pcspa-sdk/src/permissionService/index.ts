@@ -1,4 +1,14 @@
+import { SdkContext, IConfigBuilder } from '../types';
 import { runJs } from '../utils/runJs'
+
+export const configDebugHasPermission: IConfigBuilder<SdkContext> = (context, config) => {
+  config.com.env = {
+    ...config.com.env,
+    get hasPermission() {
+      return debugHasPermission(context)
+    }
+  }
+}
 
 const debugHasPermission = (context) => {
   const { pageContent, designerRef } = context
