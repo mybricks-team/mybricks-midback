@@ -1,9 +1,9 @@
 import materialServerIns from "../materialService";
-const ComLib_Edit = "__comlibs_edit_";
+import { SourceEnum } from '../constant'
 const deleteComLib = (libs: Array<ComLibType>, libDesc: LibDesc) => {
   const deleteLib = libs.find((lib) => lib.namespace === libDesc.namespace);
   //@ts-ignore
-  window[ComLib_Edit] = window[ComLib_Edit].filter(
+  window[SourceEnum.ComLib_Edit] = window[SourceEnum.ComLib_Edit].filter(
     (lib: ComLibType) => lib.namespace !== libDesc.namespace
   );
   const restLibs = libs.filter((lib) => lib.namespace === libDesc.namespace);

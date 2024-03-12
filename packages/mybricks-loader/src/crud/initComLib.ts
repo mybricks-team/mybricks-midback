@@ -1,8 +1,8 @@
 import { loader } from "../loader";
-const MySelfId = "_myself_";
+import { SourceEnum } from '../constant'
 const init = (libs: Array<ComLibType>) => {
   return new Promise(async (resolve, reject) => {
-    libs = libs.filter((lib) => lib.id !== MySelfId);
+    libs = libs.filter((lib) => lib.id !== SourceEnum.MySelfId);
     try {
       const loadedLibs = await Promise.all(libs.map((lib) => loader(lib)));
       /**

@@ -1,8 +1,9 @@
 import { loadScript } from "./loadScript";
 import { compareVersions } from "compare-versions";
+import { SourceEnum } from '../constant'
 
 const findLibIndexFromGlobal = (lib: ComLibType) => {
-  const prevIndex = window[ComLib_Edit].findIndex(
+  const prevIndex = window[SourceEnum.ComLib_Edit].findIndex(
     (winLib: any) => winLib.namespace === lib.namespace || winLib.id === lib.id
   );
   return prevIndex;
@@ -11,11 +12,11 @@ const findLibIndexFromGlobal = (lib: ComLibType) => {
 const loader = async (lib: ComLibType) => {
   const prevIndex = findLibIndexFromGlobal(lib);
   if (prevIndex > 0) {
-    window[ComLib_Edit].splice(prevIndex, 1);
+    window[SourceEnum.ComLib_Edit].splice(prevIndex, 1);
   }
   try {
     const { styles } = await loadScript(lib.editJs);
-    const loadedLib = window[ComLib_Edit].find(
+    const loadedLib = window[SourceEnum.ComLib_Edit].find(
       (winLib: any) =>
         winLib.namespace === lib.namespace || winLib.id === lib.id
     );
@@ -41,16 +42,16 @@ const loader = async (lib: ComLibType) => {
 };
 
 const initGlobal = () => {
-  if (!window[ComLib_Edit]) {
-    window[ComLib_Edit] = [];
+  if (!window[SourceEnum.ComLib_Edit]) {
+    window[SourceEnum.ComLib_Edit] = [];
   }
 
-  if (!window[ComLib_Rt]) {
-    window[ComLib_Rt] = window[ComLib_Edit];
+  if (!window[SourceEnum.ComLib_Rt]) {
+    window[SourceEnum.ComLib_Rt] = window[SourceEnum.ComLib_Edit];
   }
 
-  if (!window[CloudComponentDependentComponents]) {
-    window[CloudComponentDependentComponents] = {};
+  if (!window[SourceEnum.CloudComponentDependentComponents]) {
+    window[SourceEnum.CloudComponentDependentComponents] = {};
   }
 };
 
