@@ -9,11 +9,16 @@ import { PcSpaDesignerProps, SdkContext } from './types'
 import { configMockData, proxLocalStorage, proxSessionStorage } from './dataMockService'
 import { PreviewStorage } from './utils/previewStorage'
 import { getRtComlibsFromConfigEdit } from './utils/comlib'
+import { MaterialService } from 'mybricks-loader'
 
 const SPADesigner = (window as any).mybricks.SPADesigner
 
 const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
-  const { pageContent, useLocalResources, editorItems, envExtra, plugins } = props
+  const { pageContent, useLocalResources, editorItems, envExtra, plugins, material } = props
+
+  useEffect(() => {
+    MaterialService.set(material.config ?? {})
+  }, [material.config])
 
   const sdkContext = useMemo(() => {
     if (!pageContent.debugMockConfig) {
@@ -31,7 +36,8 @@ const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
       designerRef: ref,
       getCurrentLocale: () => {
         return `zh`
-      }
+      },
+      material
     }
   }, [pageContent])
 

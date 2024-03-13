@@ -1,6 +1,7 @@
 import { loadScript } from "./loadScript";
 import { compareVersions } from "compare-versions";
 import { SourceEnum } from '../constant'
+import { ComLibType } from '../global'
 
 const findLibIndexFromGlobal = (lib: ComLibType) => {
   const prevIndex = window[SourceEnum.ComLib_Edit].findIndex(

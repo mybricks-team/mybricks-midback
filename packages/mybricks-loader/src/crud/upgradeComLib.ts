@@ -1,5 +1,6 @@
 import { loader } from "../loader";
 import materialServerIns from "../materialService";
+import { ComLibType } from '../global'
 const upgradeComLib = (lib: ComLibType, libs: Array<ComLibType>) => {
   return new Promise(async (resolve, reject) => {
     if (lib.hasOwnProperty("legacy")) {

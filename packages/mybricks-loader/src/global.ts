@@ -10,7 +10,6 @@ type ComType = {
 };
 
 type LatestComlib = {
-  content: string;
   namespace: string;
   version: string;
 };
@@ -38,3 +37,5 @@ interface LibDesc extends ComLibType {
   libId: string;
   libNamespace: string;
 }
+
+export { type ComType, type LatestComlib, type ComLibType, CMD, type LibDesc };

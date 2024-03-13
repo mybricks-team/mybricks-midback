@@ -1,5 +1,6 @@
 import { loader } from "../loader";
 import { SourceEnum } from '../constant'
+import { ComLibType } from '../global'
 const init = (libs: Array<ComLibType>) => {
   return new Promise(async (resolve, reject) => {
     libs = libs.filter((lib) => lib.id !== SourceEnum.MySelfId);

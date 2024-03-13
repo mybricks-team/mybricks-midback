@@ -1,3 +1,4 @@
+import { type MaterialServerConfig, ComLibType } from 'mybricks-loader'
 export interface PageContent {
     fileName?: string
     absoluteNamePath?: string
@@ -26,10 +27,16 @@ export enum EnumMode {
     CUSTOM
 }
 
+type Material = {
+    comLibs: Array<ComLibType>,
+    config: MaterialServerConfig
+}
+
 export interface SdkContext {
     pageContent: PageContent
     designerRef?: any
-    getCurrentLocale: () => string
+    getCurrentLocale: () => string,
+    material: Material
 }
 
 export interface PcSpaDesignerProps {
@@ -42,6 +49,7 @@ export interface PcSpaDesignerProps {
     pageContent?: PageContent
     envExtra?: Record<string, any>
     // ... toplView shortcuts events
+    material: Material
 }
 
 export interface TEditViewItems {

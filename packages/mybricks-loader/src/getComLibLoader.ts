@@ -3,6 +3,7 @@ import { upgradeComLib, upgradeLatestComLib } from "./crud/upgradeComLib";
 import deleteComLib from "./crud/deleteComLib";
 import insertComLib from "./crud/insertComLib";
 import { initGlobal } from "./loader";
+import { ComLibType, LibDesc, CMD } from './global'
 
 const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
   initGlobal();

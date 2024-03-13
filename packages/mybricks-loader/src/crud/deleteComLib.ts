@@ -1,5 +1,6 @@
 import materialServerIns from "../materialService";
 import { SourceEnum } from '../constant'
+import { ComLibType, LibDesc } from '../global'
 const deleteComLib = (libs: Array<ComLibType>, libDesc: LibDesc) => {
   const deleteLib = libs.find((lib) => lib.namespace === libDesc.namespace);
   //@ts-ignore

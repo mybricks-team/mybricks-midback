@@ -2,20 +2,22 @@ import { SdkContext } from "./types"
 import { message } from 'antd'
 import getDefaultItems from "./defaultEditConfig"
 import { parseQuery } from './utils'
+import { getComLibAdder, getComLibLoader } from 'mybricks-loader'
 const getDebugBaseConfig = (sdkContext: SdkContext) => {
-    const { pageContent } = sdkContext
+    const { pageContent, material } = sdkContext
 
     return {
         shortcuts: {},
         plugins: [],
-        comLibLoader(desc) { // Todo
-            //加载组件库
-            return new Promise((resolve, reject) => {
-                resolve(pageContent.comlibs || [
-                    'https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.4.46/2023-12-12_11-53-35/edit.js',
-                ])
-            })
-        },
+        // comLibLoader(desc) { // Todo
+        //     //加载组件库
+        //     return new Promise((resolve, reject) => {
+        //         resolve(pageContent.comlibs || [
+        //             'https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.4.46/2023-12-12_11-53-35/edit.js',
+        //         ])
+        //     })
+        // },
+        comLibLoader: () => getComLibLoader(material.comLibs),
         pageContentLoader() {
             return new Promise((resolve) => {
                 resolve(pageContent.pageSchema || {})
