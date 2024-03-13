@@ -7,7 +7,7 @@ const deleteComLib = (libDesc: LibDesc, libs: Array<ComLibType>) => {
   window[SourceEnum.ComLib_Edit] = window[SourceEnum.ComLib_Edit].filter(
     (lib: ComLibType) => lib.namespace !== libDesc.namespace && lib.id !== libDesc.id
   );
-  const restLibs = libs.filter((lib) => lib.namespace !== libDesc.namespace);
+  const restLibs = libs.filter((lib) => lib.namespace !== libDesc.namespace && lib.id !== libDesc.id);
   if (!deleteLib) {
     console.error(
       `[deleteComLib]: can not found lib with namespace ${libDesc.libNamespace} `
