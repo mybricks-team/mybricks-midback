@@ -12,7 +12,7 @@ const findLibIndexFromGlobal = (lib: ComLibType) => {
 
 const loader = async (lib: ComLibType) => {
   const prevIndex = findLibIndexFromGlobal(lib);
-  if (prevIndex > 0) {
+  if (prevIndex >= 0) {
     window[SourceEnum.ComLib_Edit].splice(prevIndex, 1);
   }
   try {

@@ -2,10 +2,10 @@ import materialServerIns from "../materialService";
 import { SourceEnum } from '../constant'
 import { ComLibType, LibDesc } from '../global'
 const deleteComLib = (libDesc: LibDesc, libs: Array<ComLibType>) => {
-  const deleteLib = libs.find((lib) => lib.namespace === libDesc.namespace);
+  const deleteLib = libs.find((lib) => lib.namespace === libDesc.namespace || lib.id === libDesc.id);
   //@ts-ignore
   window[SourceEnum.ComLib_Edit] = window[SourceEnum.ComLib_Edit].filter(
-    (lib: ComLibType) => lib.namespace !== libDesc.namespace
+    (lib: ComLibType) => lib.namespace !== libDesc.namespace && lib.id !== libDesc.id
   );
   const restLibs = libs.filter((lib) => lib.namespace !== libDesc.namespace);
   if (!deleteLib) {

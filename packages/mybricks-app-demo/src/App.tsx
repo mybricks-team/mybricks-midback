@@ -195,7 +195,14 @@ export default function MyDesigner() {
       id: "313",
       namespace: 'mybricks.basic-comlib',
       title: "基础组件库",
-      editJs: 'https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.16/2024-03-01_16-59-05/edit.js'
+      editJs: 'https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.16/2024-03-01_16-59-05/edit.js',
+      latestComlib: {
+        id: "313",
+        namespace: 'mybricks.basic-comlib',
+        title: "基础组件库",
+        version: "1.1.20",
+        editJs: 'https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.20/2024-03-11_15-47-14/edit.js'
+      }
     }
   ]);
 
@@ -326,7 +333,7 @@ export default function MyDesigner() {
                         console.log(lib, libs)
                     },
                     onUpgradeComLib(lib, libs) {
-                        
+                        console.log(lib, libs)
                     },
                     onAddComLib(lib, libs) {
                         
