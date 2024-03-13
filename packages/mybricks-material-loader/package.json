@@ -1,7 +1,8 @@
 {
-  "name": "mybricks-config",
+  "name": "mybricks-material-loader",
   "version": "0.0.1",
-  "description": "mybricks config",
+  "description": "mybricks-material-loader",
+  "main": "dist/umd/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "scripts": {
@@ -12,12 +13,13 @@
   },
   "keywords": [
     "mybricks",
-    "config"
+    "material",
+    "loader"
   ],
   "authors": [
     "1302947749@qq.com"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "files": [
     "dist"
   ],
@@ -28,6 +30,6 @@
     "father": "^4.4.0"
   },
   "dependencies": {
-    "state-local": "^1.0.7"
+    "compare-versions": "^6.1.0"
   }
 }

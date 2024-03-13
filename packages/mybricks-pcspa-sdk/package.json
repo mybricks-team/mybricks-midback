@@ -40,7 +40,7 @@
     "@mybricks/plugin-connector-http": "^1.2.1",
     "@mybricks/plugin-locale": "^1.0.0",
     "@mybricks/plugin-tools": "^1.0.17",
-    "mybricks-loader": "workspace:^"
+    "mybricks-material-loader": "workspace:^"
   },
   "peerDependencies": {
     "antd": "^4.23.6"

@@ -1,6 +1,6 @@
 import { ComLibType } from './global'
 export type MaterialServerConfig = Partial<{
-  onAddComLib: (lib: ComLibType, libs: Array<ComLibType>) => void;
+  onAddComLib: (lib: ComLibType, libs: Array<ComLibType>) => ComLibType;
   onDeleteComLib: (
     lib: ComLibType | undefined,
     libs: Array<ComLibType>

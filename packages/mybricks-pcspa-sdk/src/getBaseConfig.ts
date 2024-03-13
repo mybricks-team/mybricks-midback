@@ -2,7 +2,7 @@ import { SdkContext } from "./types"
 import { message } from 'antd'
 import getDefaultItems from "./defaultEditConfig"
 import { parseQuery } from './utils'
-import { getComLibAdder, getComLibLoader } from 'mybricks-loader'
+import { getComLibAdder, getComLibLoader } from 'mybricks-material-loader'
 const getDebugBaseConfig = (sdkContext: SdkContext) => {
     const { pageContent, material } = sdkContext
     return {
