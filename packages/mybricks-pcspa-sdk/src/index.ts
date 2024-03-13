@@ -1,6 +1,6 @@
-import PcSpaDesigner from './PcSpaDesigner'
+import PcSpaDesigner from "./PcSpaDesigner";
 
-export {
-    PcSpaDesigner
-}
-export default PcSpaDesigner
+export { PcSpaDesigner };
+export default PcSpaDesigner;
+
+export { type MaterialServerConfig, type ComLibType } from "mybricks-loader";

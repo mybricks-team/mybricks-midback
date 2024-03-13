@@ -6,7 +6,7 @@ import servicePlugin, {
 } from '@mybricks/plugin-connector-http' //连接器插件和运行时
 import htmlTpt from './pub-tpt.html'
 import tools from '@mybricks/plugin-tools'
-import PcSpaDesigner from 'mybricks-pcspa-sdk'
+import PcSpaDesigner, { type ComLibType, MaterialServerConfig } from 'mybricks-pcspa-sdk'
 
 
 const getQuery = () => {
@@ -184,6 +184,21 @@ export default function MyDesigner() {
     }
   })
 
+  const [comLibs, setComLibs] = useState<Array<ComLibType>>([
+    {
+      id: "",
+      namespace: "mybricks.normal-pc",
+      title: "通用PC组件库",
+      editJs: "https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.25/2024-03-04_20-51-40/edit.js"
+    },
+    {
+      id: "313",
+      namespace: 'mybricks.basic-comlib',
+      title: "基础组件库",
+      editJs: 'https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.16/2024-03-01_16-59-05/edit.js'
+    }
+  ]);
+
   const [gptOpen, setGptOpen] = useState(false)
   const [gptValue, setGptValue] = useState('')
 
@@ -302,6 +317,20 @@ export default function MyDesigner() {
                 envExtra={{ // 扩展额外的 env
                   test: () => {
                     console.log('123')
+                  }
+                }}
+                material={{
+                  comLibs,
+                  config: {
+                    onDeleteComLib(lib, libs) {
+                        console.log(lib, libs)
+                    },
+                    onUpgradeComLib(lib, libs) {
+                        
+                    },
+                    onAddComLib(lib, libs) {
+                        
+                    },
                   }
                 }}
               />

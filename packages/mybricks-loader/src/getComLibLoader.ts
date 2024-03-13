@@ -3,11 +3,26 @@ import { upgradeComLib, upgradeLatestComLib } from "./crud/upgradeComLib";
 import deleteComLib from "./crud/deleteComLib";
 import insertComLib from "./crud/insertComLib";
 import { initGlobal } from "./loader";
-import { ComLibType, LibDesc, CMD } from './global'
+import { ComLibType, LibDesc, CMD } from "./global";
+
+const resolveLibField = (lib: any) => {
+  return {
+    ...lib,
+    namespace: lib.libNamespace,
+    id: lib.libId,
+  }
+}
 
 const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
   initGlobal();
   return new Promise(async (resolve, reject) => {
+    if (!libDesc) {
+      /**
+       * init
+       */
+      const initLibs = await initComLib(libs);
+      return resolve(initLibs);
+    }
     const { cmd } = libDesc;
     try {
       if (cmd) {
@@ -19,16 +34,12 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
           case CMD.UPGRADE_COM:
             break;
           case CMD.DELETE_COM_LIB:
-            deleteComLib(libs, libDesc);
+            deleteComLib(resolveLibField(libDesc), libs);
             resolve(true);
             break;
           case CMD.UPGRADE_COM_LIB:
             const upgradeLib = await upgradeLatestComLib(
-              {
-                ...libDesc,
-                namespace: libDesc.libNamespace,
-                id: libDesc.libId,
-              },
+              resolveLibField(libDesc),
               libs
             );
             resolve(upgradeLib);
@@ -38,31 +49,17 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
         }
         return;
       }
-      if (!libDesc) {
-        /**
-         * init
-         */
-        const initLibs = await initComLib(libs);
-        return resolve(initLibs);
-      }
       if (libDesc?.editJs) {
-        let lib = libs.find((lib) => lib.namespace === libDesc.namespace);
+        let lib = libs.find((lib) => lib.namespace === libDesc.libNamespace);
         if (lib) {
           lib = {
             ...lib,
-            ...libDesc,
-            namespace: libDesc.libNamespace,
-            id: libDesc.libId,
+            ...resolveLibField(libDesc),
           };
           const upgradeLib = await upgradeComLib(lib, libs);
           return resolve(upgradeLib);
         } else {
-          const lib = {
-            ...libDesc,
-            namespace: libDesc?.libNamespace,
-            id: libDesc?.libId,
-          };
-          const insertedComLib = await insertComLib(lib, libs);
+          const insertedComLib = await insertComLib(resolveLibField(libDesc), libs);
           return resolve(insertedComLib);
         }
       }

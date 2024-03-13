@@ -5,7 +5,6 @@ import { parseQuery } from './utils'
 import { getComLibAdder, getComLibLoader } from 'mybricks-loader'
 const getDebugBaseConfig = (sdkContext: SdkContext) => {
     const { pageContent, material } = sdkContext
-
     return {
         shortcuts: {},
         plugins: [],
@@ -17,7 +16,7 @@ const getDebugBaseConfig = (sdkContext: SdkContext) => {
         //         ])
         //     })
         // },
-        comLibLoader: () => getComLibLoader(material.comLibs),
+        comLibLoader: getComLibLoader(material.comLibs),
         pageContentLoader() {
             return new Promise((resolve) => {
                 resolve(pageContent.pageSchema || {})
