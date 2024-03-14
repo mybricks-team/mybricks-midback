@@ -1,10 +1,8 @@
 import React, { useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { message, Modal, Input, Typography, Calendar } from 'antd'
 import css from './css.less'
-import servicePlugin, {
-  call as callConnectorHttp,
-} from '@mybricks/plugin-connector-http' //连接器插件和运行时
 import htmlTpt from './pub-tpt.html'
+import localePlugin from '@mybricks/plugin-locale'
 import tools from '@mybricks/plugin-tools'
 import PcSpaDesigner, { type ComLibType, MaterialServerConfig } from '@mybricks/mybricks-pcspa-sdk'
 
@@ -177,7 +175,7 @@ export default function MyDesigner() {
     ],
     debugMockConfig: {
       debugQuery: {},
-      debugMainProps: {},
+      debugProps: {},
       localStorageMock: [],
       debugHeaders: [],
       sessionStorageMock: [],
@@ -319,7 +317,9 @@ export default function MyDesigner() {
                   return items
                 }}
                 plugins={((plugins) => {
-                  return plugins
+                  const index = plugins.findIndex(item => item.name === 'locale')
+                  const newPlugins = plugins.splice(index, 1)
+                  return newPlugins
                 })}
                 envExtra={{ // 扩展额外的 env
                   test: () => {
@@ -336,7 +336,8 @@ export default function MyDesigner() {
                       console.log(lib, libs)
                     },
                     onAddComLib(lib, libs) {
-
+                      console.log(lib, libs)
+                      return {} as any
                     },
                   }
                 }}

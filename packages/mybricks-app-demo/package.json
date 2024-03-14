@@ -43,10 +43,11 @@
     "webpackbar": "^5.0.2"
   },
   "dependencies": {
+    "@mybricks/mybricks-pcspa-sdk": "^0.0.1",
     "@mybricks/plugin-connector-http": "^1.2.1",
+    "@mybricks/plugin-locale": "^1.0.1",
     "@mybricks/plugin-tools": "^1.0.17",
     "@mybricks/render-web": "^1.2.44",
-    "antd": "4.21.6",
-    "@mybricks/mybricks-pcspa-sdk": "^0.0.1"
+    "antd": "4.21.6"
   }
 }
