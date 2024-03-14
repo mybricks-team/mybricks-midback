@@ -1,4 +1,4 @@
-import { getRenderWeb, getQueryString, getComs } from './utils'
+import { getQueryString, getComs } from './utils'
 import { getPreviewBaseConfig } from './getBaseConfig'
 import { PreviewStorage } from './utils/previewStorage';
 
@@ -23,50 +23,50 @@ const {
 } = previewStorage.getPreviewPageData();
 
 const renderPreviewUi = (props: IPreviewProps) => {
-    const { env, renderType } = props
-    const renderUI = getRenderWeb(renderType)
+    // const { env, renderType } = props
+    // const renderUI = getRenderWeb(renderType)
 
-    if (!renderUI) {
-        throw Error(`找不到${renderType}渲染器`);
-    }
+    // if (!renderUI) {
+    //     throw Error(`找不到${renderType}渲染器`);
+    // }
 
-    return renderUI(dumpJson, {
-        env: {
-            ...env,
-            renderCom(json, opts, coms) {
-                return renderUI(json, {
-                    comDefs: { ...getComs(), ...coms },
-                    // observable: window['rxui'].observable,
-                    ...(opts || {}),
-                    env: {
-                        ...(opts?.env || {}),
-                        edit: false,
-                        runtime: true,
-                    },
-                });
-            },
-        },
-        events: [
-            //配置事件
-            {
-                type: "jump",
-                title: "跳转到",
-                exe({ options }) {
-                    const page = options.page;
-                    if (page) {
-                        window.location.href = page;
-                    }
-                },
-                options: [
-                    {
-                        id: "page",
-                        title: "页面",
-                        editor: "textarea",
-                    },
-                ],
-            },
-        ],
-    })
+    // return renderUI(dumpJson, {
+    //     env: {
+    //         ...env,
+    //         renderCom(json, opts, coms) {
+    //             return renderUI(json, {
+    //                 comDefs: { ...getComs(), ...coms },
+    //                 // observable: window['rxui'].observable,
+    //                 ...(opts || {}),
+    //                 env: {
+    //                     ...(opts?.env || {}),
+    //                     edit: false,
+    //                     runtime: true,
+    //                 },
+    //             });
+    //         },
+    //     },
+    //     events: [
+    //         //配置事件
+    //         {
+    //             type: "jump",
+    //             title: "跳转到",
+    //             exe({ options }) {
+    //                 const page = options.page;
+    //                 if (page) {
+    //                     window.location.href = page;
+    //                 }
+    //             },
+    //             options: [
+    //                 {
+    //                     id: "page",
+    //                     title: "页面",
+    //                     editor: "textarea",
+    //                 },
+    //             ],
+    //         },
+    //     ],
+    // })
 }
 
 const createPreviewConfig = (props: IPreviewProps) => {

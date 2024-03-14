@@ -1,5 +1,5 @@
 {
-  "name": "mybricks-material-loader",
+  "name": "@mybricks/mybricks-material-loader",
   "version": "0.0.1",
   "description": "mybricks-material-loader",
   "main": "dist/umd/index.js",
@@ -9,6 +9,7 @@
     "dev": "father dev",
     "build": "father build",
     "build:deps": "father prebundle",
+    "publish": "npm publish --registry=https://registry.npmjs.org",
     "prepublishOnly": "father doctor && npm run build"
   },
   "keywords": [

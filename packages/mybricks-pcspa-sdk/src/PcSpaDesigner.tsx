@@ -7,9 +7,7 @@ import { configDebugHasPermission } from './permissionService'
 import { createCustomDebugConfigBuilder } from './customConfigBuilder'
 import { PcSpaDesignerProps, SdkContext } from './types'
 import { configMockData, proxLocalStorage, proxSessionStorage } from './dataMockService'
-import { PreviewStorage } from './utils/previewStorage'
-import { getRtComlibsFromConfigEdit } from './utils/comlib'
-import { MaterialService } from 'mybricks-material-loader'
+import { MaterialService } from '@mybricks/mybricks-material-loader'
 
 const SPADesigner = (window as any).mybricks.SPADesigner
 

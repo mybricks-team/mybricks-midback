@@ -23,20 +23,10 @@ export const decode = (str: string) => {
     try {
         return decodeURIComponent(str)
     } catch (err) {
-        if (process.env.NODE_ENV !== 'production') {
-            console.warn(false, `Error decoding "${str}". Leaving it intact.`)
-        }
+        console.warn(false, `Error decoding "${str}". Leaving it intact.`)
     }
     return str
 }
-
-export const getRenderWeb = (renderType: 'react' | 'vue2' | 'vue3') => {
-    if (renderType === 'react') return window._mybricks_render_web.render;
-    if (renderType === 'vue2') return window._mybricks_render_web_vue2.render;
-    if (renderType === 'vue3') return window._mybricks_render_web_vue3.render;
-    return null;
-}
-
 
 export function getQueryString(name) {
     const reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");

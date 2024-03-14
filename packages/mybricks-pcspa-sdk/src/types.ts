@@ -1,4 +1,4 @@
-import { type MaterialServerConfig, ComLibType } from 'mybricks-material-loader'
+import { type MaterialServerConfig, ComLibType } from '@mybricks/mybricks-material-loader'
 export interface PageContent {
     fileName?: string
     absoluteNamePath?: string

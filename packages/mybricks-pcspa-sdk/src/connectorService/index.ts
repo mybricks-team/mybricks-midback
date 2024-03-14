@@ -53,6 +53,7 @@ const createCallConnector = (context: SdkContext) => (connector, params, connect
     }
     if (!plugin) {
         /** 启动 Mock */
+        //@ts-ignore
         if (connectorConfig?.openMock) {
             return connectorHttpMock({ ...connector, ...connectorConfig });
         }

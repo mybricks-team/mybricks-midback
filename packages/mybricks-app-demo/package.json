@@ -47,6 +47,6 @@
     "@mybricks/plugin-tools": "^1.0.17",
     "@mybricks/render-web": "^1.2.44",
     "antd": "4.21.6",
-    "mybricks-pcspa-sdk": "^0.0.0"
+    "@mybricks/mybricks-pcspa-sdk": "^0.0.1"
   }
 }

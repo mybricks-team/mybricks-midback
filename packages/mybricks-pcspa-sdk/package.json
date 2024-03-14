@@ -1,23 +1,33 @@
 {
-  "name": "mybricks-pcspa-sdk",
-  "version": "0.0.0",
+  "name": "@mybricks/mybricks-pcspa-sdk",
+  "version": "0.0.1",
   "description": "> TODO: description",
   "author": "GodStream <zpqwangyiyouxiang@163.com>",
   "homepage": "https://github.com/mybricks-team/mybricks-midback#readme",
   "license": "ISC",
-  "main": "src/index.ts",
+  "main": "dist/umd/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mybricks-team/mybricks-midback.git"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
+    "dev": "father dev",
+    "build": "father build",
+    "build:deps": "father prebundle",
+    "prepublishOnly": "father doctor && npm run build",
+    "publish": "npm publish --registry=https://registry.npmjs.org",
     "test": "node ./__tests__/mybricks-pcspa-sdk.test.js"
   },
   "bugs": {
@@ -26,6 +36,7 @@
   "devDependencies": {
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
+    "father": "^4.4.0",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.3.1",
     "typescript": "^4.2.3",
@@ -40,9 +51,11 @@
     "@mybricks/plugin-connector-http": "^1.2.1",
     "@mybricks/plugin-locale": "^1.0.0",
     "@mybricks/plugin-tools": "^1.0.17",
-    "mybricks-material-loader": "workspace:^"
+    "@mybricks/mybricks-material-loader": "^0.0.1"
   },
   "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "antd": "^4.23.6"
   }
 }

@@ -6,7 +6,7 @@ import servicePlugin, {
 } from '@mybricks/plugin-connector-http' //连接器插件和运行时
 import htmlTpt from './pub-tpt.html'
 import tools from '@mybricks/plugin-tools'
-import PcSpaDesigner, { type ComLibType, MaterialServerConfig } from 'mybricks-pcspa-sdk'
+import PcSpaDesigner, { type ComLibType, MaterialServerConfig } from '@mybricks/mybricks-pcspa-sdk'
 
 
 const getQuery = () => {
@@ -330,13 +330,13 @@ export default function MyDesigner() {
                   comLibs,
                   config: {
                     onDeleteComLib(lib, libs) {
-                        console.log(lib, libs)
+                      console.log(lib, libs)
                     },
                     onUpgradeComLib(lib, libs) {
-                        console.log(lib, libs)
+                      console.log(lib, libs)
                     },
                     onAddComLib(lib, libs) {
-                        
+
                     },
                   }
                 }}
