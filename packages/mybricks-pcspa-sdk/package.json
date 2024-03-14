@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/mybricks-pcspa-sdk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "> TODO: description",
   "author": "GodStream <zpqwangyiyouxiang@163.com>",
   "homepage": "https://github.com/mybricks-team/mybricks-midback#readme",
@@ -52,7 +52,7 @@
     "@mybricks/plugin-connector-http": "^1.2.1",
     "@mybricks/plugin-locale": "^1.0.0",
     "@mybricks/plugin-tools": "^1.0.17",
-    "@mybricks/mybricks-material-loader": "^0.0.1"
+    "@mybricks/mybricks-material-loader": "^0.0.2"
   },
   "peerDependencies": {
     "react": "^18.2.0",
