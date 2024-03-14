@@ -20,7 +20,8 @@
     "url": "git+https://github.com/mybricks-team/mybricks-midback.git"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "dev": "father dev",
