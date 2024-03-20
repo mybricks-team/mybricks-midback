@@ -25,7 +25,7 @@ const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
         debugProps: {},
         debugHeaders: [],
         localStorageMock: [],
-        sessionStorageMock: [],
+        sessionStorageMock: []
       }
     }
 
@@ -39,7 +39,12 @@ const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
     }
   }, [pageContent])
 
-  const customConfigBuilder = createCustomDebugConfigBuilder({ useLocalResources, editorItems, envExtra, plugins })
+  const customConfigBuilder = createCustomDebugConfigBuilder({
+    useLocalResources,
+    editorItems,
+    envExtra,
+    plugins
+  })
 
   const config = useMemo(() => {
     const baseConfig = getDebugBaseConfig(sdkContext)
@@ -57,18 +62,23 @@ const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
   }, [customConfigBuilder])
 
   useEffect(() => {
-    const removeLocalProxy = proxLocalStorage(sdkContext.pageContent.debugMockConfig?.localStorageMock)
-    const removeSessionProxy = proxSessionStorage(sdkContext.pageContent.debugMockConfig?.sessionStorageMock)
+    const removeLocalProxy = proxLocalStorage(
+      sdkContext.pageContent.debugMockConfig?.localStorageMock
+    )
+    const removeSessionProxy = proxSessionStorage(
+      sdkContext.pageContent.debugMockConfig?.sessionStorageMock
+    )
 
     return () => {
       removeLocalProxy()
       removeSessionProxy()
     }
-  }, [sdkContext.pageContent.debugMockConfig?.localStorageMock, sdkContext.pageContent.debugMockConfig?.sessionStorageMock])
+  }, [
+    sdkContext.pageContent.debugMockConfig?.localStorageMock,
+    sdkContext.pageContent.debugMockConfig?.sessionStorageMock
+  ])
 
-  return (
-    <SPADesigner ref={ref} config={config} ></SPADesigner>
-  )
+  return <SPADesigner ref={ref} config={config}></SPADesigner>
 })
 
 export default PcSpaDesigner
