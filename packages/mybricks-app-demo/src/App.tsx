@@ -162,7 +162,7 @@ export default function MyDesigner() {
     fileName: '测试',
     absoluteNamePath: '/test',
     isDebugPermissionEnabled: false,
-    pageSchema: {},
+    pageSchema: null,
     envList: [],
     executeEnv: '',
     MYBRICKS_HOST: {},
