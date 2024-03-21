@@ -1,0 +1,36 @@
+{
+  "name": "@mybricks/mybricks-pcspa-backend-sdk",
+  "version": "0.0.2",
+  "description": "mybricks-pcspa-backend-sdk",
+  "main": "dist/umd/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "scripts": {
+    "dev": "father dev",
+    "build": "father build",
+    "build:deps": "father prebundle",
+    "publish": "npm publish --registry=https://registry.npmjs.org",
+    "prepublishOnly": "father doctor && npm run build"
+  },
+  "keywords": [
+    "mybricks",
+    "sdk"
+  ],
+  "authors": [
+    "1302947749@qq.com"
+  ],
+  "license": "ISC",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "devDependencies": {
+    "father": "^4.4.0"
+  },
+  "dependencies": {
+    "compare-versions": "^6.1.0"
+  }
+}
