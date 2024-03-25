@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useMemo } from 'react'
+import React, { forwardRef, useEffect, useLayoutEffect, useMemo } from 'react'
 import { createConfigBuilder } from './configBuilder'
 import { configConnector } from './connectorService'
 import { configI18n } from './i18nService'
@@ -8,11 +8,16 @@ import { createCustomDebugConfigBuilder } from './customConfigBuilder'
 import { PcSpaDesignerProps, SdkContext } from './types'
 import { configMockData, proxLocalStorage, proxSessionStorage } from './dataMockService'
 import { MaterialService } from '@mybricks/mybricks-material-loader'
+import { loadAssets } from './utils/loadScript'
 
 const SPADesigner = (window as any).mybricks.SPADesigner
 
 const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
   const { pageContent, useLocalResources, editorItems, envExtra, plugins, material } = props
+
+  useLayoutEffect(() => {
+    loadAssets()
+  }, [])
 
   useEffect(() => {
     MaterialService.set(material.config ?? {})
