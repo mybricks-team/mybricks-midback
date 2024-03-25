@@ -16,53 +16,49 @@
   <!-- React相关 -->
   <script src="https://f2.eckwai.com/udata/pkg/eshop/fangzhou/pub/pkg/reat-18.0.0/react.production.min.js"></script>
   <script
-      src="https://f2.eckwai.com/udata/pkg/eshop/fangzhou/pub/pkg/react-dom-18.0.0/react-dom.production.min.js"></script>
+    src="https://f2.eckwai.com/udata/pkg/eshop/fangzhou/pub/pkg/react-dom-18.0.0/react-dom.production.min.js"></script>
 
   <!-- Antd相关 -->
-  <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/pub/pkg/antd-4.21.6/antd.min.css"
-  />
+  <link rel="stylesheet" type="text/css"
+    href="https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/pub/pkg/antd-4.21.6/antd.min.css" />
   <script src="https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/pub/pkg/antd-4.21.6/antd.min.js"></script>
   <script
-      src="https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/pub/pkg/ant-design/icons-4.7.0/dist/index.umd.min.js"></script>
+    src="https://ali-ec.static.yximgs.com/udata/pkg/eshop/fangzhou/pub/pkg/ant-design/icons-4.7.0/dist/index.umd.min.js"></script>
 
   <!-- Mybricks渲染器-->
-  <script src="https://f2.beckwai.com/udata/pkg/eshop/fangzhou-asset/index.min.e3a8ab7c709907d1.js"></script>
+  <script src="https://f2.beckwai.com/kos/nlav12333/mybricks/render-web/1.2.58/index.min.js"></script>
 
   <!-- 组件库的运行时地址 -->
-  <script src="https://f2.eckwai.com/kos/nlav12333/fangzhou/pub/comlibs/5665_1.1.12/2023-03-31_12-19-17/rt.js"></script>
-
+  <script src="--comlib-rt--"></script>
 </head>
 
 <body>
-<div id="app"></div>
+  <div id="app"></div>
 
-<script>
-  const React = window.React
-  const ReactDom = window.ReactDOM
-  /**
-   * Render-web，Mybricks提供的web渲染器
-   */
-  const {render: renderUI} = window._mybricks_render_web
+  <script>
+    const React = window.React
+    const ReactDom = window.ReactDOM
+    /**
+     * Render-web，Mybricks提供的web渲染器
+     */
+    const { render: renderUI } = window._mybricks_render_web
 
-  /**
-   * 设计器导出的项目JSON
-   */
-  const projectJson = '-projectJson-'//replace it
+    /**
+     * 设计器导出的项目JSON
+     */
+    const projectJson = '--pageSchema--'//replace it
 
-  ReactDom.render(React.createElement(Page), document.querySelector('#app'))
+    ReactDom.render(React.createElement(Page), document.querySelector('#app'))
 
-  function Page(props) {
-    return renderUI(projectJson,{
-      env:{//对组件的运行环境扩展
-        callConnector(){
-          ////TODO
+    function Page(props) {
+      return renderUI(projectJson, {
+        env: {//对组件的运行环境扩展
+          callConnector() {
+            ////TODO
+          }
         }
-      }
-    })
-  }
-</script>
+      })
+    }
+  </script>
 
 </body>

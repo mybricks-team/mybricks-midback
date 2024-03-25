@@ -130,9 +130,10 @@ export default function MyDesigner() {
    */
   const publish = useCallback(() => {
     const title = '我的页面' //页面标题
-    const json = designerRef.current?.toJSON()
+    const pageSchema = designerRef.current?.toJSON()
     let html = htmlTpt.replace(`--title--`, title) //替换
-    html = html.replace(`'-projectJson-'`, JSON.stringify(json)) //替换
+    html = html.replace(`'--pageSchema--'`, JSON.stringify(pageSchema)) //替换
+    html = html.replace(`--comlib-rt--`, `https://f2.eckwai.com/kos/nlav12333/fangzhou/pub/comlibs/5665_1.1.12/2023-03-31_12-19-17/rt.js`) //替换
 
     //-----------------------------------------------
 
