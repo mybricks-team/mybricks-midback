@@ -9,6 +9,7 @@ const getDebugBaseConfig = (sdkContext: SdkContext) => {
   return {
     shortcuts: {},
     plugins: [],
+    comLibAdder: getComLibAdder(material.comLibs),
     comLibLoader: getComLibLoader(material.comLibs),
     pageContentLoader() {
       return new Promise((resolve) => {

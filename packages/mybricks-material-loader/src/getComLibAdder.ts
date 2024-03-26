@@ -1,15 +1,17 @@
 import { upgradeComLib } from "./crud/upgradeComLib";
 import insertComLib from "./crud/insertComLib";
-import { ComLibType } from './global'
-const getComLibAdder = (libs: Array<ComLibType>) => (material: ComLibType) => {
+import materialServerIns from "./materialService";
+import { ComLibType } from "./global";
+const getComLibAdder = (libs: Array<ComLibType>) => () => {
   return new Promise(async (resolve, reject) => {
-    if (!material) reject("arguments must be comLib object");
+    const material = await materialServerIns.config.onAddComLib();
+    if (!("namespace" in material)) reject("arguments must be comLib type");
     const lib = libs.find((lib) => lib.namespace === material.namespace);
     if (lib) {
       const upgradeLib = await upgradeComLib(material, libs);
       resolve(upgradeLib);
     } else {
-      const insertedLib = await insertComLib(material, libs);
+      const insertedLib = await insertComLib(material);
       resolve(insertedLib);
     }
   });

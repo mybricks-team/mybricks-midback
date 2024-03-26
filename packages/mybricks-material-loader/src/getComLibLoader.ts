@@ -2,7 +2,10 @@ import initComLib from "./crud/initComLib";
 import { upgradeComLib, upgradeLatestComLib } from "./crud/upgradeComLib";
 import deleteComLib from "./crud/deleteComLib";
 import insertComLib from "./crud/insertComLib";
-import { initGlobal } from "./loader";
+import onAddCom from "./crud/onAddCom";
+import onUpgradeCom from "./crud/onUpgradeCom";
+import onDeleteCom from "./crud/onDeleteCom";
+import { initGlobal } from "./util";
 import { ComLibType, LibDesc, CMD } from "./global";
 
 const resolveLibField = (lib: any) => {
@@ -10,8 +13,8 @@ const resolveLibField = (lib: any) => {
     ...lib,
     namespace: lib.libNamespace,
     id: lib.libId,
-  }
-}
+  };
+};
 
 const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
   initGlobal();
@@ -23,15 +26,21 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
       const initLibs = await initComLib(libs);
       return resolve(initLibs);
     }
-    const { cmd } = libDesc;
+    const { cmd, comNamespace } = libDesc;
     try {
       if (cmd) {
         switch (cmd) {
           case CMD.ADD_COM:
+            let ret = await onAddCom();
+            resolve(ret);
             break;
           case CMD.DELETE_COM:
+            ret = await onDeleteCom(comNamespace);
+            resolve(ret);
             break;
           case CMD.UPGRADE_COM:
+            ret = await onUpgradeCom(comNamespace);
+            resolve(ret);
             break;
           case CMD.DELETE_COM_LIB:
             deleteComLib(resolveLibField(libDesc), libs);
@@ -59,7 +68,7 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
           const upgradeLib = await upgradeComLib(lib, libs);
           return resolve(upgradeLib);
         } else {
-          const insertedComLib = await insertComLib(resolveLibField(libDesc), libs);
+          const insertedComLib = await insertComLib(resolveLibField(libDesc));
           return resolve(insertedComLib);
         }
       }

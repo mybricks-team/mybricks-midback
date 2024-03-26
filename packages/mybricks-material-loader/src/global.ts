@@ -7,6 +7,7 @@ type ComType = {
   editors: Record<string, any>;
   data: Record<string, any>;
   icon: string;
+  namespace: string;
 };
 
 type LatestComlib = {
@@ -36,6 +37,7 @@ interface LibDesc extends ComLibType {
   cmd: CMD;
   libId: string;
   libNamespace: string;
+  comNamespace?: string;
 }
 
-export { type ComType, type LatestComlib, type ComLibType, CMD, type LibDesc };
+export { type ComType, LatestComlib, ComLibType, CMD, LibDesc };

@@ -1,11 +1,14 @@
-import { ComLibType } from './global'
+import { ComLibType, ComType } from "./global";
 export type MaterialServerConfig = Partial<{
-  onAddComLib: (lib: ComLibType, libs: Array<ComLibType>) => void;
+  onAddComLib: () => Promise<ComLibType>;
   onDeleteComLib: (
     lib: ComLibType | undefined,
     libs: Array<ComLibType>
   ) => void;
   onUpgradeComLib: (lib: ComLibType, libs: Array<ComLibType>) => void;
+  onAddCom: () => Promise<ComType>;
+  onUpgradeCom: (com: ComType) => Promise<ComType>;
+  onDeleteCom: (com: ComType) => Promise<boolean>;
 }>;
 class MaterialService {
   config: MaterialServerConfig = {};

@@ -42,18 +42,4 @@ const loader = async (lib: ComLibType) => {
   }
 };
 
-const initGlobal = () => {
-  if (!window[SourceEnum.ComLib_Edit]) {
-    window[SourceEnum.ComLib_Edit] = [];
-  }
-
-  if (!window[SourceEnum.ComLib_Rt]) {
-    window[SourceEnum.ComLib_Rt] = window[SourceEnum.ComLib_Edit];
-  }
-
-  if (!window[SourceEnum.CloudComponentDependentComponents]) {
-    window[SourceEnum.CloudComponentDependentComponents] = {};
-  }
-};
-
-export { loader, initGlobal };
+export { loader };

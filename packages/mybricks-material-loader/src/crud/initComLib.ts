@@ -1,9 +1,11 @@
 import { loader } from "../loader";
-import { SourceEnum } from '../constant'
-import { ComLibType } from '../global'
+import { SourceEnum } from "../constant";
+import { ComLibType } from "../global";
+import { getMyselfComLib } from "../util";
 const init = (libs: Array<ComLibType>) => {
   return new Promise(async (resolve, reject) => {
     libs = libs.filter((lib) => lib.id !== SourceEnum.MySelfId);
+    const myselfComLib = getMyselfComLib(libs);
     try {
       const loadedLibs = await Promise.all(libs.map((lib) => loader(lib)));
       /**
@@ -15,7 +17,7 @@ const init = (libs: Array<ComLibType>) => {
         let bIndex = namespaceArr.indexOf(b.namespace);
         return aIndex - bIndex;
       });
-      resolve(loadedLibs);
+      resolve(loadedLibs.unshift(myselfComLib));
     } catch (error) {
       reject(error);
     }
