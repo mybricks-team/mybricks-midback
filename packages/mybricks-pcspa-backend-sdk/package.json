@@ -28,7 +28,11 @@
     "registry": "https://registry.npmjs.org/"
   },
   "devDependencies": {
-    "father": "^4.4.0"
+    "father": "^4.4.0",
+    "@mybricks/sdk-for-app": "1.0.32",
+    "archiver": "^6.0.1",
+    "axios": "^1.4.0",
+    "@mybricks/rocker-commons": "^0.0.2"
   },
   "dependencies": {
     "compare-versions": "^6.1.0"
