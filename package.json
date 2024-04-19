@@ -1,8 +1,8 @@
 {
   "name": "root",
   "private": true,
-  "dependencies": {},
   "devDependencies": {
+    "@types/react": "^18.0.15",
     "lerna": "^8.0.2"
   }
 }

@@ -1,0 +1,21 @@
+{
+  "name": "@mybricks/renderer-pc",
+  "version": "1.0.0-beta.0",
+  "description": "",
+  "main": "src/index.tsx",
+  "scripts": {
+    "publishToNpm": "npm run build && npm publish --registry=https://registry.npmjs.org --access=public",
+    "publishToNpm:beta": "npm publish --tag beta --registry=https://registry.npmjs.org --access=public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@mybricks/com-utils": "1.0.0",
+    "@mybricks/render-web": "^1.2.70"
+  },
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  }
+}
