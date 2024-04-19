@@ -41,11 +41,12 @@ export default function MyDesigner() {
 
   const [comLibs, setComLibs] = useState<Array<ComLibType>>([
     {
-      id: '',
+      id: '12',
       namespace: 'mybricks.normal-pc',
       title: '通用PC组件库',
       editJs:
-        'https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.25/2024-03-04_20-51-40/edit.js',
+        // 'https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.25/2024-03-04_20-51-40/edit.js',
+        'http://localhost:8001/libEdt.js',
     },
     {
       id: '313',
@@ -133,7 +134,10 @@ export default function MyDesigner() {
     const pageSchema = designerRef.current?.toJSON()
     let html = htmlTpt.replace(`--title--`, title) //替换
     html = html.replace(`'--pageSchema--'`, JSON.stringify(pageSchema)) //替换
-    html = html.replace(`--comlib-rt--`, `https://f2.eckwai.com/kos/nlav12333/fangzhou/pub/comlibs/5665_1.1.12/2023-03-31_12-19-17/rt.js`) //替换
+    html = html.replace(
+      `--comlib-rt--`,
+      `https://f2.eckwai.com/kos/nlav12333/fangzhou/pub/comlibs/5665_1.1.12/2023-03-31_12-19-17/rt.js`
+    ) //替换
 
     //-----------------------------------------------
 

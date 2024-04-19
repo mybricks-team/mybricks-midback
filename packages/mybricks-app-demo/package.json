@@ -43,11 +43,16 @@
     "webpackbar": "^5.0.2"
   },
   "dependencies": {
-    "@mybricks/mybricks-pcspa-sdk": "^0.0.3",
+    "@antv/hierarchy": "^0.6.11",
+    "@antv/x6": "^2.18.1",
+    "@antv/x6-plugin-keyboard": "^2.2.3",
+    "@antv/x6-plugin-selection": "^2.2.2",
+    "@mybricks/mybricks-pcspa-sdk": "workspace:*",
     "@mybricks/plugin-connector-http": "^1.2.1",
     "@mybricks/plugin-locale": "^1.0.1",
     "@mybricks/plugin-tools": "^1.0.17",
-    "@mybricks/render-web": "^1.2.44",
+    "@mybricks/render-web": "^1.2.68",
+    "@mybricks/renderer-pc": "1.0.0-beta.0",
     "antd": "4.21.6"
   }
 }

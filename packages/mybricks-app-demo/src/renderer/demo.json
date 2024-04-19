@@ -1,0 +1,128 @@
+{
+  "themes": { "comThemes": {} },
+  "global": { "comsReg": {}, "consReg": {}, "pinRels": {}, "fxFrames": [] },
+  "scenes": [
+    {
+      "-v": "1.0.16",
+      "deps": [
+        { "namespace": "test.button", "version": "1.0.0" }
+      ],
+      "coms": {
+        "u_GILga": {
+          "id": "u_GILga",
+          "def": { "namespace": "test.button", "version": "1.0.0" },
+          "title": "按钮",
+          "model": {
+            "data": {
+              "asMapArea": false,
+              "text": "按钮",
+              "dataType": "number",
+              "outVal": 0,
+              "inVal": "",
+              "useIcon": false,
+              "isCustom": false,
+              "icon": "HomeOutlined",
+              "size": "middle",
+              "type": "primary",
+              "shape": "default",
+              "src": "",
+              "showText": true,
+              "iconLocation": "front",
+              "iconDistance": 8,
+              "contentSize": [14, 14]
+            },
+            "inputAry": [],
+            "outputAry": [],
+            "outputEvents": {
+              "click": [{ "type": "defined", "options": {}, "active": true }],
+              "dbClick": [{ "type": "defined", "options": {}, "active": true }]
+            },
+            "style": { "display": "block", "width": 64, "height": 32 }
+          },
+          "configs": [],
+          "_inputs": [],
+          "inputs": [
+            "dynamicTitle",
+            "dynamicDisabled",
+            "show",
+            "hide",
+            "showOrHide"
+          ],
+          "outputs": ["click", "dbClick"]
+        }
+      },
+      "id": "u_TX7SF",
+      "title": "主场景",
+      "comsAutoRun": {},
+      "_inputs": [],
+      "_outputs": [],
+      "inputs": [
+        {
+          "id": "open",
+          "title": "打开",
+          "type": "normal",
+          "schema": { "type": "any" }
+        }
+      ],
+      "outputs": [
+        {
+          "id": "click",
+          "title": "点击",
+          "type": "event",
+          "schema": { "type": "any" }
+        },
+        {
+          "id": "scroll",
+          "title": "滚动",
+          "type": "event",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "scrollTop": { "type": "number" },
+              "scrollLeft": { "type": "number" }
+            }
+          }
+        },
+        {
+          "id": "load",
+          "title": "加载完成",
+          "type": "event",
+          "schema": { "type": "any" }
+        },
+        {
+          "id": "unload",
+          "title": "卸载",
+          "type": "event",
+          "schema": { "type": "any" }
+        }
+      ],
+      "cons": {},
+      "pinRels": {},
+      "pinProxies": {},
+      "pinValueProxies": {},
+      "slot": {
+        "id": "u_TX7SF",
+        "title": "主场景",
+        "comAry": [
+          {
+            "id": "u_GILga",
+            "name": "u_IihkA",
+            "def": {
+              "namespace": "test.button",
+              "version": "1.0.0"
+            }
+          }
+        ],
+        "style": {
+          "layout": "flex-column",
+          "justifyContent": "flex-start",
+          "alignItems": "flex-start"
+        }
+      }
+    }
+  ],
+  "plugins": {
+    "@mybricks/plugins/service": [],
+    "@mybricks/plugins/theme/use": { "themes": [] }
+  }
+}

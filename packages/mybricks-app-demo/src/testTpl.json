@@ -1,0 +1,2603 @@
+{
+  "content": {
+    "xg.desn.stageview": {
+      "D": {
+        "C": [
+          "xg.desn.designer.stageview.StageViewModel",
+          "xg.desn.sdk.ModelState",
+          "xg.desn.designer.stageview.ViewSlotModel",
+          "xg.desn.designer.stageview.geo.GeoViewModel",
+          "xg.desn.designer.stageview.topl.ToplViewModel",
+          "xg.desn.designer.stageview.geo.SlotStyleModel",
+          "xg.desn.designer.stageview.geo.SlotModel",
+          "xg.desn.designer.stageview.topl.FrameModel",
+          "xg.desn.designer.stageview.geo.GeoComModel",
+          "xg.desn.designer.stageview.topl.PinModel",
+          "xg.desn.designer.stageview.topl.ToplComModel",
+          "xg.desn.designer.stageview.topl.DiagramModel",
+          "xg.desn.sdk.ComRuntimeModel",
+          "xg.desn.designer.stageview.geo.ConstraintModel",
+          "xg.desn.sdk.ComStyle"
+        ],
+        "W": {
+          "id": "_0_",
+          "state": "_1_",
+          "designerVersion": "_2_",
+          "pluginDataset": "_3_",
+          "envVars": "_4_",
+          "designCostTime": "_5_",
+          "comThemes": "_6_",
+          "_cssVars": "_7_",
+          "viewSlots": "_8_",
+          "editViewWidth": "_9_",
+          "mainModule": "_10_",
+          "@mybricks/plugins/service": "_11_",
+          "@mybricks/plugins/domain-service": "_12_",
+          "@mybricks/plugins/note": "_13_",
+          "@mybricks/plugins/locale": "_14_",
+          "@mybricks/plugins/theme/use": "_15_",
+          "mybricks.plugin.find": "_16_",
+          "top": "_17_",
+          "bottom": "_18_",
+          "instId": "_19_",
+          "title": "_20_",
+          "slot": "_21_",
+          "frame": "_22_",
+          "connectors": "_23_",
+          "config": "_24_",
+          "domainModels": "_25_",
+          "notesMap": "_26_",
+          "operationMap": "_27_",
+          "langPackLink": "_28_",
+          "formatFn": "_29_",
+          "enableFormat": "_30_",
+          "usedIds": "_31_",
+          "loadStats": "_32_",
+          "errorMsg": "_33_",
+          "themes": "_34_",
+          "defaultThemes": "_35_",
+          "name": "_36_",
+          "value": "_37_",
+          "closeable": "_38_",
+          "status": "_39_",
+          "tabs": "_40_",
+          "showTitleBar": "_41_",
+          "_height": "_42_",
+          "width": "_43_",
+          "height": "_44_",
+          "style": "_45_",
+          "slots": "_46_",
+          "notes": "_47_",
+          "styleInited": "_48_",
+          "showType": "_49_",
+          "_curArtboardId": "_50_",
+          "frames": "_51_",
+          "varComAry": "_52_",
+          "comAry": "_53_",
+          "diagramAry": "_54_",
+          "paramsFn": "_55_",
+          "resultFn": "_56_",
+          "errorResultFn": "_57_",
+          "zoom": "_58_",
+          "layout": "_59_",
+          "justifyContent": "_60_",
+          "alignItems": "_61_",
+          "left": "_62_",
+          "namespace": "_63_",
+          "version": "_64_",
+          "content": "_65_",
+          "capacity": "_66_",
+          "_defaultF": "_67_",
+          "_rootF": "_68_",
+          "type": "_69_",
+          "template": "_70_",
+          "proxyFor": "_71_",
+          "deletable": "_72_",
+          "schema": "_73_",
+          "zIndex": "_74_",
+          "_type": "_75_",
+          "editable": "_76_",
+          "isFrame": "_77_",
+          "frameAry": "_78_",
+          "inputPins": "_79_",
+          "_inputPins": "_80_",
+          "outputPins": "_81_",
+          "_outputPins": "_82_",
+          "inputJoints": "_83_",
+          "outputJoints": "_84_",
+          "zIndexCur": "_85_",
+          "debuggable": "_86_",
+          "variables": "_87_",
+          "widthFact": "_88_",
+          "heightFact": "_89_",
+          "con": "_90_",
+          "com": "_91_",
+          "init": "_92_",
+          "runtime": "_93_",
+          "parent": "_94_",
+          "constraints": "_95_",
+          "conAry": "_96_",
+          "typeTitle": "_97_",
+          "fromPlugin": "_98_",
+          "direction": "_99_",
+          "hostId": "_100_",
+          "description": "_101_",
+          "wrap": "_102_",
+          "_schema": "_103_",
+          "forRef": "_104_",
+          "icon": "_105_",
+          "extValues": "_106_",
+          "extBinding": "_107_",
+          "editor": "_108_",
+          "foldedStyle": "_109_",
+          "configPins": "_110_",
+          "inputPinsInModel": "_111_",
+          "inputPinExts": "_112_",
+          "outputPinsInModel": "_113_",
+          "outputPinExts": "_114_",
+          "outputPinNexts": "_115_",
+          "commentAry": "_116_",
+          "_title": "_117_",
+          "createTime": "_118_",
+          "isGlobal": "_119_",
+          "showIO": "_120_",
+          "startFrom": "_121_",
+          "undefined": "_122_",
+          "configs": "_123_",
+          "model": "_124_",
+          "refId": "_125_",
+          "def": "_126_",
+          "_autoRun": "_127_",
+          "topl": "_128_",
+          "geo": "_129_",
+          "visible": "_130_",
+          "conTemp": "_131_",
+          "data": "_132_",
+          "bindingsFrom": "_133_",
+          "bindingsTo": "_134_",
+          "inputAry": "_135_",
+          "outputAry": "_136_",
+          "outputEvents": "_137_",
+          "permissions": "_138_",
+          "spm": "_139_",
+          "rtType": "_140_",
+          "ref": "_141_",
+          "isPrivate": "_142_",
+          "rels": "_143_",
+          "key": "_144_",
+          "layoutType": "_145_",
+          "span": "_146_",
+          "items": "_147_",
+          "additionalItems": "_148_",
+          "nameCount": "_149_",
+          "formItemColumn": "_150_",
+          "actions": "_151_",
+          "isFormItem": "_152_",
+          "wrapperCol": "_153_",
+          "labelWidthType": "_154_",
+          "labelWidth": "_155_",
+          "labelCol": "_156_",
+          "itemWidthType": "_157_",
+          "paramsSchema": "_158_",
+          "submitHiddenFields": "_159_",
+          "validateHiddenFields": "_160_",
+          "domainModel": "_161_",
+          "defaultCollapsed": "_162_",
+          "onValuesChange": "_163_",
+          "display": "_164_",
+          "heightAuto": "_165_",
+          "visibleOnce": "_166_",
+          "suggestBottom": "_167_",
+          "comId": "_168_",
+          "rowKey": "_169_",
+          "dataSource": "_170_",
+          "columns": "_171_",
+          "fixedHeader": "_172_",
+          "enableStripe": "_173_",
+          "headStyle": "_174_",
+          "contentStyle": "_175_",
+          "scroll": "_176_",
+          "bordered": "_177_",
+          "size": "_178_",
+          "useRowSelection": "_179_",
+          "enableRowClickSelection": "_180_",
+          "rowSelectionPostion": "_181_",
+          "useLoading": "_182_",
+          "tableLayout": "_183_",
+          "loadingTip": "_184_",
+          "usePagination": "_185_",
+          "paginationConfig": "_186_",
+          "useSummaryColumn": "_187_",
+          "summaryColumnTitle": "_188_",
+          "summaryCellTitleCol": "_189_",
+          "summaryColumnContentType": "_190_",
+          "summaryColumnContentSchema": "_191_",
+          "mergeCheckboxColumn": "_192_",
+          "isEmpty": "_193_",
+          "enableOnRow": "_194_",
+          "onRowScript": "_195_",
+          "lazyLoad": "_196_",
+          "filterIconDefault": "_197_",
+          "heightFull": "_198_",
+          "styleAry": "_199_",
+          "properties": "_200_",
+          "widthOption": "_201_",
+          "align": "_202_",
+          "colon": "_203_",
+          "disabled": "_204_",
+          "entity": "_205_",
+          "queryFieldRules": "_206_",
+          "color": "_207_",
+          "background": "_208_",
+          "y": "_209_",
+          "scrollToFirstRowOnChange": "_210_",
+          "total": "_211_",
+          "text": "_212_",
+          "current": "_213_",
+          "currentPage": "_214_",
+          "isDynamic": "_215_",
+          "defaultPageSize": "_216_",
+          "showSizeChanger": "_217_",
+          "pageSizeOptions": "_218_",
+          "showQuickJumper": "_219_",
+          "hideOnSinglePage": "_220_",
+          "useDynamicTitle": "_221_",
+          "conMax": "_222_",
+          "help": "_223_",
+          "changedValues": "_224_",
+          "allValues": "_225_",
+          "pageSize": "_226_",
+          "pageNum": "_227_",
+          "options": "_228_",
+          "active": "_229_",
+          "selector": "_230_",
+          "css": "_231_",
+          "global": "_232_",
+          "withParentComId": "_233_",
+          "isDefault": "_234_",
+          "outputId": "_235_",
+          "useDynamicDisabled": "_236_",
+          "useDynamicHidden": "_237_",
+          "useIcon": "_238_",
+          "iconDistance": "_239_",
+          "iconLocation": "_240_",
+          "textAlign": "_241_"
+        }
+      },
+      "refs": {
+        "0": {
+          "_F_": 0,
+          "_0_": "u_8RqrB",
+          "_1_": { "_R_": "1" },
+          "_2_": 0.2,
+          "_3_": {
+            "_11_": {
+              "_23_": [],
+              "_24_": {
+                "_55_": "export default function ({ params, data, headers, url, method }) {\n  // 设置请求query、请求体、请求头\n  return { params, data, headers, url, method };\n }\n",
+                "_56_": "export default function ({ response, config }, { throwError }) {\n  // if (response.code !== 0) {\n  //    throwError(response.errMsg);\n  //    throwError({ message: response.errMsg || '我是复杂错误对象' });\n  // }\n  return response\n}\n",
+                "_57_": "export default function handleError({ error, response, config }, { throwError }) {\n  // 错误抛出时预处理数据，请注意：必须调用 throwError 抛出错误;\n  // config：请求入参；error：错误对象；response：响应原始对象；response.status：获取 HTTP 状态码，response.data：获取接口返回值\n  throwError(response.data.message || error.message || error);\n}\n"
+              }
+            },
+            "_12_": { "_25_": [] },
+            "_13_": { "_26_": {}, "_27_": {}, "_0_": "u_acf961h6pi" },
+            "_14_": {
+              "_28_": "",
+              "_29_": "export default function (packContentLoaded) {\n/** 返回格式：\n * Array<{\n    id: stirng, // 单个语料的唯一识别id\n    content: {\n      [lang: string]: string, // lang为语种， 值为该语种下的文本\n    }\n  }>\n**/\n  return packContentLoaded;\n }\n",
+              "_30_": false,
+              "_31_": [],
+              "_32_": 1,
+              "_33_": ""
+            },
+            "_15_": {
+              "_34_": [],
+              "_35_": [
+                {
+                  "_63_": "DEFAULT_THEME",
+                  "_64_": "1.0.0",
+                  "_20_": "默认主题",
+                  "_65_": {
+                    "_34_": [],
+                    "_87_": [
+                      {
+                        "_0_": "mybricks@theme",
+                        "_123_": [
+                          {
+                            "_144_": "--mybricks-primary-color",
+                            "_37_": "#1890ff"
+                          },
+                          {
+                            "_144_": "--mybricks-primary-color-hover",
+                            "_37_": "#40a9ff"
+                          },
+                          {
+                            "_144_": "--mybricks-primary-color-active",
+                            "_37_": "#096dd9"
+                          },
+                          {
+                            "_144_": "--mybricks-primary-color-outline",
+                            "_37_": "rgba(24,144,255,0.2)"
+                          },
+                          {
+                            "_144_": "--mybricks-primary-1",
+                            "_37_": "#e6f7ff"
+                          },
+                          {
+                            "_144_": "--mybricks-primary-2",
+                            "_37_": "#bae7ff"
+                          },
+                          {
+                            "_144_": "--mybricks-primary-3",
+                            "_37_": "#91d5ff"
+                          },
+                          {
+                            "_144_": "--mybricks-primary-4",
+                            "_37_": "#69c0ff"
+                          },
+                          {
+                            "_144_": "--mybricks-primary-5",
+                            "_37_": "#40a9ff"
+                          },
+                          {
+                            "_144_": "--mybricks-primary-6",
+                            "_37_": "#1890ff"
+                          },
+                          {
+                            "_144_": "--mybricks-primary-7",
+                            "_37_": "#096dd9"
+                          },
+                          {
+                            "_144_": "--mybricks-success-color",
+                            "_37_": "#52c41a"
+                          },
+                          {
+                            "_144_": "--mybricks-success-color-hover",
+                            "_37_": "#73d13d"
+                          },
+                          {
+                            "_144_": "--mybricks-success-color-active",
+                            "_37_": "#389e0d"
+                          },
+                          {
+                            "_144_": "--mybricks-success-color-outline",
+                            "_37_": "rgba(82,196,26,0.2)"
+                          },
+                          {
+                            "_144_": "--mybricks-error-color",
+                            "_37_": "#ff4d4f"
+                          },
+                          {
+                            "_144_": "--mybricks-error-color-hover",
+                            "_37_": "#ff7875"
+                          },
+                          {
+                            "_144_": "--mybricks-error-color-active",
+                            "_37_": "#d9363e"
+                          },
+                          {
+                            "_144_": "--mybricks-error-color-outline",
+                            "_37_": "rgba(255,77,79,0.2)"
+                          },
+                          {
+                            "_144_": "--mybricks-warning-color",
+                            "_37_": "#faad14"
+                          },
+                          {
+                            "_144_": "--mybricks-warning-color-hover",
+                            "_37_": "#ffc53d"
+                          },
+                          {
+                            "_144_": "--mybricks-warning-color-active",
+                            "_37_": "#d48806"
+                          },
+                          {
+                            "_144_": "--mybricks-warning-color-outline",
+                            "_37_": "rgba(250,173,20,0.2)"
+                          },
+                          {
+                            "_144_": "--mybricks-info-color",
+                            "_37_": "#1890ff"
+                          }
+                        ]
+                      },
+                      {
+                        "_0_": "antd@4.x",
+                        "_123_": [
+                          {
+                            "_144_": "--ant-primary-color",
+                            "_37_": "var(--mybricks-primary-color)"
+                          },
+                          {
+                            "_144_": "--ant-primary-color-hover",
+                            "_37_": "var(--mybricks-primary-color-hover)"
+                          },
+                          {
+                            "_144_": "--ant-primary-color-active",
+                            "_37_": "var(--mybricks-primary-color-active)"
+                          },
+                          {
+                            "_144_": "--ant-primary-color-outline",
+                            "_37_": "var(--mybricks-primary-color-outline)"
+                          },
+                          {
+                            "_144_": "--ant-primary-1",
+                            "_37_": "var(--mybricks-primary-1)"
+                          },
+                          {
+                            "_144_": "--ant-primary-2",
+                            "_37_": "var(--mybricks-primary-2)"
+                          },
+                          {
+                            "_144_": "--ant-primary-3",
+                            "_37_": "var(--mybricks-primary-3)"
+                          },
+                          {
+                            "_144_": "--ant-primary-4",
+                            "_37_": "var(--mybricks-primary-4)"
+                          },
+                          {
+                            "_144_": "--ant-primary-5",
+                            "_37_": "var(--mybricks-primary-5)"
+                          },
+                          {
+                            "_144_": "--ant-primary-6",
+                            "_37_": "var(--mybricks-primary-6)"
+                          },
+                          {
+                            "_144_": "--ant-primary-7",
+                            "_37_": "var(--mybricks-primary-7)"
+                          },
+                          {
+                            "_144_": "--ant-primary-color-deprecated-l-35",
+                            "_37_": "var(--mybricks-primary-color-deprecated-l-35)"
+                          },
+                          {
+                            "_144_": "--ant-primary-color-deprecated-l-20",
+                            "_37_": "var(--mybricks-primary-color-deprecated-l-20)"
+                          },
+                          {
+                            "_144_": "--ant-primary-color-deprecated-t-20",
+                            "_37_": "var(--mybricks-primary-color-deprecated-t-20)"
+                          },
+                          {
+                            "_144_": "--ant-primary-color-deprecated-t-50",
+                            "_37_": "var(--mybricks-primary-color-deprecated-t-50)"
+                          },
+                          {
+                            "_144_": "--ant-primary-color-deprecated-f-12",
+                            "_37_": "var(--mybricks-primary-color-deprecated-f-12)"
+                          },
+                          {
+                            "_144_": "--ant-primary-color-active-deprecated-f-30",
+                            "_37_": "var(--mybricks-primary-color-active-deprecated-f-30)"
+                          },
+                          {
+                            "_144_": "--ant-primary-color-active-deprecated-d-02",
+                            "_37_": "var(--mybricks-primary-color-active-deprecated-d-02)"
+                          },
+                          {
+                            "_144_": "--ant-success-color",
+                            "_37_": "var(--mybricks-success-color)"
+                          },
+                          {
+                            "_144_": "--ant-success-color-hover",
+                            "_37_": "var(--mybricks-success-color-hover)"
+                          },
+                          {
+                            "_144_": "--ant-success-color-active",
+                            "_37_": "var(--mybricks-success-color-active)"
+                          },
+                          {
+                            "_144_": "--ant-success-color-outline",
+                            "_37_": "var(--mybricks-success-color-outline)"
+                          },
+                          {
+                            "_144_": "--ant-success-color-deprecated-bg",
+                            "_37_": "var(--mybricks-success-color-deprecated-bg)"
+                          },
+                          {
+                            "_144_": "--ant-success-color-deprecated-border",
+                            "_37_": "var(--mybricks-success-color-deprecated-border)"
+                          },
+                          {
+                            "_144_": "--ant-error-color",
+                            "_37_": "var(--mybricks-error-color)"
+                          },
+                          {
+                            "_144_": "--ant-error-color-hover",
+                            "_37_": "var(--mybricks-error-color-hover)"
+                          },
+                          {
+                            "_144_": "--ant-error-color-active",
+                            "_37_": "var(--mybricks-error-color-active)"
+                          },
+                          {
+                            "_144_": "--ant-error-color-outline",
+                            "_37_": "var(--mybricks-error-color-outline)"
+                          },
+                          {
+                            "_144_": "--ant-error-color-deprecated-bg",
+                            "_37_": "var(--mybricks-error-color-deprecated-bg)"
+                          },
+                          {
+                            "_144_": "--ant-error-color-deprecated-border",
+                            "_37_": "var(--mybricks-error-color-deprecated-border)"
+                          },
+                          {
+                            "_144_": "--ant-warning-color",
+                            "_37_": "var(--mybricks-warning-color)"
+                          },
+                          {
+                            "_144_": "--ant-warning-color-hover",
+                            "_37_": "var(--mybricks-warning-color-hover)"
+                          },
+                          {
+                            "_144_": "--ant-warning-color-active",
+                            "_37_": "var(--mybricks-warning-color-active)"
+                          },
+                          {
+                            "_144_": "--ant-warning-color-outline",
+                            "_37_": "var(--mybricks-warning-color-outline)"
+                          },
+                          {
+                            "_144_": "--ant-warning-color-deprecated-bg",
+                            "_37_": "var(--mybricks-warning-color-deprecated-bg)"
+                          },
+                          {
+                            "_144_": "--ant-warning-color-deprecated-border",
+                            "_37_": "var(--mybricks-warning-color-deprecated-border)"
+                          },
+                          {
+                            "_144_": "--ant-info-color",
+                            "_37_": "var(--mybricks-info-color)"
+                          },
+                          {
+                            "_144_": "--ant-info-color-deprecated-bg",
+                            "_37_": "var(--mybricks-info-color-deprecated-bg)"
+                          },
+                          {
+                            "_144_": "--ant-info-color-deprecated-border",
+                            "_37_": "var(--mybricks-info-color-deprecated-border)"
+                          },
+                          {
+                            "_144_": "--antd-wave-shadow-color",
+                            "_37_": "var(--ant-primary-color)"
+                          }
+                        ]
+                      },
+                      { "_0_": "custom@theme", "_123_": [] }
+                    ]
+                  }
+                }
+              ]
+            },
+            "_16_": {}
+          },
+          "_4_": {},
+          "_5_": 60,
+          "_6_": {},
+          "_7_": [
+            {
+              "_36_": "--ant-primary-color",
+              "_37_": "var(--mybricks-primary-color)"
+            },
+            {
+              "_36_": "--ant-primary-color-hover",
+              "_37_": "var(--mybricks-primary-color-hover)"
+            },
+            {
+              "_36_": "--ant-primary-color-active",
+              "_37_": "var(--mybricks-primary-color-active)"
+            },
+            {
+              "_36_": "--ant-primary-color-outline",
+              "_37_": "var(--mybricks-primary-color-outline)"
+            },
+            { "_36_": "--ant-primary-1", "_37_": "var(--mybricks-primary-1)" },
+            { "_36_": "--ant-primary-2", "_37_": "var(--mybricks-primary-2)" },
+            { "_36_": "--ant-primary-3", "_37_": "var(--mybricks-primary-3)" },
+            { "_36_": "--ant-primary-4", "_37_": "var(--mybricks-primary-4)" },
+            { "_36_": "--ant-primary-5", "_37_": "var(--mybricks-primary-5)" },
+            { "_36_": "--ant-primary-6", "_37_": "var(--mybricks-primary-6)" },
+            { "_36_": "--ant-primary-7", "_37_": "var(--mybricks-primary-7)" },
+            {
+              "_36_": "--ant-primary-color-deprecated-l-35",
+              "_37_": "var(--mybricks-primary-color-deprecated-l-35)"
+            },
+            {
+              "_36_": "--ant-primary-color-deprecated-l-20",
+              "_37_": "var(--mybricks-primary-color-deprecated-l-20)"
+            },
+            {
+              "_36_": "--ant-primary-color-deprecated-t-20",
+              "_37_": "var(--mybricks-primary-color-deprecated-t-20)"
+            },
+            {
+              "_36_": "--ant-primary-color-deprecated-t-50",
+              "_37_": "var(--mybricks-primary-color-deprecated-t-50)"
+            },
+            {
+              "_36_": "--ant-primary-color-deprecated-f-12",
+              "_37_": "var(--mybricks-primary-color-deprecated-f-12)"
+            },
+            {
+              "_36_": "--ant-primary-color-active-deprecated-f-30",
+              "_37_": "var(--mybricks-primary-color-active-deprecated-f-30)"
+            },
+            {
+              "_36_": "--ant-primary-color-active-deprecated-d-02",
+              "_37_": "var(--mybricks-primary-color-active-deprecated-d-02)"
+            },
+            {
+              "_36_": "--ant-success-color",
+              "_37_": "var(--mybricks-success-color)"
+            },
+            {
+              "_36_": "--ant-success-color-hover",
+              "_37_": "var(--mybricks-success-color-hover)"
+            },
+            {
+              "_36_": "--ant-success-color-active",
+              "_37_": "var(--mybricks-success-color-active)"
+            },
+            {
+              "_36_": "--ant-success-color-outline",
+              "_37_": "var(--mybricks-success-color-outline)"
+            },
+            {
+              "_36_": "--ant-success-color-deprecated-bg",
+              "_37_": "var(--mybricks-success-color-deprecated-bg)"
+            },
+            {
+              "_36_": "--ant-success-color-deprecated-border",
+              "_37_": "var(--mybricks-success-color-deprecated-border)"
+            },
+            {
+              "_36_": "--ant-error-color",
+              "_37_": "var(--mybricks-error-color)"
+            },
+            {
+              "_36_": "--ant-error-color-hover",
+              "_37_": "var(--mybricks-error-color-hover)"
+            },
+            {
+              "_36_": "--ant-error-color-active",
+              "_37_": "var(--mybricks-error-color-active)"
+            },
+            {
+              "_36_": "--ant-error-color-outline",
+              "_37_": "var(--mybricks-error-color-outline)"
+            },
+            {
+              "_36_": "--ant-error-color-deprecated-bg",
+              "_37_": "var(--mybricks-error-color-deprecated-bg)"
+            },
+            {
+              "_36_": "--ant-error-color-deprecated-border",
+              "_37_": "var(--mybricks-error-color-deprecated-border)"
+            },
+            {
+              "_36_": "--ant-warning-color",
+              "_37_": "var(--mybricks-warning-color)"
+            },
+            {
+              "_36_": "--ant-warning-color-hover",
+              "_37_": "var(--mybricks-warning-color-hover)"
+            },
+            {
+              "_36_": "--ant-warning-color-active",
+              "_37_": "var(--mybricks-warning-color-active)"
+            },
+            {
+              "_36_": "--ant-warning-color-outline",
+              "_37_": "var(--mybricks-warning-color-outline)"
+            },
+            {
+              "_36_": "--ant-warning-color-deprecated-bg",
+              "_37_": "var(--mybricks-warning-color-deprecated-bg)"
+            },
+            {
+              "_36_": "--ant-warning-color-deprecated-border",
+              "_37_": "var(--mybricks-warning-color-deprecated-border)"
+            },
+            {
+              "_36_": "--ant-info-color",
+              "_37_": "var(--mybricks-info-color)"
+            },
+            {
+              "_36_": "--ant-info-color-deprecated-bg",
+              "_37_": "var(--mybricks-info-color-deprecated-bg)"
+            },
+            {
+              "_36_": "--ant-info-color-deprecated-border",
+              "_37_": "var(--mybricks-info-color-deprecated-border)"
+            },
+            {
+              "_36_": "--antd-wave-shadow-color",
+              "_37_": "var(--ant-primary-color)"
+            },
+            { "_36_": "--mybricks-primary-color", "_37_": "#1890ff" },
+            { "_36_": "--mybricks-primary-color-hover", "_37_": "#40a9ff" },
+            { "_36_": "--mybricks-primary-color-active", "_37_": "#096dd9" },
+            {
+              "_36_": "--mybricks-primary-color-outline",
+              "_37_": "rgba(24,144,255,0.2)"
+            },
+            { "_36_": "--mybricks-primary-1", "_37_": "#e6f7ff" },
+            { "_36_": "--mybricks-primary-2", "_37_": "#bae7ff" },
+            { "_36_": "--mybricks-primary-3", "_37_": "#91d5ff" },
+            { "_36_": "--mybricks-primary-4", "_37_": "#69c0ff" },
+            { "_36_": "--mybricks-primary-5", "_37_": "#40a9ff" },
+            { "_36_": "--mybricks-primary-6", "_37_": "#1890ff" },
+            { "_36_": "--mybricks-primary-7", "_37_": "#096dd9" },
+            { "_36_": "--mybricks-success-color", "_37_": "#52c41a" },
+            { "_36_": "--mybricks-success-color-hover", "_37_": "#73d13d" },
+            { "_36_": "--mybricks-success-color-active", "_37_": "#389e0d" },
+            {
+              "_36_": "--mybricks-success-color-outline",
+              "_37_": "rgba(82,196,26,0.2)"
+            },
+            { "_36_": "--mybricks-error-color", "_37_": "#ff4d4f" },
+            { "_36_": "--mybricks-error-color-hover", "_37_": "#ff7875" },
+            { "_36_": "--mybricks-error-color-active", "_37_": "#d9363e" },
+            {
+              "_36_": "--mybricks-error-color-outline",
+              "_37_": "rgba(255,77,79,0.2)"
+            },
+            { "_36_": "--mybricks-warning-color", "_37_": "#faad14" },
+            { "_36_": "--mybricks-warning-color-hover", "_37_": "#ffc53d" },
+            { "_36_": "--mybricks-warning-color-active", "_37_": "#d48806" },
+            {
+              "_36_": "--mybricks-warning-color-outline",
+              "_37_": "rgba(250,173,20,0.2)"
+            },
+            { "_36_": "--mybricks-info-color", "_37_": "#1890ff" },
+            {
+              "_36_": "--mybricks-primary-color-deprecated-l-35",
+              "_37_": "#cbe6ff"
+            },
+            {
+              "_36_": "--mybricks-primary-color-deprecated-l-20",
+              "_37_": "#7ec1ff"
+            },
+            {
+              "_36_": "--mybricks-primary-color-deprecated-t-20",
+              "_37_": "#46a6ff"
+            },
+            {
+              "_36_": "--mybricks-primary-color-deprecated-t-50",
+              "_37_": "#8cc8ff"
+            },
+            {
+              "_36_": "--mybricks-primary-color-deprecated-f-12",
+              "_37_": "rgba(24,144,255,0.12)"
+            },
+            {
+              "_36_": "--mybricks-primary-color-active-deprecated-f-30",
+              "_37_": "rgba(230,247,255,0.3)"
+            },
+            {
+              "_36_": "--mybricks-primary-color-active-deprecated-d-02",
+              "_37_": "#dcf4ff"
+            },
+            {
+              "_36_": "--mybricks-success-color-deprecated-bg",
+              "_37_": "#f6ffed"
+            },
+            {
+              "_36_": "--mybricks-success-color-deprecated-border",
+              "_37_": "#b7eb8f"
+            },
+            {
+              "_36_": "--mybricks-error-color-deprecated-bg",
+              "_37_": "#fff2f0"
+            },
+            {
+              "_36_": "--mybricks-error-color-deprecated-border",
+              "_37_": "#ffccc7"
+            },
+            {
+              "_36_": "--mybricks-warning-color-deprecated-bg",
+              "_37_": "#fffbe6"
+            },
+            {
+              "_36_": "--mybricks-warning-color-deprecated-border",
+              "_37_": "#ffe58f"
+            },
+            {
+              "_36_": "--mybricks-info-color-deprecated-bg",
+              "_37_": "#e6f7ff"
+            },
+            {
+              "_36_": "--mybricks-info-color-deprecated-border",
+              "_37_": "#91d5ff"
+            }
+          ],
+          "_8_": { "_17_": { "_R_": "2" }, "_18_": { "_R_": "3" } },
+          "_9_": 290,
+          "_10_": {
+            "_19_": "_main_",
+            "_20_": "主模块",
+            "_21_": { "_R_": "4" },
+            "_22_": { "_R_": "5" }
+          }
+        },
+        "1": { "_F_": 1 },
+        "2": {
+          "_F_": 2,
+          "_0_": "u_o4tNF",
+          "_1_": { "_R_": "6" },
+          "_38_": false,
+          "_39_": "normal",
+          "_40_": ["geoView"],
+          "_41_": false,
+          "_42_": "auto",
+          "_44_": "auto"
+        },
+        "3": {
+          "_F_": 2,
+          "_0_": "u_wsxB4",
+          "_1_": { "_R_": "7" },
+          "_38_": false,
+          "_39_": "min",
+          "_40_": ["toplView"],
+          "_41_": true
+        },
+        "4": {
+          "_F_": 3,
+          "_0_": "u_EUkds",
+          "_1_": { "_R_": "8" },
+          "_36_": "geo",
+          "_45_": { "_R_": "9" },
+          "_46_": [{ "_R_": "11" }],
+          "_47_": [],
+          "_48_": true,
+          "_49_": "pc",
+          "_50_": "u_hHiwi"
+        },
+        "5": {
+          "_F_": 4,
+          "_0_": "u_Jwe3b",
+          "_1_": { "_R_": "10" },
+          "_36_": "topl",
+          "_51_": [{ "_R_": "12" }],
+          "_52_": [],
+          "_53_": [],
+          "_54_": [],
+          "_45_": { "_62_": 150, "_17_": 150 }
+        },
+        "6": { "_F_": 1 },
+        "7": { "_F_": 1 },
+        "8": { "_F_": 1 },
+        "9": {
+          "_F_": 5,
+          "_58_": 1,
+          "_59_": "flex-column",
+          "_60_": "flex-start",
+          "_61_": "flex-start",
+          "_44_": 800,
+          "_43_": 1024,
+          "_62_": 186,
+          "_17_": 115
+        },
+        "10": { "_F_": 1 },
+        "11": {
+          "_F_": 6,
+          "_0_": "u_hHiwi",
+          "_1_": { "_R_": "13" },
+          "_53_": [{ "_R_": "16" }, { "_R_": "17" }],
+          "_45_": { "_R_": "14" },
+          "_20_": "主场景"
+        },
+        "12": {
+          "_F_": 7,
+          "_0_": "u_hHiwi",
+          "_1_": { "_R_": "15" },
+          "_74_": 0,
+          "_75_": 0,
+          "_45_": { "_62_": null, "_17_": null },
+          "_76_": true,
+          "_77_": true,
+          "_78_": [],
+          "_79_": [{ "_R_": "18" }],
+          "_80_": [],
+          "_81_": [],
+          "_82_": [],
+          "_83_": [],
+          "_84_": [],
+          "_53_": [{ "_R_": "19" }, { "_R_": "20" }],
+          "_54_": [{ "_R_": "21" }],
+          "_85_": { "_90_": 0, "_91_": 100 },
+          "_20_": "主场景",
+          "_67_": true
+        },
+        "13": { "_F_": 1 },
+        "14": {
+          "_F_": 5,
+          "_58_": 1,
+          "_59_": "smart",
+          "_60_": "flex-start",
+          "_61_": "flex-start",
+          "_44_": 800,
+          "_43_": 1024,
+          "_88_": 1024,
+          "_89_": 800
+        },
+        "15": { "_F_": 1 },
+        "16": {
+          "_F_": 8,
+          "_1_": { "_R_": "22" },
+          "_92_": true,
+          "_36_": "u_WW_ZA",
+          "_93_": { "_R_": "23" },
+          "_46_": [{ "_R_": "30" }],
+          "_94_": { "_R_": "11" },
+          "_95_": [{ "_R_": "31" }]
+        },
+        "17": {
+          "_F_": 8,
+          "_1_": { "_R_": "24" },
+          "_92_": true,
+          "_36_": "u_aypSS",
+          "_93_": { "_R_": "25" },
+          "_94_": { "_R_": "11" },
+          "_95_": [{ "_R_": "32" }]
+        },
+        "18": {
+          "_F_": 9,
+          "_0_": "open",
+          "_1_": { "_R_": "26" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "inner-output",
+          "_100_": "open",
+          "_20_": "打开",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "12" },
+          "_73_": { "_69_": "any" }
+        },
+        "19": {
+          "_F_": 10,
+          "_1_": { "_R_": "27" },
+          "_75_": 1,
+          "_92_": false,
+          "_45_": { "_43_": 0, "_44_": 0, "_62_": 350, "_17_": 130 },
+          "_109_": {},
+          "_110_": [],
+          "_80_": [{ "_R_": "33" }, { "_R_": "34" }, { "_R_": "35" }],
+          "_79_": [
+            { "_R_": "36" },
+            { "_R_": "37" },
+            { "_R_": "38" },
+            { "_R_": "39" },
+            { "_R_": "40" },
+            { "_R_": "41" },
+            { "_R_": "42" },
+            { "_R_": "43" },
+            { "_R_": "44" },
+            { "_R_": "45" },
+            { "_R_": "46" }
+          ],
+          "_111_": [],
+          "_112_": [{ "_R_": "47" }, { "_R_": "48" }, { "_R_": "49" }],
+          "_82_": [],
+          "_81_": [
+            { "_R_": "50" },
+            { "_R_": "51" },
+            { "_R_": "52" },
+            { "_R_": "53" },
+            { "_R_": "54" },
+            { "_R_": "55" },
+            { "_R_": "56" },
+            { "_R_": "57" },
+            { "_R_": "58" },
+            { "_R_": "59" },
+            { "_R_": "60" },
+            { "_R_": "61" },
+            { "_R_": "62" },
+            { "_R_": "63" },
+            { "_R_": "64" },
+            { "_R_": "65" },
+            { "_R_": "66" }
+          ],
+          "_113_": [],
+          "_114_": [],
+          "_115_": [],
+          "_36_": "u_WW_ZA",
+          "_93_": { "_R_": "23" },
+          "_51_": [{ "_R_": "67" }],
+          "_94_": { "_R_": "12" }
+        },
+        "20": {
+          "_F_": 10,
+          "_1_": { "_R_": "28" },
+          "_75_": 1,
+          "_92_": false,
+          "_45_": { "_43_": 0, "_44_": 0, "_62_": 570, "_17_": 300 },
+          "_109_": {},
+          "_110_": [],
+          "_80_": [],
+          "_79_": [
+            { "_R_": "68" },
+            { "_R_": "69" },
+            { "_R_": "70" },
+            { "_R_": "71" },
+            { "_R_": "72" }
+          ],
+          "_111_": [{ "_R_": "73" }, { "_R_": "74" }, { "_R_": "75" }],
+          "_112_": [{ "_R_": "76" }, { "_R_": "77" }, { "_R_": "78" }],
+          "_82_": [],
+          "_81_": [
+            { "_R_": "79" },
+            { "_R_": "80" },
+            { "_R_": "81" },
+            { "_R_": "82" },
+            { "_R_": "83" },
+            { "_R_": "84" }
+          ],
+          "_113_": [
+            { "_R_": "85" },
+            { "_R_": "86" },
+            { "_R_": "87" },
+            { "_R_": "88" }
+          ],
+          "_114_": [],
+          "_115_": [],
+          "_36_": "u_aypSS",
+          "_93_": { "_R_": "25" },
+          "_94_": { "_R_": "12" }
+        },
+        "21": {
+          "_F_": 11,
+          "_0_": "u_M2667",
+          "_1_": { "_R_": "29" },
+          "_53_": [],
+          "_81_": [],
+          "_84_": [],
+          "_96_": [],
+          "_116_": [],
+          "_45_": {
+            "_130_": false,
+            "_62_": null,
+            "_17_": null,
+            "_44_": 400,
+            "_43_": 700
+          },
+          "_94_": { "_R_": "12" },
+          "_117_": "主场景",
+          "_118_": 1712819641222,
+          "_119_": true,
+          "_120_": true,
+          "_20_": "主场景",
+          "_122_": { "_131_": true }
+        },
+        "22": { "_F_": 1 },
+        "23": {
+          "_F_": 12,
+          "_0_": "u_pUy5J",
+          "_124_": {
+            "_132_": {
+              "_145_": "Form",
+              "_146_": 8,
+              "_147_": [],
+              "_148_": [],
+              "_149_": 1,
+              "_150_": 3,
+              "_151_": {
+                "_130_": true,
+                "_201_": "flexFull",
+                "_146_": 8,
+                "_202_": "left",
+                "_147_": [
+                  {
+                    "_20_": "提交",
+                    "_69_": "primary",
+                    "_234_": true,
+                    "_130_": true,
+                    "_235_": "onClickSubmit",
+                    "_144_": "submit",
+                    "_236_": false,
+                    "_237_": false,
+                    "_204_": false,
+                    "_238_": false,
+                    "_239_": 8,
+                    "_105_": "HomeOutlined",
+                    "_240_": "front"
+                  },
+                  {
+                    "_20_": "取消",
+                    "_234_": false,
+                    "_130_": true,
+                    "_235_": "onClickCancel",
+                    "_144_": "cancel",
+                    "_236_": false,
+                    "_237_": false,
+                    "_204_": false,
+                    "_238_": false,
+                    "_239_": 8,
+                    "_105_": "HomeOutlined",
+                    "_240_": "front"
+                  }
+                ]
+              },
+              "_152_": false,
+              "_153_": 24,
+              "_154_": "px",
+              "_155_": 98,
+              "_156_": 4,
+              "_157_": "flex",
+              "_158_": {},
+              "_159_": false,
+              "_160_": true,
+              "_24_": {
+                "_203_": true,
+                "_59_": "inline",
+                "_204_": false,
+                "_178_": "middle"
+              },
+              "_161_": { "_69_": "" },
+              "_162_": true
+            },
+            "_135_": [],
+            "_136_": [],
+            "_137_": {
+              "_163_": [{ "_69_": "defined", "_228_": {}, "_229_": true }]
+            },
+            "_45_": { "_R_": "89" }
+          },
+          "_20_": "表单容器",
+          "_125_": "form-container_xmW",
+          "_126_": {
+            "_63_": "mybricks.normal-pc.form-container",
+            "_64_": "1.4.49"
+          },
+          "_127_": true,
+          "_128_": { "_R_": "19" },
+          "_129_": { "_R_": "16" }
+        },
+        "24": { "_F_": 1 },
+        "25": {
+          "_F_": 12,
+          "_0_": "u_e_jCW",
+          "_124_": {
+            "_132_": {
+              "_169_": "",
+              "_170_": [],
+              "_171_": [],
+              "_172_": false,
+              "_173_": false,
+              "_174_": { "_207_": "#1f1f1f", "_208_": "#f5f7f9" },
+              "_175_": {},
+              "_176_": { "_209_": "", "_210_": true },
+              "_177_": false,
+              "_178_": "middle",
+              "_179_": false,
+              "_180_": false,
+              "_181_": ["top", "bottom"],
+              "_182_": true,
+              "_183_": "fixed",
+              "_184_": "",
+              "_185_": true,
+              "_186_": {
+                "_211_": 20,
+                "_212_": "共 {total} 条结果",
+                "_213_": 1,
+                "_214_": { "_227_": 1, "_226_": 10 },
+                "_215_": false,
+                "_204_": false,
+                "_216_": 10,
+                "_202_": "flex-end",
+                "_178_": "default",
+                "_217_": false,
+                "_218_": ["10", "20", "50", "100"],
+                "_219_": false,
+                "_220_": false,
+                "_221_": false
+              },
+              "_161_": {},
+              "_187_": false,
+              "_188_": "合计",
+              "_189_": 1,
+              "_190_": "text",
+              "_191_": { "_69_": "string" },
+              "_192_": false,
+              "_193_": false,
+              "_101_": "暂无数据",
+              "_194_": false,
+              "_195_": "",
+              "_196_": false,
+              "_197_": "FilterFilled"
+            },
+            "_135_": [
+              {
+                "_100_": "setTotal",
+                "_20_": "设置数据总数",
+                "_73_": { "_69_": "number" }
+              },
+              {
+                "_100_": "setPageNum",
+                "_20_": "设置当前页码",
+                "_73_": { "_69_": "number" }
+              },
+              {
+                "_100_": "getPageInfo",
+                "_20_": "获取分页数据",
+                "_73_": { "_69_": "any" }
+              }
+            ],
+            "_136_": [
+              {
+                "_100_": "setTotal",
+                "_20_": "设置数据总数完成",
+                "_73_": { "_69_": "number" }
+              },
+              {
+                "_100_": "setPageNumFinish",
+                "_20_": "设置页码完成",
+                "_73_": { "_69_": "number" }
+              },
+              {
+                "_100_": "getPageInfo",
+                "_20_": "分页数据",
+                "_73_": {
+                  "_69_": "object",
+                  "_200_": {
+                    "_227_": { "_69_": "number" },
+                    "_226_": { "_69_": "number" }
+                  }
+                }
+              },
+              {
+                "_100_": "pageChange",
+                "_20_": "点击分页",
+                "_73_": {
+                  "_69_": "object",
+                  "_200_": {
+                    "_227_": { "_69_": "number" },
+                    "_226_": { "_69_": "number" }
+                  }
+                }
+              }
+            ],
+            "_137_": {},
+            "_45_": { "_R_": "92" }
+          },
+          "_20_": "数据表格",
+          "_125_": "table_j8w",
+          "_126_": { "_63_": "mybricks.normal-pc.table", "_64_": "1.1.54" },
+          "_127_": true,
+          "_128_": { "_R_": "20" },
+          "_129_": { "_R_": "17" }
+        },
+        "26": { "_F_": 1 },
+        "27": { "_F_": 1 },
+        "28": { "_F_": 1 },
+        "29": { "_F_": 1 },
+        "30": {
+          "_F_": 6,
+          "_0_": "content",
+          "_1_": { "_R_": "90" },
+          "_53_": [],
+          "_45_": { "_R_": "91" },
+          "_103_": [
+            "mybricks.normal-pc.form-container/form-item",
+            "mybricks.normal-pc.form-container/form-addition-container"
+          ],
+          "_20_": "表单容器",
+          "_69_": "scope",
+          "_94_": { "_R_": "16" },
+          "_73_": [
+            "mybricks.normal-pc.form-container/form-item",
+            "mybricks.normal-pc.form-container/form-addition-container"
+          ]
+        },
+        "31": {
+          "_F_": 13,
+          "_69_": "right",
+          "_141_": { "_69_": "slot", "_0_": "u_hHiwi" }
+        },
+        "32": {
+          "_F_": 13,
+          "_69_": "right",
+          "_141_": { "_69_": "com", "_0_": "u_pUy5J" }
+        },
+        "33": {
+          "_F_": 9,
+          "_0_": "u_ISObg",
+          "_1_": { "_R_": "93" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_142_": true,
+          "_99_": "input",
+          "_100_": "setValue",
+          "_20_": "设置值",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "34": {
+          "_F_": 9,
+          "_0_": "u_96drZ",
+          "_1_": { "_R_": "94" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_142_": true,
+          "_99_": "input",
+          "_100_": "validate",
+          "_20_": "校验",
+          "_103_": { "_69_": "any" },
+          "_143_": ["returnValidate"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "35": {
+          "_F_": 9,
+          "_0_": "u_AH9Vb",
+          "_1_": { "_R_": "95" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_142_": true,
+          "_99_": "input",
+          "_100_": "getValue",
+          "_20_": "获取值",
+          "_103_": { "_69_": "any" },
+          "_143_": ["returnValue"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "36": {
+          "_F_": 9,
+          "_0_": "u_ThWyh",
+          "_1_": { "_R_": "96" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "setInitialValues",
+          "_20_": "设置表单数据",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_143_": ["setInitialValuesDone"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "37": {
+          "_F_": 9,
+          "_0_": "u_4PqG4",
+          "_1_": { "_R_": "97" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "setFieldsValue",
+          "_20_": "设置表单数据（触发值变化）",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_143_": ["setFieldsValueDone"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "38": {
+          "_F_": 9,
+          "_0_": "u_noOUW",
+          "_1_": { "_R_": "98" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "submit",
+          "_20_": "提交表单",
+          "_103_": { "_69_": "any" },
+          "_143_": ["onFinish", "onSubmitError"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "39": {
+          "_F_": 9,
+          "_0_": "u_8sdys",
+          "_1_": { "_R_": "99" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "getFieldsValue",
+          "_20_": "获取表单数据",
+          "_103_": { "_69_": "any" },
+          "_143_": ["returnValues"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "40": {
+          "_F_": 9,
+          "_0_": "u_P4uk3",
+          "_1_": { "_R_": "100" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "submitAndMerge",
+          "_20_": "提交表单(合并输入项)",
+          "_103_": { "_69_": "object" },
+          "_143_": ["onMergeFinish", "onSubmitError"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object" }
+        },
+        "41": {
+          "_F_": 9,
+          "_0_": "u_xRzkZ",
+          "_1_": { "_R_": "101" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "resetFields",
+          "_20_": "重置表单",
+          "_103_": { "_69_": "any" },
+          "_143_": ["onResetFinish"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "42": {
+          "_F_": 9,
+          "_0_": "u_zRh5c",
+          "_1_": { "_R_": "102" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "setDisabled",
+          "_20_": "设置禁用",
+          "_103_": { "_69_": "any" },
+          "_143_": ["setDisabledDone"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "43": {
+          "_F_": 9,
+          "_0_": "u_zaiX6",
+          "_1_": { "_R_": "103" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "setEnabled",
+          "_20_": "设置启用",
+          "_103_": { "_69_": "any" },
+          "_143_": ["setEnabledDone"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "44": {
+          "_F_": 9,
+          "_0_": "u_3Y0Wy",
+          "_1_": { "_R_": "104" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "isEditable",
+          "_20_": "设置编辑/只读",
+          "_103_": { "_69_": "boolean" },
+          "_143_": ["isEditableDone"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "boolean" }
+        },
+        "45": {
+          "_F_": 9,
+          "_0_": "u_GztG4",
+          "_1_": { "_R_": "105" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "validateFields",
+          "_20_": "校验表单项",
+          "_103_": { "_69_": "array", "_147_": { "_69_": "string" } },
+          "_143_": ["validateFieldsDone"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "array", "_147_": { "_69_": "string" } }
+        },
+        "46": {
+          "_F_": 9,
+          "_0_": "u_hKKmT",
+          "_1_": { "_R_": "106" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "setFormItemsProps",
+          "_20_": "设置表单项配置",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_143_": ["setFormItemsPropsDone"],
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "47": {
+          "_F_": 9,
+          "_0_": "u__dUfV",
+          "_1_": { "_R_": "107" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "ext",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "show",
+          "_20_": "显示",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "48": {
+          "_F_": 9,
+          "_0_": "u_MfyKM",
+          "_1_": { "_R_": "108" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "ext",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "hide",
+          "_20_": "隐藏",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "49": {
+          "_F_": 9,
+          "_0_": "u__GavH",
+          "_1_": { "_R_": "109" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "ext",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "showOrHide",
+          "_20_": "显示/隐藏",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "50": {
+          "_F_": 9,
+          "_0_": "u_MgpQY",
+          "_1_": { "_R_": "110" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "onFinish",
+          "_20_": "提交数据输出",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "51": {
+          "_F_": 9,
+          "_0_": "u_YI95W",
+          "_1_": { "_R_": "111" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "onSubmitError",
+          "_20_": "校验失败输出",
+          "_103_": {
+            "_69_": "object",
+            "_200_": {
+              "_36_": { "_20_": "字段名", "_69_": "string" },
+              "_223_": { "_20_": "校验信息", "_69_": "string" }
+            }
+          },
+          "_94_": { "_R_": "19" },
+          "_73_": {
+            "_69_": "object",
+            "_200_": {
+              "_36_": { "_20_": "字段名", "_69_": "string" },
+              "_223_": { "_20_": "校验信息", "_69_": "string" }
+            }
+          }
+        },
+        "52": {
+          "_F_": 9,
+          "_0_": "u_ZivBj",
+          "_1_": { "_R_": "112" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "onMergeFinish",
+          "_20_": "提交数据输出",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "53": {
+          "_F_": 9,
+          "_0_": "u_7tgPV",
+          "_1_": { "_R_": "113" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "onValuesChange",
+          "_20_": "字段值更新输出",
+          "_103_": {
+            "_69_": "object",
+            "_200_": {
+              "_224_": { "_69_": "object", "_200_": {} },
+              "_225_": { "_69_": "object", "_200_": {} }
+            }
+          },
+          "_94_": { "_R_": "19" },
+          "_73_": {
+            "_69_": "object",
+            "_200_": {
+              "_224_": { "_69_": "object", "_200_": {} },
+              "_225_": { "_69_": "object", "_200_": {} }
+            }
+          }
+        },
+        "54": {
+          "_F_": 9,
+          "_0_": "u_dXe2z",
+          "_1_": { "_R_": "114" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "onResetFinish",
+          "_20_": "重置完成",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "55": {
+          "_F_": 9,
+          "_0_": "u_QMk1x",
+          "_1_": { "_R_": "115" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "returnValidate",
+          "_20_": "校验结果",
+          "_103_": { "_69_": "boolean" },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "boolean" }
+        },
+        "56": {
+          "_F_": 9,
+          "_0_": "u_hecEY",
+          "_1_": { "_R_": "116" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "returnValue",
+          "_20_": "值输出",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "57": {
+          "_F_": 9,
+          "_0_": "u_ix0Pq",
+          "_1_": { "_R_": "117" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "returnValues",
+          "_20_": "表单数据输出",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "58": {
+          "_F_": 9,
+          "_0_": "u_OUtrr",
+          "_1_": { "_R_": "118" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "onClickSubmit",
+          "_20_": "提交",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "59": {
+          "_F_": 9,
+          "_0_": "u_68vIW",
+          "_1_": { "_R_": "119" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "onClickCancel",
+          "_20_": "取消",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "60": {
+          "_F_": 9,
+          "_0_": "u_yQzzN",
+          "_1_": { "_R_": "120" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "setInitialValuesDone",
+          "_20_": "设置表单数据完成",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "61": {
+          "_F_": 9,
+          "_0_": "u_qY_HJ",
+          "_1_": { "_R_": "121" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "setFieldsValueDone",
+          "_20_": "设置表单数据（触发值变化）完成",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "62": {
+          "_F_": 9,
+          "_0_": "u_zpc55",
+          "_1_": { "_R_": "122" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "setDisabledDone",
+          "_20_": "设置禁用完成",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "63": {
+          "_F_": 9,
+          "_0_": "u_QUrz0",
+          "_1_": { "_R_": "123" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "setEnabledDone",
+          "_20_": "设置启用完成",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "any" }
+        },
+        "64": {
+          "_F_": 9,
+          "_0_": "u_UumUj",
+          "_1_": { "_R_": "124" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "isEditableDone",
+          "_20_": "设置编辑/只读完成",
+          "_103_": { "_69_": "boolean" },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "boolean" }
+        },
+        "65": {
+          "_F_": 9,
+          "_0_": "u_3sxja",
+          "_1_": { "_R_": "125" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "validateFieldsDone",
+          "_20_": "校验表单项完成",
+          "_103_": { "_69_": "boolean" },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "boolean" }
+        },
+        "66": {
+          "_F_": 9,
+          "_0_": "u_UukWO",
+          "_1_": { "_R_": "126" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "setFormItemsPropsDone",
+          "_20_": "设置表单项配置完成",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_94_": { "_R_": "19" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "67": {
+          "_F_": 7,
+          "_0_": "content",
+          "_1_": { "_R_": "127" },
+          "_74_": 0,
+          "_75_": 0,
+          "_45_": { "_62_": null, "_17_": null },
+          "_76_": true,
+          "_77_": true,
+          "_78_": [],
+          "_79_": [{ "_R_": "149" }],
+          "_80_": [{ "_R_": "150" }, { "_R_": "151" }],
+          "_81_": [],
+          "_82_": [],
+          "_83_": [],
+          "_84_": [],
+          "_53_": [],
+          "_54_": [{ "_R_": "152" }],
+          "_85_": { "_90_": 0, "_91_": 100 },
+          "_20_": "表单容器",
+          "_67_": false,
+          "_94_": { "_R_": "19" }
+        },
+        "68": {
+          "_F_": 9,
+          "_0_": "u_nc7oc",
+          "_1_": { "_R_": "128" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "dataSource",
+          "_20_": "设置数据源",
+          "_103_": {
+            "_20_": "数据列表",
+            "_69_": "object",
+            "_200_": {
+              "_170_": {
+                "_69_": "array",
+                "_147_": { "_69_": "object", "_200_": {} }
+              },
+              "_211_": { "_69_": "number" },
+              "_226_": { "_69_": "number" },
+              "_227_": { "_69_": "number" }
+            }
+          },
+          "_143_": ["dataSource"],
+          "_94_": { "_R_": "20" },
+          "_73_": {
+            "_20_": "数据列表",
+            "_69_": "object",
+            "_200_": {
+              "_170_": {
+                "_69_": "array",
+                "_147_": { "_69_": "object", "_200_": {} }
+              },
+              "_211_": { "_69_": "number" },
+              "_226_": { "_69_": "number" },
+              "_227_": { "_69_": "number" }
+            }
+          }
+        },
+        "69": {
+          "_F_": 9,
+          "_0_": "u_gNugW",
+          "_1_": { "_R_": "129" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "getTableData",
+          "_20_": "获取表格数据",
+          "_103_": { "_69_": "any" },
+          "_143_": ["getTableData"],
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "any" }
+        },
+        "70": {
+          "_F_": 9,
+          "_0_": "u_AspUR",
+          "_1_": { "_R_": "130" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "startLoading",
+          "_20_": "开启loading",
+          "_103_": { "_69_": "any" },
+          "_143_": ["startLoading"],
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "any" }
+        },
+        "71": {
+          "_F_": 9,
+          "_0_": "u_Gv68r",
+          "_1_": { "_R_": "131" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "endLoading",
+          "_20_": "关闭loading",
+          "_103_": { "_69_": "any" },
+          "_143_": ["endLoading"],
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "any" }
+        },
+        "72": {
+          "_F_": 9,
+          "_0_": "u_z833Q",
+          "_1_": { "_R_": "132" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "setSize",
+          "_20_": "设置布局风格",
+          "_103_": { "_69_": "string" },
+          "_143_": ["setSizeDone"],
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "string" }
+        },
+        "73": {
+          "_F_": 9,
+          "_0_": "u_26VpL",
+          "_1_": { "_R_": "133" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "setTotal",
+          "_20_": "设置数据总数",
+          "_103_": { "_69_": "number" },
+          "_76_": false,
+          "_94_": { "_R_": "20" },
+          "_143_": ["setTotal"],
+          "_73_": { "_69_": "number" }
+        },
+        "74": {
+          "_F_": 9,
+          "_0_": "u_RauI4",
+          "_1_": { "_R_": "134" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "setPageNum",
+          "_20_": "设置当前页码",
+          "_103_": { "_69_": "number" },
+          "_76_": false,
+          "_94_": { "_R_": "20" },
+          "_143_": ["setPageNumFinish"],
+          "_73_": { "_69_": "number" }
+        },
+        "75": {
+          "_F_": 9,
+          "_0_": "u_RjL_t",
+          "_1_": { "_R_": "135" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "getPageInfo",
+          "_20_": "获取分页数据",
+          "_103_": { "_69_": "any" },
+          "_76_": false,
+          "_94_": { "_R_": "20" },
+          "_143_": ["getPageInfo"],
+          "_73_": { "_69_": "any" }
+        },
+        "76": {
+          "_F_": 9,
+          "_0_": "u_ifWvk",
+          "_1_": { "_R_": "136" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "ext",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "show",
+          "_20_": "显示",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "any" }
+        },
+        "77": {
+          "_F_": 9,
+          "_0_": "u_ng1ty",
+          "_1_": { "_R_": "137" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "ext",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "hide",
+          "_20_": "隐藏",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "any" }
+        },
+        "78": {
+          "_F_": 9,
+          "_0_": "u_33F40",
+          "_1_": { "_R_": "138" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "ext",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "input",
+          "_100_": "showOrHide",
+          "_20_": "显示/隐藏",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "any" }
+        },
+        "79": {
+          "_F_": 9,
+          "_0_": "u_CKEOV",
+          "_1_": { "_R_": "139" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "getTableData",
+          "_20_": "表格数据",
+          "_103_": {
+            "_20_": "表格数据",
+            "_69_": "array",
+            "_147_": { "_69_": "object", "_200_": {} }
+          },
+          "_94_": { "_R_": "20" },
+          "_73_": {
+            "_20_": "表格数据",
+            "_69_": "array",
+            "_147_": { "_69_": "object", "_200_": {} }
+          }
+        },
+        "80": {
+          "_F_": 9,
+          "_0_": "u_InWGw",
+          "_1_": { "_R_": "140" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "columnsChange",
+          "_20_": "列结构变化",
+          "_103_": { "_69_": "array" },
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "array" }
+        },
+        "81": {
+          "_F_": 9,
+          "_0_": "u_bAi4G",
+          "_1_": { "_R_": "141" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "dataSource",
+          "_20_": "数据源",
+          "_103_": {
+            "_20_": "数据列表",
+            "_69_": "object",
+            "_200_": {
+              "_170_": {
+                "_69_": "array",
+                "_147_": { "_69_": "object", "_200_": {} }
+              },
+              "_211_": { "_69_": "number" },
+              "_226_": { "_69_": "number" },
+              "_227_": { "_69_": "number" }
+            }
+          },
+          "_94_": { "_R_": "20" },
+          "_73_": {
+            "_20_": "数据列表",
+            "_69_": "object",
+            "_200_": {
+              "_170_": {
+                "_69_": "array",
+                "_147_": { "_69_": "object", "_200_": {} }
+              },
+              "_211_": { "_69_": "number" },
+              "_226_": { "_69_": "number" },
+              "_227_": { "_69_": "number" }
+            }
+          }
+        },
+        "82": {
+          "_F_": 9,
+          "_0_": "u_pc__y",
+          "_1_": { "_R_": "142" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "startLoading",
+          "_20_": "开启loading后",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "any" }
+        },
+        "83": {
+          "_F_": 9,
+          "_0_": "u_stLHF",
+          "_1_": { "_R_": "143" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "endLoading",
+          "_20_": "关闭loading后",
+          "_103_": { "_69_": "any" },
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "any" }
+        },
+        "84": {
+          "_F_": 9,
+          "_0_": "u_YTaKi",
+          "_1_": { "_R_": "144" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "setSizeDone",
+          "_20_": "设置布局风格完成",
+          "_103_": { "_69_": "string" },
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "string" }
+        },
+        "85": {
+          "_F_": 9,
+          "_0_": "u_fJPzN",
+          "_1_": { "_R_": "145" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "setTotal",
+          "_20_": "设置数据总数完成",
+          "_103_": { "_69_": "number" },
+          "_76_": false,
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "number" }
+        },
+        "86": {
+          "_F_": 9,
+          "_0_": "u_3hr2y",
+          "_1_": { "_R_": "146" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "setPageNumFinish",
+          "_20_": "设置页码完成",
+          "_103_": { "_69_": "number" },
+          "_76_": false,
+          "_94_": { "_R_": "20" },
+          "_73_": { "_69_": "number" }
+        },
+        "87": {
+          "_F_": 9,
+          "_0_": "u_c4T5i",
+          "_1_": { "_R_": "147" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "getPageInfo",
+          "_20_": "分页数据",
+          "_103_": {
+            "_69_": "object",
+            "_200_": {
+              "_227_": { "_69_": "number" },
+              "_226_": { "_69_": "number" }
+            }
+          },
+          "_76_": false,
+          "_94_": { "_R_": "20" },
+          "_73_": {
+            "_69_": "object",
+            "_200_": {
+              "_227_": { "_69_": "number" },
+              "_226_": { "_69_": "number" }
+            }
+          }
+        },
+        "88": {
+          "_F_": 9,
+          "_0_": "u_hUOW0",
+          "_1_": { "_R_": "148" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "output",
+          "_100_": "pageChange",
+          "_20_": "点击分页",
+          "_103_": {
+            "_69_": "object",
+            "_200_": {
+              "_227_": { "_69_": "number" },
+              "_226_": { "_69_": "number" }
+            }
+          },
+          "_76_": false,
+          "_94_": { "_R_": "20" },
+          "_73_": {
+            "_69_": "object",
+            "_200_": {
+              "_227_": { "_69_": "number" },
+              "_226_": { "_69_": "number" }
+            }
+          }
+        },
+        "89": {
+          "_F_": 14,
+          "_164_": "block",
+          "_62_": 0,
+          "_17_": 0,
+          "_43_": 1024,
+          "_165_": true,
+          "_88_": 1024,
+          "_89_": 98
+        },
+        "90": { "_F_": 1 },
+        "91": {
+          "_F_": 5,
+          "_58_": 1,
+          "_59_": "flex-column",
+          "_60_": "flex-start",
+          "_61_": "flex-start",
+          "_88_": 1024,
+          "_89_": 30
+        },
+        "92": {
+          "_F_": 14,
+          "_164_": "block",
+          "_62_": 0,
+          "_17_": 98,
+          "_165_": true,
+          "_44_": "auto",
+          "_199_": [
+            { "_230_": ".summaryCellTitle", "_231_": { "_241_": "center" } },
+            { "_230_": ".summaryCellContent", "_231_": { "_241_": "center" } },
+            {
+              "_230_": "tfoot.ant-table-summary>.summaryRow:hover",
+              "_231_": { "_208_": "#f5f7f9" }
+            }
+          ],
+          "_43_": 1024,
+          "_88_": 1024,
+          "_89_": 180
+        },
+        "93": { "_F_": 1 },
+        "94": { "_F_": 1 },
+        "95": { "_F_": 1 },
+        "96": { "_F_": 1 },
+        "97": { "_F_": 1 },
+        "98": { "_F_": 1 },
+        "99": { "_F_": 1 },
+        "100": { "_F_": 1 },
+        "101": { "_F_": 1 },
+        "102": { "_F_": 1 },
+        "103": { "_F_": 1 },
+        "104": { "_F_": 1 },
+        "105": { "_F_": 1 },
+        "106": { "_F_": 1 },
+        "107": { "_F_": 1 },
+        "108": { "_F_": 1 },
+        "109": { "_F_": 1 },
+        "110": { "_F_": 1 },
+        "111": { "_F_": 1 },
+        "112": { "_F_": 1 },
+        "113": { "_F_": 1 },
+        "114": { "_F_": 1 },
+        "115": { "_F_": 1 },
+        "116": { "_F_": 1 },
+        "117": { "_F_": 1 },
+        "118": { "_F_": 1 },
+        "119": { "_F_": 1 },
+        "120": { "_F_": 1 },
+        "121": { "_F_": 1 },
+        "122": { "_F_": 1 },
+        "123": { "_F_": 1 },
+        "124": { "_F_": 1 },
+        "125": { "_F_": 1 },
+        "126": { "_F_": 1 },
+        "127": { "_F_": 1 },
+        "128": { "_F_": 1 },
+        "129": { "_F_": 1 },
+        "130": { "_F_": 1 },
+        "131": { "_F_": 1 },
+        "132": { "_F_": 1 },
+        "133": { "_F_": 1 },
+        "134": { "_F_": 1 },
+        "135": { "_F_": 1 },
+        "136": { "_F_": 1 },
+        "137": { "_F_": 1 },
+        "138": { "_F_": 1 },
+        "139": { "_F_": 1 },
+        "140": { "_F_": 1 },
+        "141": { "_F_": 1 },
+        "142": { "_F_": 1 },
+        "143": { "_F_": 1 },
+        "144": { "_F_": 1 },
+        "145": { "_F_": 1 },
+        "146": { "_F_": 1 },
+        "147": { "_F_": 1 },
+        "148": { "_F_": 1 },
+        "149": {
+          "_F_": 9,
+          "_0_": "u_lu9pO",
+          "_1_": { "_R_": "153" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_99_": "inner-output",
+          "_100_": "setFieldsValue",
+          "_20_": "表单数据输入",
+          "_103_": { "_69_": "object", "_200_": {} },
+          "_94_": { "_R_": "67" },
+          "_73_": { "_69_": "object", "_200_": {} }
+        },
+        "150": {
+          "_F_": 9,
+          "_0_": "u_R1xbF",
+          "_1_": { "_R_": "154" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_142_": true,
+          "_99_": "inner-output",
+          "_100_": "validateTrigger",
+          "_20_": "触发校验",
+          "_103_": {
+            "_69_": "object",
+            "_200_": { "_0_": { "_69_": "string", "_20_": "组件ID" } }
+          },
+          "_94_": { "_R_": "67" },
+          "_73_": {
+            "_69_": "object",
+            "_200_": { "_0_": { "_69_": "string", "_20_": "组件ID" } }
+          }
+        },
+        "151": {
+          "_F_": 9,
+          "_0_": "u_N65vW",
+          "_1_": { "_R_": "155" },
+          "_74_": 0,
+          "_75_": 2,
+          "_69_": "normal",
+          "_72_": false,
+          "_96_": [],
+          "_142_": true,
+          "_99_": "inner-output",
+          "_100_": "onChange",
+          "_20_": "表单项值变化",
+          "_103_": {
+            "_69_": "object",
+            "_200_": {
+              "_0_": { "_69_": "string", "_20_": "组件ID" },
+              "_37_": { "_69_": "any", "_20_": "组件值" }
+            }
+          },
+          "_94_": { "_R_": "67" },
+          "_73_": {
+            "_69_": "object",
+            "_200_": {
+              "_0_": { "_69_": "string", "_20_": "组件ID" },
+              "_37_": { "_69_": "any", "_20_": "组件值" }
+            }
+          }
+        },
+        "152": {
+          "_F_": 11,
+          "_0_": "u_PyI7m",
+          "_1_": { "_R_": "156" },
+          "_53_": [],
+          "_81_": [],
+          "_84_": [],
+          "_96_": [],
+          "_116_": [],
+          "_45_": {
+            "_130_": false,
+            "_62_": null,
+            "_17_": null,
+            "_44_": 400,
+            "_43_": 700
+          },
+          "_94_": { "_R_": "67" },
+          "_117_": "表单容器",
+          "_118_": 1712819646585,
+          "_119_": true,
+          "_120_": true,
+          "_20_": "表单容器",
+          "_122_": { "_131_": true }
+        },
+        "153": { "_F_": 1 },
+        "154": { "_F_": 1 },
+        "155": { "_F_": 1 },
+        "156": { "_F_": 1 }
+      },
+      "def": { "_R_": "0" }
+    }
+  },
+  "pageConfig": {
+    "comlibs": [
+      { "comAray": [], "id": "_myself_", "title": "我的组件", "defined": true },
+      {
+        "id": "7182",
+        "namespace": "mybricks.basic-comlib",
+        "version": "1.1.22",
+        "editJs": "https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.22/2024-04-08_21-34-21/edit.js",
+        "rtJs": "https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.22/2024-04-08_21-34-21/rt.js",
+        "coms": "https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.22/2024-04-08_21-34-21/rtCom.js"
+      },
+      {
+        "id": "7632",
+        "namespace": "mybricks.normal-pc",
+        "version": "1.5.76",
+        "editJs": "https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.76/2024-04-10_16-53-57/edit.js",
+        "rtJs": "https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.76/2024-04-10_16-53-57/rt.js",
+        "coms": "https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.76/2024-04-10_16-53-57/rtCom.js"
+      },
+      {
+        "id": "5952",
+        "namespace": "mybricks.normal-pc-chart",
+        "version": "1.0.18",
+        "editJs": "https://assets.mybricks.world/comlibs/mybricks.normal-pc-chart/1.0.18/2024-04-01_19-58-58/edit.js",
+        "rtJs": "https://assets.mybricks.world/comlibs/mybricks.normal-pc-chart/1.0.18/2024-04-01_19-58-58/rt.js",
+        "coms": "https://assets.mybricks.world/comlibs/mybricks.normal-pc-chart/1.0.18/2024-04-01_19-58-58/rtCom.js"
+      },
+      {
+        "id": 481405655703621,
+        "type": "com_lib",
+        "scope_status": 3,
+        "namespace": "mybricks.pro-pc",
+        "version": "1.0.72",
+        "creator_id": "Mybricks",
+        "creator_name": "Mybricks",
+        "create_time": 1695367477662,
+        "update_time": 1712731515769,
+        "updator_id": "475371754852421",
+        "updator_name": "",
+        "icon": "",
+        "preview_img": "",
+        "title": "PC扩展组件库",
+        "description": "PC偏高阶、复合类组件",
+        "status": 1,
+        "meta": "",
+        "scene_id": 1,
+        "content": "{\"editJs\":\"https://assets.mybricks.world/comlibs/mybricks.pro-pc/1.0.72/2024-04-10_14-43-20/edit.js\",\"rtJs\":\"https://assets.mybricks.world/comlibs/mybricks.pro-pc/1.0.72/2024-04-10_14-43-20/rt.js\",\"coms\":\"https://assets.mybricks.world/comlibs/mybricks.pro-pc/1.0.72/2024-04-10_14-43-20/rtCom.js\",\"deps\":[{\"namespace\":\"mybricks.pro-pc.editable-pro-table\",\"version\":\"1.0.27\"},{\"namespace\":\"mybricks.pro-pc.json-form\",\"version\":\"1.0.3\"},{\"namespace\":\"mybricks.pro-pc.logic-form\",\"version\":\"1.0.7\"}]}",
+        "material_pub_id": 552528755748933,
+        "material_id": 481405655703621,
+        "editJs": "https://assets.mybricks.world/comlibs/mybricks.pro-pc/1.0.72/2024-04-10_14-43-20/edit.js",
+        "rtJs": "https://assets.mybricks.world/comlibs/mybricks.pro-pc/1.0.72/2024-04-10_14-43-20/rt.js",
+        "coms": "https://assets.mybricks.world/comlibs/mybricks.pro-pc/1.0.72/2024-04-10_14-43-20/rtCom.js"
+      }
+    ],
+    "debugMockConfig": {
+      "debugQuery": [],
+      "debugProps": [],
+      "localStorageMock": [],
+      "debugHeaders": [],
+      "sessionStorageMock": []
+    },
+    "directConnection": false
+  }
+}
