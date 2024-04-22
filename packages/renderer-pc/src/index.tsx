@@ -20,7 +20,7 @@ const USE_CUSTOM_HOST = '__USE_CUSTOM_HOST__'
 
 export default forwardRef((props: RendererProps, ref: any) => {
   const currentRef = useRef<any>({});
-  const { json, config, comDefs, props: comProps } = props
+  const { json, config, comDefs, props: comProps = {} } = props
   const { envList, executeEnv, locale, i18nLangContent } = config
   const currentLocale = locale || navigator.language
 
