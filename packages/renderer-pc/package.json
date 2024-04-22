@@ -13,9 +13,16 @@
   "license": "ISC",
   "dependencies": {
     "@mybricks/com-utils": "1.0.0",
+    "@mybricks/comlib-basic": "^0.0.1",
+    "@mybricks/comlib-pc-normal": "^0.0.7",
     "@mybricks/render-web": "1.2.74-beta0"
   },
   "devDependencies": {
     "typescript": "^4.2.3"
+  },
+  "peerDependencies": {
+    "@ant-design/icons": "^4.7.0",
+    "antd": "^4.21.6",
+    "moment": "^2.29.1"
   }
 }

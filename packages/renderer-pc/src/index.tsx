@@ -1,8 +1,21 @@
-import React, { useRef, useMemo, useEffect, forwardRef, useImperativeHandle } from 'react'
+import React, {
+  useRef,
+  useMemo,
+  useEffect,
+  forwardRef,
+  useImperativeHandle,
+} from 'react'
 // import ReactDOM from 'react-dom'
+import * as PcLibs from '@mybricks/comlib-pc-normal'
+import * as BasicLibs from '@mybricks/comlib-basic'
 import { render as renderUI } from '@mybricks/render-web'
 import { parseQuery } from './utils'
 import { runJs } from '@mybricks/com-utils'
+
+const libraryNameMap = {
+  '@mybricks/comlib-pc-normal': PcLibs,
+  '@mybricks/comlib-basic': BasicLibs,
+}
 
 interface RendererProps {
   json: any
@@ -13,20 +26,20 @@ interface RendererProps {
     i18nLangContent
   }
   comDefs: any
-  props: any;
+  props: any
 }
 
 const USE_CUSTOM_HOST = '__USE_CUSTOM_HOST__'
 
 export default forwardRef((props: RendererProps, ref: any) => {
-  const currentRef = useRef<any>({});
+  const currentRef = useRef<any>({})
   const { json, config, comDefs, props: comProps = {} } = props
   const { envList, executeEnv, locale, i18nLangContent } = config
   const currentLocale = locale || navigator.language
 
   const { render, inputs, refs, refsPromise } = useMemo(() => {
     /** 多场景，默认取第一个场景信息 */
-    const { inputs, outputs, pinRels } = json.scenes[0];
+    const { inputs, outputs, pinRels } = json.scenes?.[0] || {}
     /** 组件props入参 */
     const relInputs = []
     /** 组件ref透出api */
@@ -36,10 +49,10 @@ export default forwardRef((props: RendererProps, ref: any) => {
     /** 被关联的输出项，不作为输出项处理 */
     const relsOutputIdMap = {}
 
-    console.log("pinRels: ", pinRels)
+    console.log('pinRels: ', pinRels)
 
-    inputs.forEach(({ id, type }) => {
-      if (type === "config") {
+    inputs?.forEach(({ id, type }) => {
+      if (type === 'config') {
         relInputs.push(id)
       } else {
         const rels = pinRels[`_rootFrame_-${id}`]
@@ -53,12 +66,21 @@ export default forwardRef((props: RendererProps, ref: any) => {
       }
     })
 
+    const curComDefs = {}
+    Object.keys(comDefs).forEach((key) => {
+      const item = comDefs[key]
+
+      curComDefs[key] = {
+        runtime: libraryNameMap[item.libraryName][item.runtimeName],
+      }
+    })
+
     return {
       inputs: relInputs,
       refs,
       refsPromise,
       render: renderUI(json, {
-        comDefs,
+        comDefs: curComDefs,
         env: {
           silent: true,
           showErrorNotification: false,
@@ -70,10 +92,11 @@ export default forwardRef((props: RendererProps, ref: any) => {
           // },
           callConnector(connector, params, connectorConfig = {}) {
             const plugin =
-              window[connector.connectorName] || window['@mybricks/plugins/service']
+              window[connector.connectorName] ||
+              window['@mybricks/plugins/service']
             //@ts-ignore
             const MYBRICKS_HOST = window?.MYBRICKS_HOST
-    
+
             if (isEqual(executeEnv, USE_CUSTOM_HOST)) {
               if (typeof MYBRICKS_HOST === 'undefined') {
                 console.error(`没有设置window.MYBRICKS_HOST变量`)
@@ -83,9 +106,9 @@ export default forwardRef((props: RendererProps, ref: any) => {
                 return
               }
             }
-    
+
             let newParams = params
-    
+
             if (isEqual(executeEnv, USE_CUSTOM_HOST)) {
               if (params instanceof FormData) {
                 newParams.append('MYBRICKS_HOST', JSON.stringify(MYBRICKS_HOST))
@@ -100,7 +123,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
                 : (json.plugins[connector.connectorName] || []).find(
                     (con) => con.id === connector.id
                   )
-    
+
               return curConnector
                 ? plugin.call({ ...connector, ...curConnector }, newParams, {
                     ...connectorConfig,
@@ -160,7 +183,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
                     s[e.slice(0, p)] = e.slice(p + 1)
                     return s
                   }, {})
-    
+
                   return cookies
                 }
               },
@@ -193,16 +216,16 @@ export default forwardRef((props: RendererProps, ref: any) => {
               if (!json?.hasPermissionFn) {
                 return true
               }
-    
+
               const code = permission?.register?.code || key
-    
+
               let result
-    
+
               try {
                 result = runJs(decodeURIComponent(json?.hasPermissionFn), [
                   { key: code },
                 ])
-    
+
                 if (typeof result !== 'boolean') {
                   result = true
                   console.warn(
@@ -215,64 +238,68 @@ export default forwardRef((props: RendererProps, ref: any) => {
                 result = true
                 console.error(`权限方法出错 [key] ${code}；`, error)
               }
-    
+
               return result
             }
           },
         },
         ref(refs) {
-          currentRef.current.refs = refs;
+          currentRef.current.refs = refs
 
           /** 注册事件 */
-          outputs.forEach(({ id }) => {
+          outputs?.forEach(({ id }) => {
             /** 注册事件，默认为空函数，并且为非被关联输出项 */
             if (!relsOutputIdMap[id]) {
-              refs.outputs(id, comProps[id] || function() {})
+              refs.outputs(id, comProps[id] || function () {})
             }
           })
         },
         /** 禁止主动触发IO、执行自执行计算组件 */
-        disableAutoRun: true
-      })
+        disableAutoRun: true,
+      }),
     }
   }, [])
 
-  useImperativeHandle(ref, () => {
-    const { current } = currentRef;
-    const res = {}
+  useImperativeHandle(
+    ref,
+    () => {
+      const { current } = currentRef
+      const res = {}
 
-    refs.reduce((p, c) => {
-      p[c] = current.refs.inputs[c];
-      return p
-    }, res)
+      refs.reduce((p, c) => {
+        p[c] = current.refs.inputs[c]
+        return p
+      }, res)
 
-    refsPromise.reduce((p, c) => {
-      const { inputId, outputId } = c
-      p[inputId] = (value) => {
-        return new Promise((resolve) => {
-          current.refs.outputs(outputId, resolve)
-          current.refs.inputs[inputId](value)
-        })
-      };
-      return p
-    }, res)
+      refsPromise.reduce((p, c) => {
+        const { inputId, outputId } = c
+        p[inputId] = (value) => {
+          return new Promise((resolve) => {
+            current.refs.outputs(outputId, resolve)
+            current.refs.inputs[inputId](value)
+          })
+        }
+        return p
+      }, res)
 
-    return res
-  }, [])
+      return res
+    },
+    []
+  )
 
   useEffect(() => {
-    const { props, refs } = currentRef.current;
+    const { props, refs } = currentRef.current
     /** 对比入参是否变更 */
     if (!props) {
-      currentRef.current.props = comProps;
+      currentRef.current.props = comProps
       inputs.forEach((id) => {
-        refs.inputs[id](comProps[id]);
+        refs.inputs[id](comProps[id])
       })
     } else {
       inputs.forEach((id) => {
         if (props[id] !== comProps[id]) {
-          props[id] = comProps[id];
-          refs.inputs[id](comProps[id]);
+          props[id] = comProps[id]
+          refs.inputs[id](comProps[id])
         }
       })
     }
