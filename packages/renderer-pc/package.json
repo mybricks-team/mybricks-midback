@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@mybricks/com-utils": "1.0.0",
-    "@mybricks/comlib-basic": "^0.0.1",
+    "@mybricks/comlib-basic": "^0.0.2",
     "@mybricks/comlib-pc-normal": "^0.0.7",
     "@mybricks/render-web": "1.2.74-beta0"
   },
