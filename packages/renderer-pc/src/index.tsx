@@ -291,7 +291,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
     const { props, refs } = currentRef.current
     /** 对比入参是否变更 */
     if (!props) {
-      currentRef.current.props = comProps
+      currentRef.current.props = {...comProps}
       inputs.forEach((id) => {
         refs.inputs[id](comProps[id])
       })
