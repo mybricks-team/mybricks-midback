@@ -6,16 +6,16 @@ import React, {
   useImperativeHandle,
 } from 'react'
 // import ReactDOM from 'react-dom'
-import * as PcLibs from '@mybricks/comlib-pc-normal'
-import * as BasicLibs from '@mybricks/comlib-basic'
+// import * as PcLibs from '@mybricks/comlib-pc-normal'
+// import * as BasicLibs from '@mybricks/comlib-basic'
 import { render as renderUI } from '@mybricks/render-web'
 import { parseQuery } from './utils'
 import { runJs } from '@mybricks/com-utils'
 
-const libraryNameMap = {
-  '@mybricks/comlib-pc-normal': PcLibs,
-  '@mybricks/comlib-basic': BasicLibs,
-}
+// const libraryNameMap = {
+//   '@mybricks/comlib-pc-normal': PcLibs,
+//   '@mybricks/comlib-basic': BasicLibs,
+// }
 
 interface RendererProps {
   json: any
@@ -66,21 +66,21 @@ export default forwardRef((props: RendererProps, ref: any) => {
       }
     })
 
-    const curComDefs = {}
-    Object.keys(comDefs).forEach((key) => {
-      const item = comDefs[key]
+    // const curComDefs = {}
+    // Object.keys(comDefs).forEach((key) => {
+    //   const item = comDefs[key]
 
-      curComDefs[key] = {
-        runtime: libraryNameMap[item.libraryName][item.runtimeName],
-      }
-    })
+    //   curComDefs[key] = {
+    //     runtime: libraryNameMap[item.libraryName][item.runtimeName],
+    //   }
+    // })
 
     return {
       inputs: relInputs,
       refs,
       refsPromise,
       render: renderUI(json, {
-        comDefs: curComDefs,
+        comDefs,
         env: {
           silent: true,
           showErrorNotification: false,
