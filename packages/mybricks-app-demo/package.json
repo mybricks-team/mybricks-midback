@@ -52,7 +52,7 @@
     "@mybricks/plugin-locale": "^1.0.1",
     "@mybricks/plugin-tools": "^1.0.17",
     "@mybricks/render-web": "^1.2.68",
-    "@mybricks/renderer-pc": "1.0.0-beta.1",
+    "@mybricks/renderer-pc": "1.0.0",
     "antd": "4.21.6"
   }
 }
