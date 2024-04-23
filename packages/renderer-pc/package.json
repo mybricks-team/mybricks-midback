@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/renderer-pc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "src/index.tsx",
   "scripts": {
@@ -14,7 +14,7 @@
   "dependencies": {
     "@mybricks/com-utils": "1.0.0",
     "@mybricks/comlib-basic": "^0.0.2",
-    "@mybricks/comlib-pc-normal": "^0.0.9",
+    "@mybricks/comlib-pc-normal": "^0.0.10",
     "@mybricks/render-web": "1.2.74-beta0"
   },
   "devDependencies": {
