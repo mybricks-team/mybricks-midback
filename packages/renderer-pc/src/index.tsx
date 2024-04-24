@@ -24,6 +24,7 @@ interface RendererProps {
     executeEnv
     locale
     i18nLangContent
+    silent?
   }
   comDefs: any
   props: any
@@ -34,7 +35,7 @@ const USE_CUSTOM_HOST = '__USE_CUSTOM_HOST__'
 export default forwardRef((props: RendererProps, ref: any) => {
   const currentRef = useRef<any>({})
   const { json, config, comDefs, props: comProps = {} } = props
-  const { envList, executeEnv, locale, i18nLangContent } = config
+  const { envList, executeEnv, locale, i18nLangContent, silent = true } = config
   const currentLocale = locale || navigator.language
 
   const { render, inputs, refs, refsPromise } = useMemo(() => {
@@ -82,7 +83,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
       render: renderUI(json, {
         comDefs,
         env: {
-          silent: true,
+          silent,
           showErrorNotification: false,
           // renderCom(json, opts, coms) { // 云组件咱不实现
           //   return renderUI(json, {
@@ -244,7 +245,14 @@ export default forwardRef((props: RendererProps, ref: any) => {
           },
         },
         ref(refs) {
-          currentRef.current.refs = refs
+          currentRef.current = {
+            refs,
+            props: { ...comProps }
+          }
+          /** 默认触发一次props输入 */
+          relInputs.forEach((id) => {
+            refs.inputs[id](comProps[id])
+          })
 
           /** 注册事件 */
           outputs?.forEach(({ id }) => {
@@ -287,22 +295,15 @@ export default forwardRef((props: RendererProps, ref: any) => {
     []
   )
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     const { props, refs } = currentRef.current
     /** 对比入参是否变更 */
-    if (!props) {
-      currentRef.current.props = { ...comProps }
-      inputs.forEach((id) => {
+    inputs.forEach((id) => {
+      if (props[id] !== comProps[id]) {
+        props[id] = comProps[id]
         refs.inputs[id](comProps[id])
-      })
-    } else {
-      inputs.forEach((id) => {
-        if (props[id] !== comProps[id]) {
-          props[id] = comProps[id]
-          refs.inputs[id](comProps[id])
-        }
-      })
-    }
+      }
+    })
   }, [comProps])
 
   return render
@@ -326,4 +327,16 @@ const combineHostAndPath = (host, path) => {
 
 const isEqual = (param1, param2) => {
   return param1 === param2
+}
+
+function useUpdateEffect(effect: React.EffectCallback, deps?: React.DependencyList): void {
+  const isInit = useRef<boolean>(false)
+
+  useEffect(() => {
+    if (isInit.current) {
+      effect()
+    } else {
+      isInit.current = true
+    }
+  }, deps)
 }
