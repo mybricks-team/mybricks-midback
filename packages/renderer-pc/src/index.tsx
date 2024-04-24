@@ -34,8 +34,8 @@ const USE_CUSTOM_HOST = '__USE_CUSTOM_HOST__'
 
 export default forwardRef((props: RendererProps, ref: any) => {
   const currentRef = useRef<any>({})
-  const { json, config, comDefs, props: comProps = {} } = props
-  const { envList, executeEnv, locale, i18nLangContent, silent = true } = config
+  const { json, config, comDefs, props: { _console = {}, ...comProps } } = props
+  const { envList, executeEnv, locale, i18nLangContent } = config
   const currentLocale = locale || navigator.language
 
   const { render, inputs, refs, refsPromise } = useMemo(() => {
@@ -83,7 +83,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
       render: renderUI(json, {
         comDefs,
         env: {
-          silent,
+          silent: _console.logger ? false : true,
           showErrorNotification: false,
           // renderCom(json, opts, coms) { // 云组件咱不实现
           //   return renderUI(json, {
