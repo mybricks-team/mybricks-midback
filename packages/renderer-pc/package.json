@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/renderer-pc",
-  "version": "1.0.5-beta1",
+  "version": "1.0.5",
   "description": "",
   "main": "src/index.tsx",
   "scripts": {
@@ -13,7 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "@mybricks/com-utils": "1.0.0",
-    "@mybricks/render-web": "1.2.76-beta2"
+    "@mybricks/render-web": "1.2.76-beta2",
+    "@mybricks/plugin-connector-http": "1.2.14"
   },
   "devDependencies": {
     "typescript": "^4.2.3"

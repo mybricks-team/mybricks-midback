@@ -11,12 +11,11 @@ import React, {
 import { render as renderUI } from '@mybricks/render-web'
 import { parseQuery } from './utils'
 import { runJs } from '@mybricks/com-utils'
-
+import { call as connectorCall } from '@mybricks/plugin-connector-http'
 // const libraryNameMap = {
 //   '@mybricks/comlib-pc-normal': PcLibs,
 //   '@mybricks/comlib-basic': BasicLibs,
 // }
-
 interface RendererProps {
   json: any
   config: {
@@ -92,9 +91,9 @@ export default forwardRef((props: RendererProps, ref: any) => {
           //   });
           // },
           callConnector(connector, params, connectorConfig = {}) {
-            const plugin =
-              window[connector.connectorName] ||
-              window['@mybricks/plugins/service']
+            // const plugin =
+            //   window[connector.connectorName] ||
+            //   window['@mybricks/plugins/service']
             //@ts-ignore
             const MYBRICKS_HOST = window?.MYBRICKS_HOST
 
@@ -117,34 +116,28 @@ export default forwardRef((props: RendererProps, ref: any) => {
                 newParams = { ...params, MYBRICKS_HOST: { ...MYBRICKS_HOST } }
               }
             }
-            if (plugin) {
-              /** 兼容云组件，云组件会自带 script */
-              const curConnector = connector.script
-                ? connector
-                : (json.plugins[connector.connectorName] || []).find(
-                    (con) => con.id === connector.id
-                  )
+            /** 兼容云组件，云组件会自带 script */
+            const curConnector = connector.script
+              ? connector
+              : (json.plugins[connector.connectorName] || []).find(
+                (con) => con.id === connector.id
+              )
 
-              return curConnector
-                ? plugin.call({ ...connector, ...curConnector }, newParams, {
-                    ...connectorConfig,
-                    /** http-sql表示为领域接口 */
-                    before: (options) => {
-                      return {
-                        ...options,
-                        url: shapeUrlByEnv(
-                          envList,
-                          executeEnv,
-                          options.url,
-                          MYBRICKS_HOST
-                        ),
-                      }
-                    },
-                  })
-                : Promise.reject('接口不存在，请检查连接器插件中接口配置')
-            } else {
-              return Promise.reject('错误的连接器类型')
-            }
+            return connectorCall({ ...connector, ...curConnector }, newParams, {
+              ...connectorConfig,
+              /** http-sql表示为领域接口 */
+              before: (options) => {
+                return {
+                  ...options,
+                  url: shapeUrlByEnv(
+                    envList,
+                    executeEnv,
+                    options.url,
+                    MYBRICKS_HOST
+                  ),
+                }
+              },
+            })
           },
           i18n(title) {
             //多语言
@@ -258,7 +251,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
           outputs?.forEach(({ id }) => {
             /** 注册事件，默认为空函数，并且为非被关联输出项 */
             if (!relsOutputIdMap[id]) {
-              refs.outputs(id, comProps[id] || function () {})
+              refs.outputs(id, comProps[id] || function () { })
             }
           })
         },
