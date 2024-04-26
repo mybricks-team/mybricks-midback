@@ -47,11 +47,14 @@ export default forwardRef((props: RendererProps, ref: any) => {
     const refsPromise = []
     /** 被关联的输出项，不作为输出项处理 */
     const relsOutputIdMap = {}
+    /** 配置的默认值（默认入参，如果入参不存在使用默认值） */
+    const defaultComProps = {}
 
-    // console.log('pinRels: ', pinRels)
-
-    inputs?.forEach(({ id, type }) => {
+    inputs?.forEach(({ id, type, extValues }) => {
       if (type === 'config') {
+        /** 默认值 */
+        const defaultValue = extValues?.config?.defaultValue
+        defaultComProps[id] = defaultValue
         relInputs.push(id)
       } else {
         const rels = pinRels[`_rootFrame_-${id}`]
@@ -234,7 +237,11 @@ export default forwardRef((props: RendererProps, ref: any) => {
           }
           /** 默认触发一次props输入 */
           relInputs.forEach((id) => {
-            refs.inputs[id](comProps[id])
+            if (id in comProps) {
+              refs.inputs[id](comProps[id])
+            } else {
+              refs.inputs[id](defaultComProps[id])
+            }
           })
 
           /** 注册事件 */
@@ -282,9 +289,11 @@ export default forwardRef((props: RendererProps, ref: any) => {
     const { props, refs } = currentRef.current
     /** 对比入参是否变更 */
     inputs.forEach((id) => {
-      if (props[id] !== comProps[id]) {
-        props[id] = comProps[id]
-        refs.inputs[id](comProps[id])
+      if (id in props) {
+        if (props[id] !== comProps[id]) {
+          props[id] = comProps[id]
+          refs.inputs[id](comProps[id])
+        }
       }
     })
   }, [comProps])
