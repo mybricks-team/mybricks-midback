@@ -10,6 +10,10 @@ import { parseQuery } from '../utils'
 import { runJs } from '@mybricks/com-utils'
 import { call as connectorCall } from '@mybricks/plugin-connector-http/runtime/index'
 
+if (!window.React) {
+  window.React = React
+}
+
 interface RendererProps {
   json: any
   config: {
@@ -113,8 +117,8 @@ export default forwardRef((props: RendererProps, ref: any) => {
             const curConnector = connector.script
               ? connector
               : (json.plugins[connector.connectorName] || []).find(
-                (con) => con.id === connector.id
-              )
+                  (con) => con.id === connector.id
+                )
 
             return connectorCall({ ...connector, ...curConnector }, newParams, {
               ...connectorConfig,
@@ -248,7 +252,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
           outputs?.forEach(({ id }) => {
             /** 注册事件，默认为空函数，并且为非被关联输出项 */
             if (!relsOutputIdMap[id]) {
-              refs.outputs(id, comProps[id] || function () { })
+              refs.outputs(id, comProps[id] || function () {})
             }
           })
         },

@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { applyPureReactInVue } from 'veaury'
 import Core from '../core/index.tsx'
 
@@ -19,12 +19,12 @@ const { props, config, json, comDefs } = defineProps(['props', 'config', 'json',
 
 const currentRef = ref()
 
-// onMounted((props) => {
-//   console.log(props)
-//   setTimeout(() => {
-//     console.log(currentRef.value.__veauryReactRef__)
-//   }, 0);
-// })
+const emit = defineEmits(['_my-on-mounted'])
+
+onMounted(() => {
+  emit('_my-on-mounted')
+})
+
 defineExpose({
   currentRef
 })
