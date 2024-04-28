@@ -10,9 +10,9 @@ import { parseQuery } from '../utils'
 import { runJs } from '@mybricks/com-utils'
 import { call as connectorCall } from '@mybricks/plugin-connector-http/runtime/index'
 
-if (!window.React) {
-  window.React = React
-}
+// if (!window.React) {
+//   window.React = React
+// }
 
 interface RendererProps {
   json: any
