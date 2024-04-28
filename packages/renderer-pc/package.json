@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/renderer-pc",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "src/index.tsx",
   "scripts": {
@@ -23,7 +23,7 @@
   "peerDependencies": {
     "@ant-design/icons": "^4.7.0",
     "@mybricks/comlib-basic": "^0.0.3",
-    "@mybricks/comlib-pc-normal": "^0.0.13",
+    "@mybricks/comlib-pc-normal": "^0.0.14",
     "antd": "^4.21.6",
     "moment": "^2.29.1",
     "react": ">=16.9.0",
