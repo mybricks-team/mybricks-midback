@@ -8,16 +8,16 @@
   />
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, onMounted } from 'vue'
 import { applyPureReactInVue } from 'veaury'
-import Core from '../core/index.tsx'
+import Core from '../core/index'
 
 const RendererCore = applyPureReactInVue(Core)
 
 const { props, config, json, comDefs } = defineProps(['props', 'config', 'json', 'comDefs'])
 
-const currentRef = ref()
+const currentRef = ref(null)
 
 const emit = defineEmits(['_my-on-mounted'])
 
@@ -28,33 +28,4 @@ onMounted(() => {
 defineExpose({
   currentRef
 })
-
-
-// const onClick = (currentRef) => {
-//   console.log(currentRef.__veauryReactRef__)
-// }
-
-
-
-// export default {
-//   props: ['props', 'config', 'json', 'comDefs'],
-//   components: {
-//     Renderer: applyPureReactInVue(RendererComponent)
-//   },
-//   setup(props) {
-//     const currentRef = ref()
-
-//     const onClick = (currentRef) => {
-//       console.log(currentRef.__veauryReactRef__)
-//     }
-//     onMounted(() => {
-//       console.log(currentRef, currentRef.__veauryReactRef__)
-//     })
-//     return {
-//       currentRef,
-//       onClick
-//     }
-//   }
-// }
-
 </script>

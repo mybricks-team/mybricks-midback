@@ -2,9 +2,9 @@ export const decode = (str: string) => {
   try {
     return decodeURIComponent(str)
   } catch (err) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn(false, `Error decoding "${str}". Leaving it intact.`)
-    }
+    // if (process.env.NODE_ENV !== 'production') {
+    //   console.warn(false, `Error decoding "${str}". Leaving it intact.`)
+    // }
   }
   return str
 }

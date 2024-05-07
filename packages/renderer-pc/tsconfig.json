@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "declaration": true,
+    "declarationDir": "./dist",
     "importHelpers": false,
     "target": "es5",
     "jsx": "react",
@@ -14,13 +15,11 @@
     "strict": false,
     "checkJs": false,
     "baseUrl": "./",
-    "paths": {
-      "@": ["src"],
-      "@/*": ["src/*"]
-    },
+    "paths": {},
     "allowSyntheticDefaultImports": true
   },
   "compileOnSave": true,
-  "include": ["./src/**/*"],
+  "files": ["shims-vue.d.ts"],
+  "include": ["./src/**/*", "./src/**/*.vue"],
   "exclude": ["node_modules", "dist"]
 }
