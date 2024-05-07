@@ -8,7 +8,7 @@
   />
 </template>
 
-<script lang="ts" setup>
+<script setup>
 import { ref, onMounted } from 'vue'
 import { applyPureReactInVue } from 'veaury'
 import Core from '../core/index'
