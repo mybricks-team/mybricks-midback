@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/renderer-pc",
-  "version": "1.0.10-beta.6",
+  "version": "1.0.10",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -12,7 +12,6 @@
       "default": "./dist/index.js"
     },
     "./toVue": {
-      "import": "./dist/toVue.esm.js",
       "types": "./dist/toVue.d.ts",
       "default": "./dist/toVue.js"
     }
