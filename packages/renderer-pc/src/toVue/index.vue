@@ -5,6 +5,8 @@
     :props="props"
     :config="config"
     :comDefs="comDefs"
+    :className="className"
+    :style="style"
   />
 </template>
 
@@ -15,7 +17,7 @@ import Core from '../core/index'
 
 const RendererCore = applyPureReactInVue(Core)
 
-const { props, config, json, comDefs } = defineProps(['props', 'config', 'json', 'comDefs'])
+const { props, config, json, comDefs, className, style } = defineProps(['props', 'config', 'json', 'comDefs', 'className', 'style'])
 
 const currentRef = ref(null)
 

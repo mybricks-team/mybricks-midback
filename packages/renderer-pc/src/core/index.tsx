@@ -25,6 +25,8 @@ interface RendererProps {
   }
   comDefs: any
   props: any
+  className: string,
+  style: React.CSSProperties
 }
 
 const USE_CUSTOM_HOST = '__USE_CUSTOM_HOST__'
@@ -36,6 +38,8 @@ export default forwardRef((props: RendererProps, ref: any) => {
     config,
     comDefs,
     props: { _console = {}, ...comProps },
+    className,
+    style,
   } = props
   const { envList, executeEnv, locale, i18nLangContent } = config
   const currentLocale = locale || navigator.language
@@ -77,6 +81,8 @@ export default forwardRef((props: RendererProps, ref: any) => {
       refs,
       refsPromise,
       render: renderUI(json, {
+        className,
+        style,
         comDefs,
         env: {
           silent: _console.logger ? false : true,
@@ -117,8 +123,8 @@ export default forwardRef((props: RendererProps, ref: any) => {
             const curConnector = connector.script
               ? connector
               : (json.plugins[connector.connectorName] || []).find(
-                  (con) => con.id === connector.id
-                )
+                (con) => con.id === connector.id
+              )
 
             return connectorCall({ ...connector, ...curConnector }, newParams, {
               ...connectorConfig,
@@ -252,7 +258,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
           outputs?.forEach(({ id }) => {
             /** 注册事件，默认为空函数，并且为非被关联输出项 */
             if (!relsOutputIdMap[id]) {
-              refs.outputs(id, comProps[id] || function () {})
+              refs.outputs(id, comProps[id] || function () { })
             }
           })
         },
