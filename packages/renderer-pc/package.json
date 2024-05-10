@@ -59,8 +59,8 @@
   },
   "peerDependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@mybricks/comlib-basic": "^1.1.33",
-    "@mybricks/comlib-pc-normal": "^1.5.95",
+    "@mybricks/comlib-basic": "^0.0.5",
+    "@mybricks/comlib-pc-normal": "^0.0.16",
     "antd": "^4.21.6",
     "moment": "^2.29.1",
     "react": ">=16.9.0",
