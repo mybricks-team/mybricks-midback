@@ -22,6 +22,7 @@ interface RendererProps {
     locale
     i18nLangContent
     silent?
+    extractFns
   }
   comDefs: any
   props: any
@@ -41,7 +42,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
     className,
     style,
   } = props
-  const { envList, executeEnv, locale, i18nLangContent } = config
+  const { envList, executeEnv, locale, i18nLangContent, extractFns = [] } = config
   const currentLocale = locale || navigator.language
 
   const { render, inputs, refs, refsPromise } = useMemo(() => {
@@ -87,6 +88,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
         env: {
           silent: _console.logger ? false : true,
           showErrorNotification: false,
+          toCode: true, // 出码
           // renderCom(json, opts, coms) { // 云组件咱不实现
           //   return renderUI(json, {
           //     comDefs: { ...getComs(), ...coms },
@@ -150,6 +152,9 @@ export default forwardRef((props: RendererProps, ref: any) => {
               JSON.stringify(title)
             )
             //return title;
+          },
+          get extractFns() {
+            return extractFns
           },
           get vars() {
             // 环境变量

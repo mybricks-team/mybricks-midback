@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/renderer-pc",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -59,7 +59,7 @@
   },
   "peerDependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@mybricks/comlib-basic": "^0.0.4",
+    "@mybricks/comlib-basic": "^1.1.33",
     "@mybricks/comlib-pc-normal": "^0.0.15",
     "antd": "^4.21.6",
     "moment": "^2.29.1",
