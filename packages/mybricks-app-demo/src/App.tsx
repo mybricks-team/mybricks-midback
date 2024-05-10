@@ -45,8 +45,8 @@ export default function MyDesigner() {
       namespace: 'mybricks.normal-pc',
       title: '通用PC组件库',
       editJs:
-        // 'https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.25/2024-03-04_20-51-40/edit.js',
-        'http://localhost:8001/libEdt.js',
+        'https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.25/2024-03-04_20-51-40/edit.js',
+        // 'http://localhost:8001/libEdt.js',
     },
     {
       id: '313',

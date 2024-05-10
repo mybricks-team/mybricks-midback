@@ -4,4 +4,11 @@ const SourceEnum = {
   CloudComponentDependentComponents: "CloudComponentDependentComponents",
   MySelfId: "_myself_",
 };
-export { SourceEnum };
+
+const MySelf_COM_LIB = {
+  comAray: [],
+  id: "_myself_",
+  title: "我的组件",
+  defined: true,
+};
+export { SourceEnum, MySelf_COM_LIB };

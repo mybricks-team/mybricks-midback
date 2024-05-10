@@ -24,9 +24,12 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
        * init
        */
       const initLibs = await initComLib(libs);
+      // debugger
+      console.log('非libDesc', initLibs)
       return resolve(initLibs);
     }
     const { cmd, comNamespace } = libDesc;
+    // debugger
     try {
       if (cmd) {
         switch (cmd) {
@@ -65,6 +68,7 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
             ...lib,
             ...resolveLibField(libDesc),
           };
+          // debugger
           const upgradeLib = await upgradeComLib(lib, libs);
           return resolve(upgradeLib);
         } else {

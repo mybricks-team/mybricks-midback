@@ -11,6 +11,14 @@ const getDebugBaseConfig = (sdkContext: SdkContext) => {
     plugins: [],
     comLibAdder: getComLibAdder(material.comLibs),
     comLibLoader: getComLibLoader(material.comLibs),
+    // comLibLoader() {
+    //   return new Promise((resolve, reject) => {
+    //     resolve([
+    //       // 'https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.25/2024-03-04_20-51-40/edit.js',
+    //       `https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.16/2024-03-01_16-59-05/edit.js`,
+    //     ])
+    //   })
+    // },
     pageContentLoader() {
       return new Promise((resolve) => {
         resolve(pageContent.pageSchema || {})
