@@ -26,8 +26,8 @@ interface RendererProps {
   }
   comDefs: any
   props: any
-  className: string,
-  style: React.CSSProperties
+  className?: string,
+  style?: React.CSSProperties
 }
 
 const USE_CUSTOM_HOST = '__USE_CUSTOM_HOST__'
