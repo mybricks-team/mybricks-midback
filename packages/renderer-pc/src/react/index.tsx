@@ -50,7 +50,7 @@ export interface RendererProps {
 
 const USE_CUSTOM_HOST = "__USE_CUSTOM_HOST__";
 
-// 全局Context
+/** 全局Context */
 export const RendererContext = createContext<any>({});
 
 export const Renderer = forwardRef((props: RendererProps, ref: any) => {
@@ -61,7 +61,6 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
     props: { _console = {}, ...comProps },
     children,
   } = props;
-
   const {
     envList,
     executeEnv,
@@ -78,6 +77,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
         comDefs[namespace] = { data, runtime, inputs, outputs };
       },
     );
+    /** 场景状态 */
     const canvasStatusMap = {};
 
     class CanvasStatus {
@@ -120,14 +120,18 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
         },
       };
 
+      /** 触发inputs，未注册ui的场景，需要添加todo */
       inputTodos = [];
+      /** 便于查找 */
       inputTodoPinIdToValue = {};
 
       addTodo = (todo) => {
         const { type, params } = todo;
         if (type === "inputs") {
+          // 如果是输入项
           const { inputTodos, inputTodoPinIdToValue } = this;
           const { pinId, value } = params;
+          // 防止同inputID多次添加
           if (!inputTodoPinIdToValue[pinId]) {
             inputTodos.push(pinId);
             inputTodoPinIdToValue[pinId] = value;
@@ -149,6 +153,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       };
     }
 
+    // 注册各场景信息
     json.scenes.forEach((scene, index) => {
       const main = index === 0;
       canvasStatusMap[scene.id] = new CanvasStatus(main, scene, main);
@@ -170,13 +175,16 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
 
     inputs?.forEach(({ id, type, extValues }) => {
       if (type === "config") {
+        // 配置项，做为props
         /** 默认值 */
         const defaultValue = extValues?.config?.defaultValue;
         defaultComProps[id] = defaultValue;
         relInputs.push(id);
       } else {
+        // 输入项，通过ref调用
         const rels = pinRels[`_rootFrame_-${id}`];
         if (rels) {
+          // 有rels，认为是promise
           const outputId = rels[0];
           refsPromise.push({ inputId: id, outputId });
           relsOutputIdMap[outputId];
@@ -186,6 +194,16 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       }
     });
 
+    /** 便于通过id查找全局FX信息 */
+    const globalFxIdToFrame = {};
+    json.global.fxFrames.forEach((fx) => {
+      // 设置_v，excutor支持diff模式
+      fx._v = "2024-diff";
+      globalFxIdToFrame[fx.id] = fx;
+    })
+    
+
+    /** 传入组件的env */
     const env = {
       runtime: {},
       canvas: {
@@ -205,11 +223,14 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
           const canvasStatus = canvasStatusMap[frameId];
 
           if (canvasStatus.show) {
+            // 如果场景已经打开
             canvasStatus.parentScope = parentScope; // 这个是用于场景的输出，调用parentScope.outputs[xx]
             const { refs, addTodo } = canvasStatus;
             if (refs) {
+              // 已经注册
               refs.inputs[pinId](value);
             } else {
+              // 未注册
               addTodo({ type: "inputs", params: { pinId, value } });
             }
           }
@@ -218,8 +239,37 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
         _notifyBindings(params) {
           // log("scenesOperate._notifyBindings: ", params);
         },
-        open(params) {
-          log("scenesOperate.open: ", params);
+        /** 目前仅用于触发全局FX */
+        open({ frameId, comProps, parentScope, todo }) {
+          const fxFrame = globalFxIdToFrame[frameId]
+          runExecutor({
+            json: fxFrame,
+            ref(refs) {
+              const { inputs, outputs } = refs
+  
+              // 注册fx输出
+              fxFrame.outputs.forEach((output) => {
+                outputs(output.id, (value) => {
+                  // 输出对应到fx组件的输出
+                  parentScope.outputs[output.id](value)
+                })
+              })
+
+              /** 配置项 */
+              const configs = comProps?.data?.configs
+              if (configs) {
+                // 先触发配置项
+                Object.entries(configs).forEach(([key, value]) => {
+                  inputs[key](value, void 0, false)
+                })
+              }
+              // 调用inputs
+              inputs[todo.pinId](todo.value, void 0, false)
+              // 执行自执行组件
+              refs.run()
+            },
+            type: "fx" // fxFrame.type === "fx"
+          })
         },
         /** 获取全局变量信息 */
         getGlobalComProps(comId) {
@@ -390,13 +440,16 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       return comDefs[def.namespace];
     }
 
-    function runExecutor({ json, ref }) {
+    function runExecutor({ json, ref, type }: any) {
       executor(
         {
           json,
           env,
           ref(refs) {
-            canvasStatusMap[json.id].refs = refs;
+            if (type !== "fx") {
+              // fx不需要注册到canvas
+              canvasStatusMap[json.id].refs = refs;
+            }
             ref(refs);
           },
           getComDef,
@@ -414,7 +467,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
           refs,
           props: { ...comProps },
         };
-        /** 默认触发一次props输入 */
+        // 默认触发一次props输入
         relInputs.forEach((id) => {
           if (id in comProps) {
             refs.inputs[id](comProps[id]);
@@ -423,15 +476,15 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
           }
         });
 
-        /** 注册事件 */
+        // 注册事件
         outputs?.forEach(({ id }) => {
-          /** 注册事件，默认为空函数，并且为非被关联输出项 */
+          // 注册事件，默认为空函数，并且为非被关联输出项
           if (!relsOutputIdMap[id]) {
             refs.outputs(id, comProps[id] || function () {});
           }
         });
 
-        /** 执行自执行组件 */
+        // 执行自执行组件
         refs.run();
       },
     });
@@ -492,7 +545,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
 
   useUpdateEffect(() => {
     const { props, refs } = currentRef.current;
-    /** 对比入参是否变更 */
+    // 对比入参是否变更
     inputs.forEach((id) => {
       if (id in props) {
         if (props[id] !== comProps[id]) {
