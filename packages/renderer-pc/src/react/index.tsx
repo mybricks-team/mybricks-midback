@@ -19,12 +19,14 @@ import comlibCore from "@mybricks/comlib-core";
 import { Component } from "./component";
 import { Slot } from "./slot";
 import { Canvas } from "./canvas";
+import { Module } from "./module";
 import { parseQuery } from "../utils";
 
 export { 
   Component,
   Slot,
-  Canvas
+  Canvas,
+  Module
 }
 
 hijackReactcreateElement({});
@@ -71,6 +73,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
   const currentLocale = locale || navigator.language;
   const currentRef = useRef<any>();
   const { render, inputs, refs, refsPromise } = useMemo(() => {
+    const { modules, scenes, global } = json;
     // 默认内置组件注册
     comlibCore.comAray.forEach(
       ({ namespace, runtime, data, inputs, outputs }: any) => {
@@ -154,14 +157,14 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
     }
 
     // 注册各场景信息
-    json.scenes.forEach((scene, index) => {
+    scenes.forEach((scene, index) => {
       const main = index === 0;
       canvasStatusMap[scene.id] = new CanvasStatus(main, scene, main);
       // 设置_v，excutor支持diff模式
       scene._v = "2024-diff";
     });
 
-    const { id: mainId, inputs, outputs, pinRels } = json.scenes[0];
+    const { id: mainId, inputs, outputs, pinRels } = scenes[0];
     /** 组件props入参 */
     const relInputs = [];
     /** 组件ref透出api */
@@ -196,12 +199,11 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
 
     /** 便于通过id查找全局FX信息 */
     const globalFxIdToFrame = {};
-    json.global.fxFrames.forEach((fx) => {
+    global.fxFrames.forEach((fx) => {
       // 设置_v，excutor支持diff模式
       fx._v = "2024-diff";
       globalFxIdToFrame[fx.id] = fx;
     })
-    
 
     /** 传入组件的env */
     const env = {
@@ -436,18 +438,23 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       },
     };
 
+    /** 获取组件定义 */
     function getComDef(def) {
       return comDefs[def.namespace];
     }
-
+    /** 获取模块json */
+    function getModuleJSON(moduleId: string) {
+      return modules[moduleId].json;
+    }
+    /** 执行executor */
     function runExecutor({ json, ref, type }: any) {
       executor(
         {
           json,
           env,
           ref(refs) {
-            if (type !== "fx") {
-              // fx不需要注册到canvas
+            if (!["fx", "module"].includes(type)) {
+              // fx、module 不需要注册到canvas
               canvasStatusMap[json.id].refs = refs;
             }
             ref(refs);
@@ -495,6 +502,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
           json,
           env,
           getComDef,
+          getModuleJSON,
           canvasStatusMap,
           runExecutor,
           logger: {
@@ -502,6 +510,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
               console.error(...args);
             },
           },
+          CanvasStatus,
         }}
       >
         {children}

@@ -1,3 +1,11 @@
-import Core from './core/index'
+import { Renderer, Canvas, Slot, Component, Module } from "./react";
 
-export default Core
+export { Renderer, Canvas, Slot, Component, Module };
+
+export default {
+  Renderer,
+  Canvas,
+  Slot,
+  Component,
+  Module
+};
