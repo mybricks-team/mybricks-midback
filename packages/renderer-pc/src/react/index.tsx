@@ -143,7 +143,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
           // 执行todo
           const { inputs } = refs;
           inputTodos.forEach((pinId) => {
-            inputs[pinId](inputTodoPinIdToValue[pinId], id);
+            inputs[pinId](inputTodoPinIdToValue[pinId], this.json.id);
           });
         }
       };
@@ -156,7 +156,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       scene._v = "2024-diff";
     });
 
-    const { id, inputs, outputs, pinRels } = json.scenes[0];
+    const { id: mainId, inputs, outputs, pinRels } = json.scenes[0];
     /** 组件props入参 */
     const relInputs = [];
     /** 组件ref透出api */
@@ -192,6 +192,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
         get type() {
           return document.body.clientWidth <= 414 ? "mobile" : "pc"; // 初始化时根据屏幕宽度设置type
         },
+        /** 打开场景 */
         open(canvasId, params, openType) {
           // TODO: openType 用于判断打开方式，popup为null
           const canvasStatus = canvasStatusMap[canvasId];
@@ -199,6 +200,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
         },
       },
       scenesOperate: {
+        /** 调用场景inputs */
         inputs({ frameId, parentScope, pinId, type, value }) {
           const canvasStatus = canvasStatusMap[frameId];
 
@@ -212,17 +214,22 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
             }
           }
         },
-        exeGlobalCom(params) {
-          log("scenesOperate.exeGlobalCom: ", params);
-        },
+        /** 变量绑定 - 暂时没人用，等需求再实现 */
         _notifyBindings(params) {
-          log("scenesOperate._notifyBindings: ", params);
+          // log("scenesOperate._notifyBindings: ", params);
         },
         open(params) {
           log("scenesOperate.open: ", params);
         },
-        getGlobalComProps(params) {
-          log("scenesOperate.getGlobalComProps: ", params);
+        /** 获取全局变量信息 */
+        getGlobalComProps(comId) {
+          // 从主场景获取真实数据即可
+          return currentRef.current.refs.get({comId});
+        },
+        /** 触发全局变量inputs */
+        exeGlobalCom({ com, pinId, value }) {
+          // 从主场景获取全局变量信息，调用outputs
+          currentRef.current.refs.get({comId: com.id}).outputs[pinId](value, true, null, true)
         },
       },
       silent: _console.logger ? false : true,
@@ -401,7 +408,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
     }
 
     runExecutor({
-      json: canvasStatusMap[id].json, // 输入仅支持主场景
+      json: canvasStatusMap[mainId].json, // 输入仅支持主场景
       ref(refs) {
         currentRef.current = {
           refs,
@@ -540,3 +547,4 @@ function useUpdateEffect(
     }
   }, deps);
 }
+
