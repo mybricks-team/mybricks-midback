@@ -11,13 +11,39 @@ export function Component({
   const [, setShow] = useState(false);
   const { getComDef, env, logger } = useContext(RendererContext);
   const { refs, _env } = useContext(CanvasContext);
+  const { hasPermission, permissions } = env;
+  const comInfo = refs.getComInfo(id);
   const {
     scope,
     slot,
     props: { itemWrap },
   } = useContext(SlotContext);
-  const comProps = refs.get({ comId: id, scope });
   const { name, def, slots } = slot.comAry.find((com) => com.id === id);
+    // TODO: 封装到hook
+  const permissionsId = comInfo.model.permissions?.id;
+  if (permissionsId && typeof hasPermission === 'function') {
+    const permissionInfo = hasPermission(permissionsId);
+    if (!permissionInfo || (typeof permissionInfo !== 'boolean' && !permissionInfo.permission)) {
+      // 没有权限信息或权限信息里的permission为false
+      const envPermissionInfo = permissions.find((p: any) => p.id === permissionsId);
+      const type = permissionInfo?.type || envPermissionInfo?.register.noPrivilege;
+      if (type === 'hintLink') {
+        return (
+          <div key={id}>
+            <a
+              href={permissionInfo?.hintLinkUrl || envPermissionInfo.hintLink}
+              target="_blank"
+              style={{textDecoration: 'underline'}}
+            >
+              {permissionInfo?.hintLinkTitle || envPermissionInfo.register.title}
+            </a>
+          </div>
+        )
+      }
+      return
+    }
+  }
+  const comProps = refs.get({ comId: id, scope });
   const {
     data,
     title,

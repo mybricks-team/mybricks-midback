@@ -73,7 +73,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
   const currentLocale = locale || navigator.language;
   const currentRef = useRef<any>();
   const { render, inputs, refs, refsPromise } = useMemo(() => {
-    const { modules, scenes, global } = json;
+    const { modules, scenes, global, permissions = [] } = json;
     // 默认内置组件注册
     comlibCore.comAray.forEach(
       ({ namespace, runtime, data, inputs, outputs }: any) => {
@@ -466,7 +466,24 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
         },
       );
     }
+    function hijackHasPermission(env) {
+      const hasPermission = env.hasPermission
+      if (typeof hasPermission === 'function') {
+        Object.defineProperty(env, 'hasPermission', {
+          get: function() {
+            return (value) => {
+              if (typeof value === 'string') {
+                const permission = permissions.find((permission) => permission.id === value)
+                return hasPermission({ permission })
+              }
+              return hasPermission(value)
+            }
+          }
+        })
+      }
+    }
 
+    hijackHasPermission(env);
     runExecutor({
       json: canvasStatusMap[mainId].json, // 输入仅支持主场景
       ref(refs) {
@@ -505,6 +522,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
           getModuleJSON,
           canvasStatusMap,
           runExecutor,
+          permissions,
           logger: {
             error(...args) {
               console.error(...args);
