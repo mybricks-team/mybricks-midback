@@ -72,7 +72,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
   } = config;
   const currentLocale = locale || navigator.language;
   const currentRef = useRef<any>();
-  const { render, inputs, refs, refsPromise } = useMemo(() => {
+  const { render, inputs, refs, refsPromise, isPage } = useMemo(() => {
     const { modules, scenes, global, permissions = [] } = json;
     // 默认内置组件注册
     comlibCore.comAray.forEach(
@@ -164,7 +164,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       scene._v = "2024-diff";
     });
 
-    const { id: mainId, inputs, outputs, pinRels } = scenes[0];
+    const { id: mainId, inputs, outputs, pinRels, slot } = scenes[0];
     /** 组件props入参 */
     const relInputs = [];
     /** 组件ref透出api */
@@ -483,6 +483,8 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       }
     }
 
+    const isPage = !slot.showType // 没有showType，默认为页面，showType === "module" 为组件
+
     hijackHasPermission(env);
     runExecutor({
       json: canvasStatusMap[mainId].json, // 输入仅支持主场景
@@ -507,6 +509,12 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
             refs.outputs(id, comProps[id] || function () {});
           }
         });
+
+        if (isPage) {
+          inputs.forEach(({ id }) => {
+            refs.inputs[id]()
+          })
+        }
 
         // 执行自执行组件
         refs.run();
@@ -540,10 +548,11 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       refs,
       refsPromise,
       render,
+      isPage
     };
   }, []);
 
-  useImperativeHandle(
+  !isPage && useImperativeHandle(
     ref,
     () => {
       const { current } = currentRef;
@@ -570,7 +579,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
     [],
   );
 
-  useUpdateEffect(() => {
+  !isPage && useUpdateEffect(() => {
     const { props, refs } = currentRef.current;
     // 对比入参是否变更
     inputs.forEach((id) => {
