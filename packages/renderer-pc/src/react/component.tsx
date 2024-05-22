@@ -9,9 +9,9 @@ export function Component({
   children,
 }: React.PropsWithChildren<{ id: string; scope?: any }>) {
   const [, setShow] = useState(false);
-  const { getComDef, env, logger } = useContext(RendererContext);
+  const { getComDef, env, logger, permissions } = useContext(RendererContext);
   const { refs, _env } = useContext(CanvasContext);
-  const { hasPermission, permissions } = env;
+  const { hasPermission } = env;
   const comInfo = refs.getComInfo(id);
   const {
     scope,
