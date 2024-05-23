@@ -11,8 +11,6 @@ import {
   observable,
   hijackReactcreateElement,
 } from "@mybricks/render-core";
-import { runJs } from "@mybricks/com-utils";
-import { call as connectorCall } from "@mybricks/plugin-connector-http/runtime/index";
 // @ts-ignore
 import comlibCore from "@mybricks/comlib-core";
 
@@ -20,7 +18,7 @@ import { Component } from "./component";
 import { Slot } from "./slot";
 import { Canvas } from "./canvas";
 import { Module } from "./module";
-import { parseQuery } from "../utils";
+import { generateEnv } from "../basic";
 
 export { 
   Component,
@@ -208,245 +206,96 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
     })
 
     /** 传入组件的env */
-    const env = {
-      runtime: {},
-      canvas: {
-        get type() {
-          return document.body.clientWidth <= 414 ? "mobile" : "pc"; // 初始化时根据屏幕宽度设置type
-        },
-        /** 打开场景 */
-        open(canvasId, params, openType) {
-          // TODO: openType 用于判断打开方式，popup为null
-          const canvasStatus = canvasStatusMap[canvasId];
-          canvasStatus.show = true;
-          if (openType) {
-            // 打开的是页面，关闭其他页面
-            Object.entries(canvasStatusMap).forEach(([id, canvasStatus]) => {
-              if (id !== canvasId) {
-                canvasStatus.show = false;
-              }
-            })
-          }
-        },
+    const env = generateEnv(props) as any;
+    // 运行环境标识
+    env.runtime = {}
+    // 画布相关
+    env.canvas = {
+      /** 类型，屏幕宽度小于414标识为mobile */
+      get type() {
+        return document.body.clientWidth <= 414 ? "mobile" : "pc"; // 初始化时根据屏幕宽度设置type
       },
-      scenesOperate: {
-        /** 调用场景inputs */
-        inputs({ frameId, parentScope, pinId, type, value }) {
-          const canvasStatus = canvasStatusMap[frameId];
-
-          if (canvasStatus.show) {
-            // 如果场景已经打开
-            canvasStatus.parentScope = parentScope; // 这个是用于场景的输出，调用parentScope.outputs[xx]
-            const { refs, addTodo } = canvasStatus;
-            if (refs) {
-              // 已经注册
-              refs.inputs[pinId](value);
-            } else {
-              // 未注册
-              addTodo({ type: "inputs", params: { pinId, value } });
+      /** 打开场景 */
+      open(canvasId, params, openType) {
+        // TODO: openType 用于判断打开方式，popup为null
+        const canvasStatus = canvasStatusMap[canvasId];
+        canvasStatus.show = true;
+        if (openType) {
+          // 打开的是页面，关闭其他页面
+          Object.entries(canvasStatusMap).forEach(([id, canvasStatus]) => {
+            if (id !== canvasId) {
+              canvasStatus.show = false;
             }
-          }
-        },
-        /** 变量绑定 - 暂时没人用，等需求再实现 */
-        _notifyBindings(params) {
-          // log("scenesOperate._notifyBindings: ", params);
-        },
-        /** 目前仅用于触发全局FX */
-        open({ frameId, comProps, parentScope, todo }) {
-          const fxFrame = globalFxIdToFrame[frameId]
-          runExecutor({
-            json: fxFrame,
-            ref(refs) {
-              const { inputs, outputs } = refs
-  
-              // 注册fx输出
-              fxFrame.outputs.forEach((output) => {
-                outputs(output.id, (value) => {
-                  // 输出对应到fx组件的输出
-                  parentScope.outputs[output.id](value)
-                })
-              })
-
-              /** 配置项 */
-              const configs = comProps?.data?.configs
-              if (configs) {
-                // 先触发配置项
-                Object.entries(configs).forEach(([key, value]) => {
-                  inputs[key](value, void 0, false)
-                })
-              }
-              // 调用inputs
-              inputs[todo.pinId](todo.value, void 0, false)
-              // 执行自执行组件
-              refs.run()
-            },
-            type: "fx" // fxFrame.type === "fx"
           })
-        },
-        /** 获取全局变量信息 */
-        getGlobalComProps(comId) {
-          // 从主场景获取真实数据即可
-          return currentRef.current.refs.get({comId});
-        },
-        /** 触发全局变量inputs */
-        exeGlobalCom({ com, pinId, value }) {
-          // 从主场景获取全局变量信息，调用outputs
-          currentRef.current.refs.get({comId: com.id}).outputs[pinId](value, true, null, true)
-        },
-      },
-      silent: _console.logger ? false : true,
-      showErrorNotification: false,
-      toCode: true, // 出码
-      callConnector(connector, params, connectorConfig = {}) {
-        // const plugin =
-        //   window[connector.connectorName] ||
-        //   window['@mybricks/plugins/service']
-        //@ts-ignore
-        const MYBRICKS_HOST = window?.MYBRICKS_HOST;
-
-        if (isEqual(executeEnv, USE_CUSTOM_HOST)) {
-          if (typeof MYBRICKS_HOST === "undefined") {
-            console.error(`没有设置window.MYBRICKS_HOST变量`);
-            return;
-          } else if (!MYBRICKS_HOST.default) {
-            console.error(`没有设置window.MYBRICKS_HOST.default`);
-            return;
-          }
         }
+      },
+    }
+    /** 场景相关操作 */
+    const scenesOperate = {
+      /** 调用场景inputs */
+      inputs({ frameId, parentScope, pinId, type, value }) {
+        const canvasStatus = canvasStatusMap[frameId];
 
-        let newParams = params;
-
-        if (isEqual(executeEnv, USE_CUSTOM_HOST)) {
-          if (params instanceof FormData) {
-            newParams.append("MYBRICKS_HOST", JSON.stringify(MYBRICKS_HOST));
+        if (canvasStatus.show) {
+          // 如果场景已经打开
+          canvasStatus.parentScope = parentScope; // 这个是用于场景的输出，调用parentScope.outputs[xx]
+          const { refs, addTodo } = canvasStatus;
+          if (refs) {
+            // 已经注册
+            refs.inputs[pinId](value);
           } else {
-            newParams = { ...params, MYBRICKS_HOST: { ...MYBRICKS_HOST } };
+            // 未注册
+            addTodo({ type: "inputs", params: { pinId, value } });
           }
         }
-        /** 兼容云组件，云组件会自带 script */
-        const curConnector = connector.script
-          ? connector
-          : (json.plugins[connector.connectorName] || []).find(
-              (con) => con.id === connector.id,
-            );
-
-        return connectorCall({ ...connector, ...curConnector }, newParams, {
-          ...connectorConfig,
-          /** http-sql表示为领域接口 */
-          before: (options) => {
-            return {
-              ...options,
-              url: shapeUrlByEnv(
-                envList,
-                executeEnv,
-                options.url,
-                MYBRICKS_HOST,
-              ),
-            };
-          },
-        });
       },
-      i18n(title) {
-        //多语言
-        if (typeof title?.id === "undefined") return title;
-        return (
-          i18nLangContent[title.id]?.content?.[currentLocale] ||
-          JSON.stringify(title)
-        );
-        //return title;
+      /** 变量绑定 - 暂时没人用，等需求再实现 */
+      _notifyBindings(params) {
+        // log("scenesOperate._notifyBindings: ", params);
       },
-      get extractFns() {
-        return extractFns;
-      },
-      get vars() {
-        // 环境变量
-        return {
-          get getExecuteEnv() {
-            return () => executeEnv;
-          },
-          get getQuery() {
-            return () => {
-              return parseQuery(location.search);
-            };
-          },
-          //antd 语言包地址
-          get locale() {
-            return currentLocale;
-          },
-          get getProps() {
-            // 获取主应用参数方法，如：token等参数，取决于主应用传入
-            return () => {
-              if (!props) return undefined;
-              return props;
-            };
-          },
-          get getCookies() {
-            return () => {
-              const cookies = document.cookie.split("; ").reduce((s, e) => {
-                const p = e.indexOf("=");
-                s[e.slice(0, p)] = e.slice(p + 1);
-                return s;
-              }, {});
+      /** 目前仅用于触发全局FX */
+      open({ frameId, comProps, parentScope, todo }) {
+        const fxFrame = globalFxIdToFrame[frameId]
+        runExecutor({
+          json: fxFrame,
+          ref(refs) {
+            const { inputs, outputs } = refs
 
-              return cookies;
-            };
-          },
-          get getRouter() {
-            const isUri = (url) => {
-              return /^http[s]?:\/\/([\w\-\.]+)+[\w-]*([\w\-\.\/\?%&=]+)?$/gi.test(
-                url,
-              );
-            };
-            return () => ({
-              reload: () => location.reload(),
-              redirect: ({ url }) => location.replace(url),
-              back: () => history.back(),
-              forward: () => history.forward(),
-              pushState: ({ state, title, url }) => {
-                if (isUri(url)) {
-                  //兼容uri
-                  location.href = url;
-                } else {
-                  history.pushState(state, title, url);
-                }
-              },
-              openTab: ({ url, title }) => open(url, title || "_blank"),
-            });
-          },
-        };
-      },
-      get hasPermission() {
-        return ({ permission, key }) => {
-          if (!json?.hasPermissionFn) {
-            return true;
-          }
+            // 注册fx输出
+            fxFrame.outputs.forEach((output) => {
+              outputs(output.id, (value) => {
+                // 输出对应到fx组件的输出
+                parentScope.outputs[output.id](value)
+              })
+            })
 
-          const code = permission?.register?.code || key;
-
-          let result;
-
-          try {
-            result = runJs(decodeURIComponent(json?.hasPermissionFn), [
-              { key: code },
-            ]);
-
-            if (typeof result !== "boolean") {
-              result = true;
-              console.warn(
-                `权限方法返回值类型应为 Boolean 请检查，[key] ${code}; [返回值] type: ${typeof result}; value: ${JSON.stringify(
-                  result,
-                )}`,
-              );
+            /** 配置项 */
+            const configs = comProps?.data?.configs
+            if (configs) {
+              // 先触发配置项
+              Object.entries(configs).forEach(([key, value]) => {
+                inputs[key](value, void 0, false)
+              })
             }
-          } catch (error) {
-            result = true;
-            console.error(`权限方法出错 [key] ${code}；`, error);
-          }
-
-          return result;
-        };
+            // 调用inputs
+            inputs[todo.pinId](todo.value, void 0, false)
+            // 执行自执行组件
+            refs.run()
+          },
+          type: "fx" // fxFrame.type === "fx"
+        })
       },
-    };
+      /** 获取全局变量信息 */
+      getGlobalComProps(comId) {
+        // 从主场景获取真实数据即可
+        return currentRef.current.refs.get({comId});
+      },
+      /** 触发全局变量inputs */
+      exeGlobalCom({ com, pinId, value }) {
+        // 从主场景获取全局变量信息，调用outputs
+        currentRef.current.refs.get({comId: com.id}).outputs[pinId](value, true, null, true)
+      },
+    }
 
     /** 获取组件定义 */
     function getComDef(def) {
@@ -470,6 +319,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
             ref(refs);
           },
           getComDef,
+          scenesOperate
         },
         {
           observable
@@ -495,10 +345,11 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
         env.hasPermission = () => true
       }
     }
+    hijackHasPermission(env);
 
+    /** 是页面出码 */
     const isPage = !slot.showType // 没有showType，默认为页面，showType === "module" 为组件
 
-    hijackHasPermission(env);
     runExecutor({
       json: canvasStatusMap[mainId].json, // 输入仅支持主场景
       ref(refs) {

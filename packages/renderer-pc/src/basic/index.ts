@@ -1,0 +1,1 @@
+export { generateEnv } from "./env";
