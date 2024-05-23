@@ -81,7 +81,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       },
     );
     /** 场景状态 */
-    const canvasStatusMap = {};
+    const canvasStatusMap: {[key: string]: CanvasStatus} = {};
 
     class CanvasStatus {
       constructor(
@@ -91,6 +91,8 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       ) {}
 
       refs;
+
+      parentScope;
 
       /** 更新状态 */
       refresh() {}
@@ -217,6 +219,14 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
           // TODO: openType 用于判断打开方式，popup为null
           const canvasStatus = canvasStatusMap[canvasId];
           canvasStatus.show = true;
+          if (openType) {
+            // 打开的是页面，关闭其他页面
+            Object.entries(canvasStatusMap).forEach(([id, canvasStatus]) => {
+              if (id !== canvasId) {
+                canvasStatus.show = false;
+              }
+            })
+          }
         },
       },
       scenesOperate: {
