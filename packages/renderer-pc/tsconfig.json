@@ -16,7 +16,8 @@
     "checkJs": false,
     "baseUrl": "./",
     "paths": {},
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
   },
   "compileOnSave": true,
   "files": ["shims-vue.d.ts"],

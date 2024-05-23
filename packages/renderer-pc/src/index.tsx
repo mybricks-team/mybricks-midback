@@ -1,11 +1,25 @@
-import { Renderer, Canvas, Slot, Component, Module } from "./react";
+import { Renderer, Canvas, Slot, Component, Module } from './react'
+import { compareVersionLatest } from './utils'
+import Package from '../package.json'
 
-export { Renderer, Canvas, Slot, Component, Module };
+const version = Package.version
+
+export {
+  Renderer,
+  Canvas,
+  Slot,
+  Component,
+  Module,
+  version,
+  compareVersionLatest,
+}
 
 export default {
   Renderer,
   Canvas,
   Slot,
   Component,
-  Module
-};
+  Module,
+  version,
+  compareVersionLatest,
+}
