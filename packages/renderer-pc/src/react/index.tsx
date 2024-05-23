@@ -490,6 +490,9 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
             }
           }
         })
+      } else {
+        // 默认为有权限
+        env.hasPermission = () => true
       }
     }
 

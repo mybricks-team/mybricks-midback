@@ -3,6 +3,7 @@ import React, { useMemo, useContext } from "react";
 import { RendererContext } from ".";
 import { SlotContext } from "./slot";
 import { CanvasContext } from "./canvas";
+import { useCheckPermissions } from "./hooks";
 
 export function Module({ id, comId, children }: React.PropsWithChildren<{
   /** 模块ID */
@@ -10,8 +11,13 @@ export function Module({ id, comId, children }: React.PropsWithChildren<{
   /** 组件ID */
   comId: string;
 }>) {
-  const { runExecutor, getModuleJSON, CanvasStatus } = useContext(RendererContext);
+  const { runExecutor, getModuleJSON, CanvasStatus, env, permissions } = useContext(RendererContext);
+  const { hasPermission } = env;
   const { refs } = useContext(CanvasContext)
+  const { next, dom } = useCheckPermissions({ id: comId, refs, hasPermission, permissions })
+  if (!next) {
+    return dom
+  }
   const { scope } = useContext(SlotContext);
 
   const { canvasStatus, json, style } = useMemo(() => {

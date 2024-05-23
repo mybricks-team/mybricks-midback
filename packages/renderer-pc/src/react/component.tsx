@@ -3,112 +3,83 @@ import React, { useMemo, useState, useLayoutEffect, useContext } from "react";
 import { SlotContext, ScopeSlot, NormalSlot } from "./slot";
 import { RendererContext } from ".";
 import { CanvasContext } from "./canvas";
+import { useCheckPermissions } from "./hooks";
 
 export function Component({
   id,
   children,
 }: React.PropsWithChildren<{ id: string; scope?: any }>) {
-  const [, setShow] = useState(false);
   const { getComDef, env, logger, permissions } = useContext(RendererContext);
   const { refs, _env } = useContext(CanvasContext);
   const { hasPermission } = env;
-  const comInfo = refs.getComInfo(id);
+  const { next, dom } = useCheckPermissions({ id, refs, hasPermission, permissions })
+  if (!next) {
+    return dom
+  }
+  const [, setShow] = useState(false);
   const {
     scope,
     slot,
     props: { itemWrap },
   } = useContext(SlotContext);
-  const { name, def, slots } = slot.comAry.find((com) => com.id === id);
-    // TODO: 封装到hook
-  const permissionsId = comInfo.model.permissions?.id;
-  if (permissionsId && typeof hasPermission === 'function') {
-    const permissionInfo = hasPermission(permissionsId);
-    if (!permissionInfo || (typeof permissionInfo !== 'boolean' && !permissionInfo.permission)) {
-      // 没有权限信息或权限信息里的permission为false
-      const envPermissionInfo = permissions.find((p: any) => p.id === permissionsId);
-      const type = permissionInfo?.type || envPermissionInfo?.register.noPrivilege;
-      if (type === 'hintLink') {
-        return (
-          <div key={id}>
-            <a
-              href={permissionInfo?.hintLinkUrl || envPermissionInfo.hintLink}
-              target="_blank"
-              style={{textDecoration: 'underline'}}
-            >
-              {permissionInfo?.hintLinkTitle || envPermissionInfo.register.title}
-            </a>
-          </div>
-        )
-      }
-      return
-    }
-  }
-  const comProps = refs.get({ comId: id, scope });
-  const {
-    data,
-    title,
-    style,
-    inputs: myInputs,
-    outputs: myOutputs,
-    _inputs: _myInputs,
-    _outputs: _myOutputs,
-    _notifyBindings: _myNotifyBindings,
-  } = comProps;
-  const comDef = getComDef(def);
-  const proxySlots = new Proxy(
-    {},
-    {
-      get(_, slotId) {
-        let currentScope = null;
-
-        if (scope) {
-          currentScope = {
-            id: scope.id + "-" + scope.frameId,
-            frameId: slotId,
-            parentComId: id,
-            parent: scope,
+  const { name, proxySlots, parentSlot, comDef, comProps } = useMemo(() => {
+    const { name, def, slots } = slot.comAry.find((com) => com.id === id);
+    const comProps = refs.get({ comId: id, scope });
+    const comDef = getComDef(def);
+    const proxySlots = new Proxy(
+      {},
+      {
+        get(_, slotId) {
+          let currentScope = null;
+  
+          if (scope) {
+            currentScope = {
+              id: scope.id + "-" + scope.frameId,
+              frameId: slotId,
+              parentComId: id,
+              parent: scope,
+            };
+          }
+  
+          const scopeProps = refs.get({ comId: id, slotId, scope: currentScope });
+  
+          return {
+            render(props) {
+              let childrenProps;
+  
+              if (Array.isArray(children)) {
+                const child = children.find((child) => child.props.id === slotId);
+                childrenProps = child.props;
+              } else {
+                // @ts-ignore
+                childrenProps = children.props;
+              }
+  
+              return (
+                <ScopeSlot
+                  props={props}
+                  scopeProps={scopeProps}
+                  currentScope={currentScope}
+                  slot={slots[slotId]}
+                  slotId={slotId}
+                  parentComId={id}
+                >
+                  <NormalSlot props={props} childrenProps={childrenProps} />
+                </ScopeSlot>
+              );
+            },
+            get size() {
+              return !!slots[slotId]?.comAry?.length;
+            },
+            _inputs: scopeProps._inputs,
+            inputs: scopeProps.inputs,
+            outputs: scopeProps.outputs,
           };
-        }
-
-        const scopeProps = refs.get({ comId: id, slotId, scope: currentScope });
-
-        return {
-          render(props) {
-            let childrenProps;
-
-            if (Array.isArray(children)) {
-              const child = children.find((child) => child.props.id === slotId);
-              childrenProps = child.props;
-            } else {
-              // @ts-ignore
-              childrenProps = children.props;
-            }
-
-            return (
-              <ScopeSlot
-                props={props}
-                scopeProps={scopeProps}
-                currentScope={currentScope}
-                slot={slots[slotId]}
-                slotId={slotId}
-                parentComId={id}
-              >
-                <NormalSlot props={props} childrenProps={childrenProps} />
-              </ScopeSlot>
-            );
-          },
-          get size() {
-            return !!slots[slotId]?.comAry?.length;
-          },
-          _inputs: scopeProps._inputs,
-          inputs: scopeProps.inputs,
-          outputs: scopeProps.outputs,
-        };
+        },
       },
-    },
-  );
+    );
 
-  const parentSlot = useMemo(() => {
+    let parentSlot
     if (comProps.frameId && comProps.parentComId) {
       const finalScope = scope?.parentScope || scope;
       const slotProps = refs.get({
@@ -117,7 +88,7 @@ export function Component({
         scope: finalScope?.parent ? finalScope : null,
       });
       if (slotProps) {
-        return {
+        parentSlot = {
           get _inputs() {
             return new Proxy(
               {},
@@ -132,7 +103,27 @@ export function Component({
         };
       }
     }
-  }, []);
+
+    return {
+      name,
+      comDef,
+      comProps,
+      proxySlots,
+      parentSlot
+    }
+  }, [])
+
+  const {
+    data,
+    title,
+    style,
+    inputs: myInputs,
+    outputs: myOutputs,
+    _inputs: _myInputs,
+    _outputs: _myOutputs,
+    _notifyBindings: _myNotifyBindings,
+  } = comProps;
+
   let jsx = comDef.runtime({
     id,
     env,

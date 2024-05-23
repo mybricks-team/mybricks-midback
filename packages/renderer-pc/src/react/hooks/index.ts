@@ -1,0 +1,1 @@
+export { useCheckPermissions } from "./useCheckPermissions";
