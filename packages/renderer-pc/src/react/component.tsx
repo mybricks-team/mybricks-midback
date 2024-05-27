@@ -47,12 +47,14 @@ export function Component({
             render(props) {
               let childrenProps;
   
-              if (Array.isArray(children)) {
-                const child = children.find((child) => child.props.id === slotId);
-                childrenProps = child.props;
-              } else {
-                // @ts-ignore
-                childrenProps = children.props;
+              if (children) {
+                if (Array.isArray(children)) {
+                  const child = children.find((child) => child.props.id === slotId);
+                  childrenProps = child.props;
+                } else {
+                  // @ts-ignore
+                  childrenProps = children.props;
+                }
               }
   
               return (
