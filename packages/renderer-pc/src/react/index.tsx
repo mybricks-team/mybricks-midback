@@ -29,10 +29,6 @@ export {
 
 hijackReactcreateElement({});
 
-function log(...args) {
-  return console.log(...args);
-}
-
 export interface RendererProps {
   json: any;
   config: {
@@ -48,27 +44,16 @@ export interface RendererProps {
   children?: React.ReactNode;
 }
 
-const USE_CUSTOM_HOST = "__USE_CUSTOM_HOST__";
-
 /** 全局Context */
 export const RendererContext = createContext<any>({});
 
 export const Renderer = forwardRef((props: RendererProps, ref: any) => {
   const {
     json,
-    config,
     comDefs = {},
     props: { _console = {}, ...comProps },
     children,
   } = props;
-  const {
-    envList,
-    executeEnv,
-    locale,
-    i18nLangContent,
-    extractFns = [],
-  } = config;
-  const currentLocale = locale || navigator.language;
   const currentRef = useRef<any>();
   const { render, inputs, refs, refsPromise, isPage } = useMemo(() => {
     const { modules, scenes, global, permissions = [] } = json;
@@ -465,26 +450,6 @@ export default {
   Slot,
   Component
 }
-
-const shapeUrlByEnv = (envList, env, url, mybricksHost) => {
-  if (!envList || !env || /^(https?|ws)/.test(url)) return url;
-  if (env === USE_CUSTOM_HOST) {
-    return combineHostAndPath(mybricksHost.default, url);
-  }
-  const data = (envList || []).find((item) => item.name === env);
-  if (!data || !data.value) return url;
-  return data.value + url;
-};
-
-const combineHostAndPath = (host, path) => {
-  const _host = host.replace(/\/$/, "");
-  const _path = path.replace(/^\//, "");
-  return _host + "/" + _path;
-};
-
-const isEqual = (param1, param2) => {
-  return param1 === param2;
-};
 
 function useUpdateEffect(
   effect: React.EffectCallback,
