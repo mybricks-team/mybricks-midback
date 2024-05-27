@@ -11,14 +11,13 @@ import {
   observable,
   hijackReactcreateElement,
 } from "@mybricks/render-core";
-// @ts-ignore
-import comlibCore from "@mybricks/comlib-core";
 
 import { Component } from "./component";
 import { Slot } from "./slot";
 import { Canvas } from "./canvas";
 import { Module } from "./module";
-import { generateEnv } from "../basic";
+import { generateEnv, createComponentGetter } from "../basic";
+import type { NormalRendererProps } from "../basic";
 
 export { 
   Component,
@@ -29,18 +28,7 @@ export {
 
 hijackReactcreateElement({});
 
-export interface RendererProps {
-  json: any;
-  config: {
-    envList;
-    executeEnv;
-    locale;
-    i18nLangContent;
-    silent?;
-    extractFns;
-  };
-  comDefs: any;
-  props: any;
+export interface RendererProps extends NormalRendererProps {
   children?: React.ReactNode;
 }
 
@@ -57,12 +45,6 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
   const currentRef = useRef<any>();
   const { render, inputs, refs, refsPromise, isPage } = useMemo(() => {
     const { modules, scenes, global, permissions = [] } = json;
-    // 默认内置组件注册
-    comlibCore.comAray.forEach(
-      ({ namespace, runtime, data, inputs, outputs }: any) => {
-        comDefs[namespace] = { data, runtime, inputs, outputs };
-      },
-    );
     /** 场景状态 */
     const canvasStatusMap: {[key: string]: CanvasStatus} = {};
 
@@ -283,9 +265,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
     }
 
     /** 获取组件定义 */
-    function getComDef(def) {
-      return comDefs[def.namespace];
-    }
+    const getComDef = createComponentGetter(comDefs);
     /** 获取模块json */
     function getModuleJSON(moduleId: string) {
       return modules[moduleId].json;
