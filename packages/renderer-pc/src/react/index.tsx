@@ -15,12 +15,7 @@ import { Module } from "./module";
 import { init, generateEnv, generateRef } from "../basic";
 import type { NormalRendererProps } from "../basic";
 
-export { 
-  Component,
-  Slot,
-  Canvas,
-  Module
-}
+export { Component, Slot, Canvas, Module };
 
 hijackReactcreateElement({});
 
@@ -52,8 +47,8 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       permissions,
       CanvasStatus,
       refsPromise,
-      propertyChangeHandler
-    } = init({ json, env, comProps, comDefs, observable })
+      propertyChangeHandler,
+    } = init({ json, env, comProps, comDefs, observable });
     currentRef.current = {
       refs: mainRefs,
       props: { ...comProps },
@@ -84,19 +79,22 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       refs,
       refsPromise,
       render,
-      propertyChangeHandler
+      propertyChangeHandler,
     };
   }, []);
 
-  propertyChangeHandler && useImperativeHandle(
-    ref,
-    () => generateRef({ mainRefs: currentRef.current.refs, refs, refsPromise }),
-    [],
-  );
+  propertyChangeHandler &&
+    useImperativeHandle(
+      ref,
+      () =>
+        generateRef({ mainRefs: currentRef.current.refs, refs, refsPromise }),
+      [],
+    );
 
-  propertyChangeHandler && useUpdateEffect(() => {
-    propertyChangeHandler(comProps)
-  }, [comProps]);
+  propertyChangeHandler &&
+    useUpdateEffect(() => {
+      propertyChangeHandler(comProps);
+    }, [comProps]);
 
   return render;
 });
@@ -105,8 +103,8 @@ export default {
   Renderer,
   Canvas,
   Slot,
-  Component
-}
+  Component,
+};
 
 function useUpdateEffect(
   effect: React.EffectCallback,

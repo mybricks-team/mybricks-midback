@@ -1,4 +1,3 @@
-
 import { runJs } from "@mybricks/com-utils";
 import { call as connectorCall } from "@mybricks/plugin-connector-http/runtime/index";
 
@@ -7,7 +6,7 @@ import type { RendererProps } from "../react";
 
 const USE_CUSTOM_HOST = "__USE_CUSTOM_HOST__";
 export const generateEnv = (props: RendererProps) => {
-  const { json, config } = props
+  const { json, config } = props;
   const {
     envList,
     executeEnv,
@@ -59,12 +58,7 @@ export const generateEnv = (props: RendererProps) => {
         before: (options) => {
           return {
             ...options,
-            url: shapeUrlByEnv(
-              envList,
-              executeEnv,
-              options.url,
-              MYBRICKS_HOST,
-            ),
+            url: shapeUrlByEnv(envList, executeEnv, options.url, MYBRICKS_HOST),
           };
         },
       });

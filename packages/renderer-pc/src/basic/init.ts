@@ -3,10 +3,10 @@ import { createComponentGetter } from "./index";
 
 /** 初始化 */
 export function init({ json, env, comDefs, comProps, observable }) {
-  let mainRefs
+  let mainRefs;
   const { modules, scenes, global, permissions = [] } = json;
   /** 场景状态 */
-  const canvasStatusMap: {[key: string]: CanvasStatus} = {};
+  const canvasStatusMap: { [key: string]: CanvasStatus } = {};
 
   class CanvasStatus {
     constructor(
@@ -130,10 +130,10 @@ export function init({ json, env, comDefs, comProps, observable }) {
     // 设置_v，excutor支持diff模式
     fx._v = "2024-diff";
     globalFxIdToFrame[fx.id] = fx;
-  })
+  });
 
   // 运行环境标识
-  env.runtime = {}
+  env.runtime = {};
   // 画布相关
   env.canvas = {
     /** 类型，屏幕宽度小于414标识为mobile */
@@ -151,10 +151,10 @@ export function init({ json, env, comDefs, comProps, observable }) {
           if (id !== canvasId) {
             canvasStatus.show = false;
           }
-        })
+        });
       }
     },
-  }
+  };
   /** 场景相关操作 */
   const scenesOperate = {
     /** 调用场景inputs */
@@ -180,47 +180,47 @@ export function init({ json, env, comDefs, comProps, observable }) {
     },
     /** 目前仅用于触发全局FX */
     open({ frameId, comProps, parentScope, todo }) {
-      const fxFrame = globalFxIdToFrame[frameId]
+      const fxFrame = globalFxIdToFrame[frameId];
       runExecutor({
         json: fxFrame,
         ref(refs) {
-          const { inputs, outputs } = refs
+          const { inputs, outputs } = refs;
 
           // 注册fx输出
           fxFrame.outputs.forEach((output) => {
             outputs(output.id, (value) => {
               // 输出对应到fx组件的输出
-              parentScope.outputs[output.id](value)
-            })
-          })
+              parentScope.outputs[output.id](value);
+            });
+          });
 
           /** 配置项 */
-          const configs = comProps?.data?.configs
+          const configs = comProps?.data?.configs;
           if (configs) {
             // 先触发配置项
             Object.entries(configs).forEach(([key, value]) => {
-              inputs[key](value, void 0, false)
-            })
+              inputs[key](value, void 0, false);
+            });
           }
           // 调用inputs
-          inputs[todo.pinId](todo.value, void 0, false)
+          inputs[todo.pinId](todo.value, void 0, false);
           // 执行自执行组件
-          refs.run()
+          refs.run();
         },
-        type: "fx" // fxFrame.type === "fx"
-      })
+        type: "fx", // fxFrame.type === "fx"
+      });
     },
     /** 获取全局变量信息 */
     getGlobalComProps(comId) {
       // 从主场景获取真实数据即可
-      return mainRefs.get({comId});
+      return mainRefs.get({ comId });
     },
     /** 触发全局变量inputs */
     exeGlobalCom({ com, pinId, value }) {
       // 从主场景获取全局变量信息，调用outputs
-      mainRefs.get({comId: com.id}).outputs[pinId](value, true, null, true)
+      mainRefs.get({ comId: com.id }).outputs[pinId](value, true, null, true);
     },
-  }
+  };
 
   /** 获取组件定义 */
   const getComDef = createComponentGetter(comDefs);
@@ -242,36 +242,38 @@ export function init({ json, env, comDefs, comProps, observable }) {
           ref(refs);
         },
         getComDef,
-        scenesOperate
+        scenesOperate,
       },
       {
-        observable
+        observable,
       },
     );
   }
   function hijackHasPermission(env) {
-    const hasPermission = env.hasPermission
-    if (typeof hasPermission === 'function') {
-      Object.defineProperty(env, 'hasPermission', {
-        get: function() {
+    const hasPermission = env.hasPermission;
+    if (typeof hasPermission === "function") {
+      Object.defineProperty(env, "hasPermission", {
+        get: function () {
           return (value) => {
-            if (typeof value === 'string') {
-              const permission = permissions.find((permission) => permission.id === value)
-              return hasPermission({ permission })
+            if (typeof value === "string") {
+              const permission = permissions.find(
+                (permission) => permission.id === value,
+              );
+              return hasPermission({ permission });
             }
-            return hasPermission(value)
-          }
-        }
-      })
+            return hasPermission(value);
+          };
+        },
+      });
     } else {
       // 默认为有权限
-      env.hasPermission = () => true
+      env.hasPermission = () => true;
     }
   }
   hijackHasPermission(env);
 
   /** 是页面出码 */
-  const isPage = !slot.showType // 没有showType，默认为页面，showType === "module" 为组件
+  const isPage = !slot.showType; // 没有showType，默认为页面，showType === "module" 为组件
 
   runExecutor({
     json: canvasStatusMap[mainId].json, // 输入仅支持主场景
@@ -300,8 +302,8 @@ export function init({ json, env, comDefs, comProps, observable }) {
 
       if (isPage) {
         inputs.forEach(({ id }) => {
-          refs.inputs[id]()
-        })
+          refs.inputs[id]();
+        });
       }
 
       // 执行自执行组件
@@ -321,8 +323,14 @@ export function init({ json, env, comDefs, comProps, observable }) {
     CanvasStatus,
     refsPromise,
     isPage,
-    propertyChangeHandler: !isPage ? handlePropertyChangesForInputs({ defaultProps: comProps, mainRefs, inputs: relInputs }) : null
-  }
+    propertyChangeHandler: !isPage
+      ? handlePropertyChangesForInputs({
+          defaultProps: comProps,
+          mainRefs,
+          inputs: relInputs,
+        })
+      : null,
+  };
 }
 
 function handlePropertyChangesForInputs({ defaultProps, inputs, mainRefs }) {
@@ -338,5 +346,5 @@ function handlePropertyChangesForInputs({ defaultProps, inputs, mainRefs }) {
         }
       }
     });
-  }
+  };
 }

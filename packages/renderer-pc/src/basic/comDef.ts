@@ -11,5 +11,5 @@ export function createComponentGetter(comDefs) {
   /** 获取组件定义 */
   return (def) => {
     return comDefs[def.namespace];
-  }
+  };
 }

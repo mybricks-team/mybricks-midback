@@ -12,9 +12,14 @@ export function Component({
   const { getComDef, env, logger, permissions } = useContext(RendererContext);
   const { refs, _env } = useContext(CanvasContext);
   const { hasPermission } = env;
-  const { next, dom } = useCheckPermissions({ id, refs, hasPermission, permissions })
+  const { next, dom } = useCheckPermissions({
+    id,
+    refs,
+    hasPermission,
+    permissions,
+  });
   if (!next) {
-    return dom
+    return dom;
   }
   const [, setShow] = useState(false);
   const {
@@ -31,7 +36,7 @@ export function Component({
       {
         get(_, slotId) {
           let currentScope = null;
-  
+
           if (scope) {
             currentScope = {
               id: scope.id + "-" + scope.frameId,
@@ -40,23 +45,29 @@ export function Component({
               parent: scope,
             };
           }
-  
-          const scopeProps = refs.get({ comId: id, slotId, scope: currentScope });
-  
+
+          const scopeProps = refs.get({
+            comId: id,
+            slotId,
+            scope: currentScope,
+          });
+
           return {
             render(props) {
               let childrenProps;
-  
+
               if (children) {
                 if (Array.isArray(children)) {
-                  const child = children.find((child) => child.props.id === slotId);
+                  const child = children.find(
+                    (child) => child.props.id === slotId,
+                  );
                   childrenProps = child.props;
                 } else {
                   // @ts-ignore
                   childrenProps = children.props;
                 }
               }
-  
+
               return (
                 <ScopeSlot
                   props={props}
@@ -81,7 +92,7 @@ export function Component({
       },
     );
 
-    let parentSlot
+    let parentSlot;
     if (comProps.frameId && comProps.parentComId) {
       const finalScope = scope?.parentScope || scope;
       const slotProps = refs.get({
@@ -111,9 +122,9 @@ export function Component({
       comDef,
       comProps,
       proxySlots,
-      parentSlot
-    }
-  }, [])
+      parentSlot,
+    };
+  }, []);
 
   const {
     data,
