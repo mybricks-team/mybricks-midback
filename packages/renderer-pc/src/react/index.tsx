@@ -83,6 +83,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
     };
   }, []);
 
+  // 暴露组件api
   propertyChangeHandler &&
     useImperativeHandle(
       ref,
@@ -91,6 +92,7 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
       [],
     );
 
+  // 监听props变更
   propertyChangeHandler &&
     useUpdateEffect(() => {
       propertyChangeHandler(comProps);

@@ -2,6 +2,7 @@ import React, { useContext, useState, createContext } from "react";
 
 import { RendererContext } from ".";
 import { SlotContext } from "./slot";
+import { canvasRefRegister } from "../basic";
 
 interface CanvsaProps {
   /** 场景ID */
@@ -24,24 +25,7 @@ export function Canvas({ id, children }: React.PropsWithChildren<CanvsaProps>) {
     runExecutor({
       json,
       ref(refs) {
-        canvasStatus.refs = refs;
-        canvasStatus.runTodos();
-
-        const isPopup = json.type === "popup";
-        const { outputs } = refs;
-        // 弹出框场景，部分输出自动关闭
-        json.outputs.forEach((output) => {
-          const outputId = output.id;
-          outputs(outputId, (value) => {
-            if (outputId !== "apply" && isPopup) {
-              // 输出不是apply并且是popup场景
-              // 关闭场景
-              canvasStatus.show = false;
-            }
-            canvasStatus.parentScope.outputs[outputId](value);
-            canvasStatus.parentScope = null;
-          });
-        });
+        canvasRefRegister({ refs, json, canvasStatus });
       },
     });
   }
