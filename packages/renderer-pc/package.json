@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/renderer-pc",
-  "version": "1.0.28",
+  "version": "1.0.29",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -8,6 +8,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./version": {
+      "types": "./dist/version.d.ts",
+      "default": "./dist/version.js"
     },
     "./toVue": {
       "types": "./dist/toVue.d.ts",

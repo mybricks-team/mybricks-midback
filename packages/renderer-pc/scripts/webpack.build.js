@@ -10,36 +10,38 @@ module.exports = {
   entry:
     outputType === 'esm'
       ? {
-          index: './src/index.tsx',
-          toVue: './src/toVue/index.vue',
-        }
+        index: './src/index.tsx',
+        toVue: './src/toVue/index.vue',
+        version: './src/version/index.ts',
+      }
       : {
-          index: './src/index.tsx',
-          toVue: './src/toVue/index.vue',
-        },
+        index: './src/index.tsx',
+        toVue: './src/toVue/index.vue',
+        version: './src/version/index.ts',
+      },
 
   output:
     outputType === 'esm'
       ? // ESM
-        {
-          path: path.resolve(__dirname, '../dist'),
-          filename: '[name].esm.js',
-          library: {
-            type: 'module',
-          },
-          chunkFormat: 'module',
-        }
-      : // UMD
-        {
-          path: path.resolve(__dirname, '../dist'),
-          filename: '[name].js',
-          library: {
-            name: 'rendererPc',
-            type: 'umd',
-            export: 'default',
-          },
-          globalObject: 'globalThis',
+      {
+        path: path.resolve(__dirname, '../dist'),
+        filename: '[name].esm.js',
+        library: {
+          type: 'module',
         },
+        chunkFormat: 'module',
+      }
+      : // UMD
+      {
+        path: path.resolve(__dirname, '../dist'),
+        filename: '[name].js',
+        library: {
+          name: 'rendererPc',
+          type: 'umd',
+          export: 'default',
+        },
+        globalObject: 'globalThis',
+      },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
   },

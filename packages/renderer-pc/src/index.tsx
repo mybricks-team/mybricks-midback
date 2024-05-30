@@ -1,8 +1,4 @@
 import { Renderer, Canvas, Slot, Component, Module } from './react'
-import { compareVersionLatest } from './utils'
-import Package from '../package.json'
-
-const version = Package.version
 
 export {
   Renderer,
@@ -10,8 +6,6 @@ export {
   Slot,
   Component,
   Module,
-  version,
-  compareVersionLatest,
 }
 
 export default {
@@ -20,6 +14,4 @@ export default {
   Slot,
   Component,
   Module,
-  version,
-  compareVersionLatest,
 }
