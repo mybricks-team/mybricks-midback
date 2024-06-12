@@ -17,7 +17,10 @@ const init = (libs: Array<ComLibType>) => {
         let bIndex = namespaceArr.indexOf(b.namespace);
         return aIndex - bIndex;
       });
-      resolve(loadedLibs.unshift(myselfComLib));
+      if(myselfComLib) {
+        loadedLibs.unshift(myselfComLib);
+      }
+      resolve(loadedLibs)
     } catch (error) {
       reject(error);
     }
