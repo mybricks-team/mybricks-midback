@@ -1,4 +1,5 @@
 import React, { forwardRef, useLayoutEffect, useRef, useState } from 'react'
+import { Spin, Alert } from 'antd'
 import Core from './core'
 
 import loadScript from './utils/loadScript'
@@ -14,6 +15,7 @@ const RendererCloud = forwardRef(
   ({ comUrl, ...comProps }: IProps, ref: any) => {
     const comMeta = useRef<{ fileId; version }>()
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState('')
 
     useLayoutEffect(() => {
       comMeta.current = getComMetaForUrl(comUrl)
@@ -27,16 +29,24 @@ const RendererCloud = forwardRef(
           success: () => {
             setLoading(false)
           },
-          failed: () => {
-            console.log('failed')
+          failed: (msg) => {
+            setError(msg)
+            setLoading(false)
           },
         })
       }
     }, [comUrl, loading])
 
+    if (error) {
+      return <Alert message={error} type="error" />;
+    }
+
     return loading ? (
-      <div>
-        <div>loading</div>
+      <div style={{
+        width: '100%',
+        height: '100%'
+      }}>
+        <Spin spinning={loading} tip="loading..." />
       </div>
     ) : (
       <Core

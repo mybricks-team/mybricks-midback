@@ -1,6 +1,6 @@
 interface Config {
   success: () => void
-  failed: () => void
+  failed: (msg: string) => void
   // 是否强制下载
   forceLoad?: boolean
 }
@@ -9,7 +9,7 @@ function hasScript(src: string) {
   const scripts = document.head.getElementsByTagName('script') || []
   return [].some.call(
     scripts,
-    script => script.src.replace(/https?:/, "") === src,
+    script => script.src.replace(/https?:/, "") === src || script.src === src,
   )
 }
 
@@ -54,10 +54,10 @@ function loadScript(
   script.src = src
   script.async = true
   script.onload = (val) => {
-    console.log('onload', window['__MY_BRICKS_CLOUD__'])
+    // console.log('onload', window['__MY_BRICKS_CLOUD__'])
     list.pop(src)
   }
-  script.onerror = () => failed()
+  script.onerror = (e) => failed(`组件加载失败，请检查网络或组件地址！`)
   document.head.appendChild(script)
 }
 
