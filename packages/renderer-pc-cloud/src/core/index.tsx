@@ -27,6 +27,7 @@ interface RendererProps {
   props: any
   className?: string
   style?: React.CSSProperties
+  onLoaded?: () => void
 }
 
 const USE_CUSTOM_HOST = '__USE_CUSTOM_HOST__'
@@ -118,8 +119,8 @@ export default forwardRef((props: RendererProps, ref: any) => {
             const curConnector = connector.script
               ? connector
               : (json.plugins[connector.connectorName] || []).find(
-                  (con) => con.id === connector.id
-                )
+                (con) => con.id === connector.id
+              )
 
             return connectorCall({ ...connector, ...curConnector }, newParams, {
               ...connectorConfig,
@@ -253,7 +254,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
           outputs?.forEach(({ id }) => {
             /** 注册事件，默认为空函数，并且为非被关联输出项 */
             if (!relsOutputIdMap[id]) {
-              refs.outputs(id, comProps[id] || function () {})
+              refs.outputs(id, comProps[id] || function () { })
             }
           })
         },
@@ -303,6 +304,10 @@ export default forwardRef((props: RendererProps, ref: any) => {
       }
     })
   }, [comProps])
+
+  useEffect(() => {
+    props.onLoaded?.();
+  }, [])
 
   return render
 })

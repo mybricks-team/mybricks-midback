@@ -6,6 +6,7 @@ import loadScript from './utils/loadScript'
 
 interface IProps {
   comUrl: string
+  onLoaded?: (ref: any) => void
   [x: string]: any
 }
 
@@ -62,6 +63,7 @@ const RendererCloud = forwardRef(
           ].comDefs
         }
         props={comProps}
+        onLoaded={() => { comProps.onLoaded?.(ref); }}
       />
     )
   }
