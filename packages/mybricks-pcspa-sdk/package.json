@@ -52,7 +52,7 @@
     "@mybricks/plugin-connector-http": "^1.2.1",
     "@mybricks/plugin-locale": "^1.0.0",
     "@mybricks/plugin-tools": "^1.0.17",
-    "@mybricks/mybricks-material-loader": "^0.0.2"
+    "@mybricks/mybricks-material-loader": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.2.0",
