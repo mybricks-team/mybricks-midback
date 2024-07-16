@@ -48,7 +48,13 @@ export interface PcSpaDesignerProps {
   plugins?: (plugins: IPlugin[]) => IPlugin[]
   pageContent?: PageContent
   envExtra?: Record<string, any>
-  // ... toplView shortcuts events
+  /* 快捷键 */
+  shortcuts?: Record<string, any[]>
+  /** 页面类型 mpa */
+  type?: string
+  /** 分页模式 */
+  pageMetaLoader?: () => any
+  // ... toplView events
   material: Material
 }
 

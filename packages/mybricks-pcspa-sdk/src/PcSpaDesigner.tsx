@@ -48,7 +48,10 @@ const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
     useLocalResources,
     editorItems,
     envExtra,
-    plugins
+    plugins,
+    shortcuts: props?.shortcuts,
+    type: props?.type,
+    pageMetaLoader: props?.pageMetaLoader
   })
 
   const config = useMemo(() => {

@@ -1,27 +1,41 @@
 // 合并暴露给用户的自定义参数
 import { SdkContext, IConfig } from './types'
 
-export const createCustomDebugConfigBuilder = ({ useLocalResources, editorItems, envExtra, plugins }) => (ctx: SdkContext, config: IConfig) => {
-    if (useLocalResources?.editorOptions) {
-        config.editViewItems.editorOptions = useLocalResources?.editorOptions
-    }
-    if (useLocalResources?.themeCss) {
-        config.geoView.theme.css = useLocalResources?.themeCss
-    }
-    if (typeof plugins === 'function') {
-        const newPlugins = plugins(config.plugins)
-        if (!Array.isArray(newPlugins)) {
-            throw new Error(`custom plugins should return plugin array`)
-        }
-        config.plugins = newPlugins
-    }
+export const createCustomDebugConfigBuilder = (params) => (ctx: SdkContext, config: IConfig) => {
+  const { useLocalResources, editorItems, envExtra, plugins, shortcuts, type, pageMetaLoader } = params
 
-    if (typeof editorItems === 'function') {
-        config.editViewItems = editorItems(config.editViewItems)
+  if (useLocalResources?.editorOptions) {
+    config.editViewItems.editorOptions = useLocalResources?.editorOptions
+  }
+  if (useLocalResources?.themeCss) {
+    config.geoView.theme.css = useLocalResources?.themeCss
+  }
+  if (typeof plugins === 'function') {
+    const newPlugins = plugins(config.plugins)
+    if (!Array.isArray(newPlugins)) {
+      throw new Error(`custom plugins should return plugin array`)
     }
+    config.plugins = newPlugins
+  }
 
-    config.com.env = {
-        ...config.com.env,
-        ...envExtra
-    }
+  if (typeof editorItems === 'function') {
+    config.editViewItems = editorItems(config.editViewItems)
+  }
+
+  if (shortcuts) {
+    config.shortcuts = shortcuts
+  }
+
+  if (type) {
+    config.type = type
+  }
+
+  if (typeof pageMetaLoader === 'function') {
+    config.pageMetaLoader = pageMetaLoader
+  }
+
+  config.com.env = {
+    ...config.com.env,
+    ...envExtra
+  }
 }
