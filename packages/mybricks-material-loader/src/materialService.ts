@@ -7,8 +7,11 @@ export type MaterialServerConfig = Partial<{
   ) => void;
   onUpgradeComLib: (lib: ComLibType, libs: Array<ComLibType>) => void;
   onAddCom: () => Promise<ComType>;
+  onAddJSCom: () => Promise<ComType[]>;
+  onAddUICom: () => Promise<ComType[]>
   onUpgradeCom: (com: ComType) => Promise<ComType>;
   onDeleteCom: (com: ComType) => Promise<boolean>;
+  hasMaterialApp?: boolean
 }>;
 class MaterialService {
   config: MaterialServerConfig = {};

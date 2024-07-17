@@ -29,6 +29,10 @@ enum CMD {
   UPGRADE_COM = "upgradeCom",
   DELETE_COM = "deleteCom",
   ADD_COM = "addCom",
+  /** 添加UI组件 */
+  ADD_UI_COM = 'addUICom',
+  /** 添加JS组件 */
+  ADD_JS_COM = 'addJSCom',
   DELETE_COM_LIB = "deleteComLib",
   UPGRADE_COM_LIB = "upgradeComLib",
 }

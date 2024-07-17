@@ -145,28 +145,111 @@ export function resolveSelfLibStyle(styles) {
 }
 
 
-export function myRequire(arr, onError): Promise<{ styles: any; rnStyles: any }> {
+// export function myRequire(arr, onError): Promise<{ styles: any; rnStyles: any }> {
+//   return new Promise((resolve, reject) => {
+//     if (!(arr instanceof Array)) {
+//       console.error("arr is not a Array");
+//       return false;
+//     }
+
+//     let REQ_TOTAL = 0,
+//       EXP_ARR = [],
+//       REQLEN = arr.length;
+
+//     // const styles: any = [];
+//     const rnStyles: any = [];
+//     Promise.all(arr.map(req_item => loadScript(req_item))).then(allData => {
+//       const styles = allData.map(item => item.styles)
+//       console.log('allData', allData, styles)
+//       resolve(styles as any)
+//     })
+
+
+//     // arr.forEach(function (req_item, index, arr) {
+//     //   const { styles } = loadScript(req_item)
+//     // });
+//   });
+// }
+
+let styleCount = 0
+
+function createScript(src, index) {
+  var script = document.createElement('script')
+  script.setAttribute('src', src)
+  script.setAttribute('index', index)
+  return script
+}
+export function myRequire(arr, onError): Promise<{ styles: any }> {
   return new Promise((resolve, reject) => {
     if (!(arr instanceof Array)) {
-      console.error("arr is not a Array");
-      return false;
+      console.error('arr is not a Array')
+      return false
     }
 
-    let REQ_TOTAL = 0,
+    var REQ_TOTAL = 0,
       EXP_ARR = [],
-      REQLEN = arr.length;
+      REQLEN = arr.length
 
-    // const styles: any = [];
-    const rnStyles: any = [];
-    Promise.all(arr.map(req_item => loadScript(req_item))).then(allData => {
-      const styles = allData.map(item => item.styles)
-      console.log('allData', allData, styles)
-      resolve(styles as any)
+    const styles: any = []
+    // const rnStyles: any = []
+
+    const _headAppendChild = document.head.appendChild
+    // const _headInsertBefore = document.head.insertBefore
+
+    document.head.appendChild = (ele: any) => {
+      if (ele && ele.tagName?.toLowerCase() === 'style') {
+        ele.id = 'mybricks_' + styleCount
+        styles.push(ele)
+        styleCount++
+      }
+      _headAppendChild.call(document.head, ele)
+      return ele
+    }
+
+
+    arr.forEach(function (req_item, index, arr) {
+      const script = createScript(req_item, index)
+      document.body.appendChild(script)
+        // getScriptStyle(req_item);
+        ; (function (script) {
+          script.onerror = (err) => {
+            REQ_TOTAL++
+            onError(err)
+            if (REQ_TOTAL == REQLEN) {
+              document.head.appendChild = _headAppendChild
+              // document.head.insertBefore = _headInsertBefore
+            }
+          }
+          script.onload = function () {
+            REQ_TOTAL++
+            const script_index = script.getAttribute('index')
+            EXP_ARR[script_index] = this
+
+            if (REQ_TOTAL == REQLEN) {
+              // resolve(EXP_ARR)
+              resolve({ styles })
+              removeStylesBySubstring('mybricks_')
+              // callback && callback.apply(this, EXP_ARR);
+              document.head.appendChild = _headAppendChild
+              // document.head.insertBefore = _headInsertBefore
+            }
+          }
+        })(script)
     })
+  })
+}
 
 
-    // arr.forEach(function (req_item, index, arr) {
-    //   const { styles } = loadScript(req_item)
-    // });
+function removeStylesBySubstring(substring) {
+  // 获取所有的 style 标签
+  const styleTags = document.querySelectorAll('style');
+
+  // 遍历每个 style 标签
+  styleTags.forEach(styleTag => {
+    // 判断 id 是否包含指定的子字符串
+    if (styleTag.id.includes(substring)) {
+      // 如果匹配，则移除该 style 标签
+      styleTag.remove();
+    }
   });
 }
