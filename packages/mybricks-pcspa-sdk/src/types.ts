@@ -54,6 +54,11 @@ export interface PcSpaDesignerProps {
   type?: string
   /** 分页模式 */
   pageMetaLoader?: () => any
+  /* 加载页面内容 */
+  pageContentLoader?: (sceneId: string) => Promise<any>
+  /** 场景选项 */
+  scenes?: any
+  /** 页面模式 */
   // ... toplView events
   material: Material
 }

@@ -51,7 +51,9 @@ const PcSpaDesigner = forwardRef((props: PcSpaDesignerProps, ref: any) => {
     plugins,
     shortcuts: props?.shortcuts,
     type: props?.type,
-    pageMetaLoader: props?.pageMetaLoader
+    pageMetaLoader: props?.pageMetaLoader,
+    pageContentLoader: props?.pageContentLoader,
+    scenes: props?.scenes
   })
 
   const config = useMemo(() => {

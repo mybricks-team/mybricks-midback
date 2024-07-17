@@ -2,7 +2,7 @@
 import { SdkContext, IConfig } from './types'
 
 export const createCustomDebugConfigBuilder = (params) => (ctx: SdkContext, config: IConfig) => {
-  const { useLocalResources, editorItems, envExtra, plugins, shortcuts, type, pageMetaLoader } = params
+  const { useLocalResources, editorItems, envExtra, plugins, shortcuts, type, pageMetaLoader, pageContentLoader, scenes } = params
 
   if (useLocalResources?.editorOptions) {
     config.editViewItems.editorOptions = useLocalResources?.editorOptions
@@ -32,6 +32,14 @@ export const createCustomDebugConfigBuilder = (params) => (ctx: SdkContext, conf
 
   if (typeof pageMetaLoader === 'function') {
     config.pageMetaLoader = pageMetaLoader
+  }
+
+  if (typeof pageContentLoader === 'function') {
+    config.pageContentLoader = pageContentLoader
+  }
+
+  if (scenes) {
+    config.scenes = scenes
   }
 
   config.com.env = {
