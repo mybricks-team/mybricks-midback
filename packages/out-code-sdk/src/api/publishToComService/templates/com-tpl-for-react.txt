@@ -1,0 +1,34 @@
+'use client'
+import React, { forwardRef } from 'react'
+import { Renderer, Slot, Canvas, Module } from '@mybricks/renderer-pc'
+import { toJSON, config, comDefs, --components-imports-- } from './config'
+import 'antd/dist/antd.css'
+
+interface IProps {
+  className?: string,
+  style?: React.CSSProperties,
+  --propsType--
+}
+
+export interface I--componentName--Ref {
+  --refType--
+}
+
+const --componentName-- = forwardRef((props: IProps, ref: React.ForwardedRef<I--componentName--Ref>) => {
+  return (
+    <Renderer
+      ref={ref}
+      json={toJSON}
+      comDefs={comDefs}
+      config={config}
+      props={{
+        --defaultProps--
+        ...props
+      }}
+    >
+      --ui--
+    </Renderer>
+  )
+})
+
+export default --componentName--;
