@@ -9,34 +9,37 @@ export interface ISymbolValue {
   value: string;
 }
 
-export async function processData(params: IParams): Promise<ISymbolValue[]> {
-  const { json, hostname, fileId, componentName, envType, staticResourceToCDN, getMaterialContent } = params;
+export async function processData(params: IParams) {
+  const { json, hostname, fileId, componentName, envType, uploadCDNUrl, staticResourceToCDN, origin, getMaterialContent } = params;
   const { envList = [], i18nLangContent } = json.configuration;
 
   const sourceLink = (() => {
-    if (process.env.NODE_ENV === 'development') { return `http://localhost:8080/?id=${fileId}`; }
+    if (process.env.NODE_ENV === 'development') { return `${hostname}/?id=${fileId}`; }
     return `${hostname}/mybricks-app-pc-cdm/index.html?id=${fileId}`;
   })();
 
   const { transformJson, extractFns } = extractCodeFn(json);
 
-  const comRelativeSymbols = await processComRelativeSymbols({ json: transformJson, comLibs: json.configuration.comLibs, getMaterialContent: getMaterialContent });
+  const comRelativeSymbols = await processComRelativeSymbols({ json: transformJson, comLibs: json.configuration.comLibs, fileId, getMaterialContent: getMaterialContent });
 
-  const imageSymbols = await processImageSymbols(json, staticResourceToCDN);
+  const { symbols: imageSymbols, staticResources } = await processImageSymbols(json, origin, staticResourceToCDN, uploadCDNUrl);
 
-  return [
-    { symbol: 'json', value: JSON.stringify(transformJson) },
-    { symbol: 'executeEnv', value: JSON.stringify(envType) },
-    { symbol: 'i18nLangContent', value: JSON.stringify(i18nLangContent) },
-    { symbol: 'envList', value: JSON.stringify(envList) },
-    { symbol: 'sourceLink', value: sourceLink },
-    { symbol: 'componentName', value: componentName || 'Com' },
-    { symbol: 'componentKebabName', value: camelToKebab(componentName || 'Com') },
-    { symbol: 'extractFns', value: extractFns },
-    { symbol: 'propsType', value: analysisConfigInputsTS(json) + analysisOutputsTS(json) },
-    { symbol: 'defaultProps', value: analysisReactDefaultProps(json) },
-    { symbol: 'refType', value: analysisNormalInputsTS(json) },
-    ...comRelativeSymbols,
-    ...imageSymbols,
-  ]
+  return {
+    symbols: [
+      { symbol: 'json', value: JSON.stringify(transformJson) },
+      { symbol: 'executeEnv', value: JSON.stringify(envType) },
+      { symbol: 'i18nLangContent', value: JSON.stringify(i18nLangContent) },
+      { symbol: 'envList', value: JSON.stringify(envList) },
+      { symbol: 'sourceLink', value: sourceLink },
+      { symbol: 'componentName', value: componentName || 'Com' },
+      { symbol: 'componentKebabName', value: camelToKebab(componentName || 'Com') },
+      { symbol: 'extractFns', value: extractFns },
+      { symbol: 'propsType', value: analysisConfigInputsTS(json) + analysisOutputsTS(json) },
+      { symbol: 'defaultProps', value: analysisReactDefaultProps(json) },
+      { symbol: 'refType', value: analysisNormalInputsTS(json) },
+      ...comRelativeSymbols,
+      ...imageSymbols,
+    ],
+    staticResources
+  }
 }

@@ -36,17 +36,20 @@ function genImage(staticResources: StaticResources) {
   return { imageImportStr, imageUrlMap: `{${imageUrlMap}}` };
 }
 
-export async function processImageSymbols(json: ToJSON, staticResourceToCDN: boolean): Promise<ISymbolValue[]> {
-  const staticResources = await resourceProcessing(json, { toCDN: staticResourceToCDN, origin })
+export async function processImageSymbols(json: ToJSON, origin: string, staticResourceToCDN: boolean, uploadCDNUrl?: string) {
+  const staticResources = await resourceProcessing(json, { toCDN: staticResourceToCDN, origin, uploadUrl: uploadCDNUrl })
 
   const { imageImportStr, imageUrlMap } = genImage(staticResources);
 
   const haveImage = staticResources.length > 0;
 
-  return [
-    { symbol: 'imageImports', value: haveImage ? fs.readFileSync(path.resolve(__dirname, "./templates/config-extends-image-tpl.txt"), "utf8") : '' },
-    { symbol: 'toJSONPretreatment', value: haveImage ? `replaceDynamicImportImg(toJSON)` : '' },
-    { symbol: 'imageImportStr', value: imageImportStr },
-    { symbol: 'imageUrlMap', value: imageUrlMap },
-  ]
+  return {
+    symbols: [
+      { symbol: 'imageImports', value: haveImage ? fs.readFileSync(path.resolve(__dirname, "./config-extends-image-tpl.txt"), "utf8") : '' },
+      { symbol: 'toJSONPretreatment', value: haveImage ? `replaceDynamicImportImg(toJSON)` : '' },
+      { symbol: 'imageImportStr', value: imageImportStr },
+      { symbol: 'imageUrlMap', value: imageUrlMap },
+    ],
+    staticResources
+  }
 }

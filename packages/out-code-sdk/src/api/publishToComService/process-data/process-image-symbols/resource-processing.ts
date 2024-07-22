@@ -1,5 +1,5 @@
 import axios from "axios";
-import Logger from "../../utils/logger";
+import { getGlobalLogger } from "../../utils/global-logger";
 import * as path from 'path';
 import FormData from 'form-data';
 
@@ -50,6 +50,7 @@ export function analysisAllResourceUrls(json: any, origin: string): string[] {
 
 /** 下载资源 */
 async function downloadResource(url: string) {
+  const Logger = getGlobalLogger();
   try {
     const res = await axios({ method: "get", url, timeout: 30 * 1000, responseType: 'arraybuffer' });
     return res.data;
@@ -69,6 +70,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
 async function resourcesToCDN(urls: string[], uploadUrl?: string) {
   if (!urls.length) return [];
   if (!uploadUrl) throw new Error('未配置图片上传地址，请联系管理员配置');
+  const Logger = getGlobalLogger();
 
   Logger.info(`[publishToCom] 开始上传资源,urls:[${urls.join(' , ')}]`);
   Logger.info(`[publishToCom] 开始下载要上传的资源...`);

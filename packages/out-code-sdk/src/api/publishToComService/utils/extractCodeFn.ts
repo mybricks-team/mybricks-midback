@@ -1,4 +1,4 @@
-import Logger from './logger';
+import { getGlobalLogger } from './global-logger';
 import { transformCodeByBabel } from './transform';
 
 const NeedTransformCom = [
@@ -90,6 +90,7 @@ const transformGlobalFx = (json: any) => {
 };
 
 const transform = (json: Record<string, any>) => {
+  const Logger = getGlobalLogger();
   Logger.info('[publishToCom] transform start');
   transformGlobalFx(json);
   if (json.hasPermissionFn) {

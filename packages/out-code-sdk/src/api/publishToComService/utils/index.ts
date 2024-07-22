@@ -1,5 +1,5 @@
 import { GetMaterialContent, Schema, ToJSON } from "../types";
-import Logger from './logger';
+import { getGlobalLogger } from './global-logger';
 
 const ComlibModuleMap: Record<string, string> = {
   'mybricks.normal-pc': '@mybricks/comlib-pc-normal',
@@ -11,6 +11,7 @@ export async function getComlibContent(
   comlib: { namespace: string; version: string },
   getMaterialContent: GetMaterialContent,
 ): Promise<string[]> {
+  const Logger = getGlobalLogger();
   // 排除不支持的组件库
   if (!ComlibModuleMap[comlib.namespace]) {
     Logger.error(
@@ -198,6 +199,7 @@ export function transSchemaToVueProp(schema: Schema, defaultValue?: string) {
 }
 
 function analysisConfigInputsTS(json: ToJSON) {
+  const Logger = getGlobalLogger();
   Logger.info(`[publishToCom] 开始解析 configInputs 的类型...`);
   const { inputs } = json.scenes?.[0] || json;
 
@@ -213,6 +215,7 @@ function analysisConfigInputsTS(json: ToJSON) {
 }
 
 function analysisNormalInputsTS(json: ToJSON) {
+  const Logger = getGlobalLogger();
   Logger.info(`[publishToCom] 开始解析 normalInputs 的类型...`);
   const { inputs, outputs, pinRels } = json.scenes?.[0] || json;
 
@@ -237,6 +240,7 @@ function analysisNormalInputsTS(json: ToJSON) {
 }
 
 function analysisOutputsTS(json: ToJSON) {
+  const Logger = getGlobalLogger();
   Logger.info(`[publishToCom] 开始解析 outputs 的类型...`);
   const { outputs, pinRels } = json.scenes?.[0] || json;
 
@@ -272,4 +276,15 @@ export { analysisConfigInputsTS, analysisNormalInputsTS, analysisOutputsTS, anal
 
 export function camelToKebab(camelCaseString: string) {
   return camelCaseString.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+}
+
+export function hasRequiredProperties(obj: Record<string, any>, requiredProperties: string[]): boolean {
+  const missingProperties = requiredProperties.filter(prop => obj[prop] === undefined);
+
+  if (missingProperties.length > 0) {
+    console.log(`缺少属性: ${missingProperties.join(', ')}`);
+    return false;
+  }
+
+  return true;
 }

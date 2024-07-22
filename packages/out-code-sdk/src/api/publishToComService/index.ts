@@ -1,6 +1,8 @@
-import Logger from './utils/logger';
+import { setGlobalLogger, getGlobalLogger } from './utils/global-logger';
+import type { LoggerType } from './utils/global-logger';
 import { GetMaterialContent, ToJSON } from './types';
 import { processData } from './process-data';
+import { hasRequiredProperties } from './utils';
 
 export interface IParams {
   json: ToJSON & { configuration: any };
@@ -20,23 +22,10 @@ export interface IParams {
  * @param params 入参
  */
 function checkParams(params: IParams) {
-  const {
-    json,
-    fileId,
-    componentName,
-    envType,
-    hostname,
-    origin,
-    staticResourceToCDN,
-    uploadCDNUrl,
-    getMaterialContent,
-  } = params;
+  const Logger = getGlobalLogger();
+  const { json } = params;
 
-  Logger.info(
-    `[publishToCom] 入参为: ${JSON.stringify({ fileId, componentName, envType, hostname, origin, staticResourceToCDN, uploadCDNUrl })}`,
-  );
-
-  if (!json || !fileId || !componentName || !envType || !hostname || !origin || !staticResourceToCDN || !getMaterialContent) {
+  if (!hasRequiredProperties(params, ['json', 'fileId', 'componentName', 'envType', 'hostname', 'origin', 'staticResourceToCDN', 'getMaterialContent'])) {
     Logger.error('[publishToCom] 入参不完整');
     throw new Error('入参不完整');
   }
@@ -56,18 +45,24 @@ function checkParams(params: IParams) {
   return true;
 }
 
-export default async function replaceTemplate(params: IParams, templateArray: string[]) {
+export default async function replaceTemplate(
+  params: IParams,
+  templateArray: string[],
+  options?: { Logger?: LoggerType }
+) {
+  setGlobalLogger(options?.Logger || { info: console.log, error: console.error });
+
   checkParams(params);
 
-  const symbolValues = await processData(params);
+  const { symbols, staticResources } = await processData(params);
 
-  console.log(`symbolValues JD==> `, symbolValues);
-
-  return templateArray.map((template) => {
-    symbolValues.forEach((symbolValue) => {
+  const codes = templateArray.map((template) => {
+    symbols.forEach((symbolValue) => {
       const { symbol, value } = symbolValue;
       template = template.replace(new RegExp(`--${symbol}--`, 'g'), value);
     })
     return template;
   })
+
+  return { codes, staticResources }
 }

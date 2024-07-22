@@ -1,4 +1,4 @@
-import Logger from "../../utils/logger";
+import { getGlobalLogger } from "../../utils/global-logger";
 import { GetMaterialContent, Scene, ToJSON } from "../../types";
 
 const comlibModuleMap: Record<string, string> = {
@@ -53,6 +53,8 @@ const collectModuleCom = (coms: any, comlibDeps: any[]) => {
 }
 // 获取指定组件库内的组件信息
 const getComlibContent = async (comlib: { namespace: string, version: string }, getMaterialContent: GetMaterialContent): Promise<string[]> => {
+  const Logger = getGlobalLogger();
+  
   // 排除不支持的组件库
   if (!comlibModuleMap[comlib.namespace]) {
     Logger.error(`can not find node module for comlib ${comlib.namespace}@${comlib.version}`)
@@ -157,7 +159,7 @@ export default async function processReactRelativeSymbols(json: ToJSON, comLibs:
   })
 
   return [
-    { symbol: 'comImport', value: `import { Component } from '@mybricks/renderer-pc';${importComponentsStr}` },
-    { symbol: 'comExport', value: `export const comDefs = {${componentsMapStr}};${componentsExportStr}` },
+    { symbol: 'comImports', value: `import { Component } from '@mybricks/renderer-pc';${importComponentsStr}` },
+    { symbol: 'comExports', value: `export const comDefs = {${componentsMapStr}};${componentsExportStr}` },
   ];
 }

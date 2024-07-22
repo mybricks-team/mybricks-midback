@@ -1,4 +1,4 @@
-import Logger from './logger';
+import { getGlobalLogger } from './global-logger';
 import { RtType } from '../types';
 import * as Babel from '@babel/standalone';
 
@@ -154,6 +154,7 @@ const transformGlobalFx = (json: any) => {
 };
 
 const transform = (json: Record<string, any>, rtType?: RtType) => {
+  const Logger = getGlobalLogger();
   Logger.info('[publishToCom] transform start');
   if (rtType !== 'js') {
     Logger.info(`[publishToCom] transformGlobalFx了吗？${rtType}`);

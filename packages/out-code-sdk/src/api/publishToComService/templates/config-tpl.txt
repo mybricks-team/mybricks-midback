@@ -10,9 +10,9 @@ import { version, compareVersionLatest } from '@mybricks/renderer-pc/version';
 const extractFns: Function[] = --extractFns--
 const toJSON = --json--;
 --toJSONPretreatment--
-const executeEnv = '--executeEnv--';
-const envList:string[] = '--envList--';
-const i18nLangContent = '--i18nLangContent--';
+const executeEnv = --executeEnv--;
+const envList:string[] = --envList--;
+const i18nLangContent = --i18nLangContent--;
 const getCurrentLocale = () => { return navigator.language; }
 
 const config = { executeEnv, envList, extractFns, i18nLangContent, locale: getCurrentLocale() }

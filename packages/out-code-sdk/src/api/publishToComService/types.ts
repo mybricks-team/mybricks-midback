@@ -50,6 +50,7 @@ export type ToJSON = Scene & {
   >;
   plugins: {
     '@mybricks/plugins/service': unknown[];
+    '@mybricks/plugins/theme/use': any;
   };
   definedComs?: any;
   global?: {
