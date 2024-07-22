@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import * as path from "path";
-import { ToJSON } from "../../../../publishToComService/types";
+import { ToJSON } from "../../types";
 import resourceProcessing from "./resource-processing";
 
 export interface ISymbolValue {

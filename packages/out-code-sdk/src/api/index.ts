@@ -1,4 +1,4 @@
-import replaceTemplate from './publishToComService/index2'
+import replaceTemplate from './publishToComService'
 
 export default {
   replaceTemplate

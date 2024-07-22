@@ -1,4 +1,4 @@
-import Logger from '../utils/logger';
+import Logger from './logger';
 import { RtType } from '../types';
 import * as Babel from '@babel/standalone';
 

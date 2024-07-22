@@ -1,5 +1,107 @@
-import Logger from '../utils/logger';
-import { Schema, ToJSON } from "../types";
+import { GetMaterialContent, Schema, ToJSON } from "../types";
+import Logger from './logger';
+
+const ComlibModuleMap: Record<string, string> = {
+  'mybricks.normal-pc': '@mybricks/comlib-pc-normal',
+  'mybricks.basic-comlib': '@mybricks/comlib-basic',
+};
+
+// 获取指定组件库内的组件信息
+export async function getComlibContent(
+  comlib: { namespace: string; version: string },
+  getMaterialContent: GetMaterialContent,
+): Promise<string[]> {
+  // 排除不支持的组件库
+  if (!ComlibModuleMap[comlib.namespace]) {
+    Logger.error(
+      `can not find node module for comlib ${comlib.namespace}@${comlib.version}`,
+    );
+    return [];
+  }
+  const res = await getMaterialContent({
+    namespace: comlib.namespace,
+    version: comlib.version,
+  })
+    .then((data) => {
+      const deps = data.react.deps;
+      return deps.map((item: any) => item.namespace);
+    })
+    .catch((err) => {
+      Logger.error(`getComlibContent fail 获取 ${comlib.namespace}@${comlib.version} 失败`);
+      return undefined;
+    });
+  return res;
+};
+
+function convertToUnderscore(str: string) {
+  return str.replace(/[^a-zA-Z0-9]/g, '_');
+}
+
+function capitalizeFirstLetter(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function getComponentName({
+  namespace,
+  rtType,
+}: {
+  namespace: string;
+  rtType: string;
+}) {
+  const lastIndex = namespace.lastIndexOf('.');
+  return convertToUnderscore(
+    lastIndex !== -1 ? namespace.substring(lastIndex + 1) : namespace,
+  )
+    .split('_')
+    .filter((str) => str)
+    .reduce((p, c, index) => {
+      return (
+        p +
+        (rtType?.match(/^js/gi)
+          ? index
+            ? capitalizeFirstLetter(c)
+            : c
+          : capitalizeFirstLetter(c))
+      );
+    }, '');
+}
+
+export function collectModuleCom(coms: any, comlibDeps: any[]) {
+  const res = {} as Record<string, any>;
+  const newComDefs: any = [];
+
+  coms.forEach((com: any) => {
+    const comlib = comlibDeps.find((comlib) =>
+      comlib.deps.some((dep: any) => dep === com.namespace),
+    );
+    if (!comlib) {
+      throw new Error(`can not find comlib module for com ${com.namespace}`);
+    }
+    const module = ComlibModuleMap[comlib.namespace];
+    if (!res[module]) {
+      res[module] = [];
+    }
+    const componentName = getComponentName({
+      namespace: com.namespace,
+      rtType: com.rtType,
+    });
+
+    res[module].push(componentName);
+
+    newComDefs.push({
+      ...com,
+      namespace: com.namespace,
+      runtimeName: componentName,
+      libraryName: module,
+    });
+  });
+
+  return {
+    importInfo: res,
+    newComDefs,
+  };
+};
+
 
 export function transSchemaToTS(schema: Schema) {
   let typeStr = '';
