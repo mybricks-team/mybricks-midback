@@ -1,33 +1,13 @@
-import * as fs from "fs";
-import * as path from "path";
-import { analysisConfigInputsTS, analysisNormalInputsTS, analysisOutputsTS, analysisReactDefaultProps } from "./utils";
-import { ISymbolValue } from "./index2/process-data";
+import { ISymbolValue } from "..";
+import { GetMaterialContent, Scene, ToJSON } from "../../types";
+import { collectModuleCom, getComlibContent } from "../../utils";
+import processReactRelativeSymbols from "./react-relative-symbols";
+import processVueRelativeSymbols from "./vue-relative-symbols";
 
 interface IProps {
-  comImportsStr: any;
-  comDefs: any;
-  toJSON: any;
-  componentName: string;
-  namespaceToComDefs: any;
-}
-
-function genTemplateForReact({ comDefs, comImportsStr, componentName, toJSON, namespaceToComDefs }: IProps) {
-  const tplFilePath = path.resolve(__dirname, "./templates/com-tpl-for-react.txt");
-
-  let template = fs.readFileSync(tplFilePath, "utf8");
-
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  const { canvasCode, modulesCode } = genUiCode({ json: toJSON, namespaceToComDefs });
-
-  template = template.replace(`--componentImports--`, comImportsStr)
-    .replace(`--comDefs--`, `{${comDefs}}`)
-    .replace(`--propsType--`, analysisConfigInputsTS(toJSON) + analysisOutputsTS(toJSON))
-    .replace(`--defaultProps--`, analysisReactDefaultProps(toJSON))
-    .replace(`--refType--`, analysisNormalInputsTS(toJSON))
-    .replace(/--componentName--/g, componentName || 'Com')
-    .replace(`--ui--`, canvasCode) + modulesCode
-
-  return template
+  json: any;
+  comLibs: any;
+  getMaterialContent: GetMaterialContent;
 }
 
 function genUiCode({ json, namespaceToComDefs }: any) {
@@ -228,30 +208,118 @@ function genUiCode({ json, namespaceToComDefs }: any) {
   };
 }
 
-function genTemplateForReactReadme({ componentName, sourceLink }: { componentName: string, sourceLink: string }) {
-  const tplFilePath = path.resolve(__dirname, "./templates/readme-for-react.txt");
+function getComDeps(json: ToJSON) {
+  const ignoreNamespaces = [
+    'mybricks.core-comlib.fn',
+    'mybricks.core-comlib.var',
+    'mybricks.core-comlib.type-change',
+    'mybricks.core-comlib.connector',
+    'mybricks.core-comlib.frame-input',
+    'mybricks.core-comlib.frame-output',
+    'mybricks.core-comlib.scenes',
+    'mybricks.core-comlib.defined-com',
+    'mybricks.core-comlib.module',
+    'mybricks.core-comlib.group',
+    'mybricks.core-comlib.selection',
+  ];
+  let definedComsDeps: any[] = [];
+  let modulesDeps: any[] = [];
 
-  let template = fs.readFileSync(tplFilePath, "utf8");
+  if (json.definedComs) {
+    Object.keys(json.definedComs).forEach((key) => {
+      definedComsDeps = [
+        ...definedComsDeps,
+        ...json.definedComs[key].json.deps,
+      ];
+    });
+  }
 
-  template = template.replace(/--url--/g, sourceLink)
-    .replace(/--componentName--/g, componentName)
+  const modules = json.modules;
+  if (modules) {
+    Object.keys(modules).forEach((key) => {
+      modulesDeps = [...modulesDeps, ...modules[key].json.deps];
+    });
+  }
 
-  return template;
+  let deps: { namespace: string; version: string; rtType?: string }[] = [
+    ...(Array.isArray(json.scenes) ? json.scenes : [])
+      .reduce((pre, scene) => [...pre, ...scene.deps], [] as Scene['deps'])
+      .filter((item) => !ignoreNamespaces.includes(item.namespace)),
+    ...(json.global?.fxFrames || [])
+      .reduce((pre, fx) => [...pre, ...fx.deps], [] as Scene['deps'])
+      .filter((item) => !ignoreNamespaces.includes(item.namespace)),
+    ...definedComsDeps.filter(
+      (item) => !ignoreNamespaces.includes(item.namespace),
+    ),
+    ...modulesDeps.filter((item) => !ignoreNamespaces.includes(item.namespace)),
+  ];
+
+  let res: any[] = [];
+  for (let dep of deps) {
+    if (!res.find((item) => item.namespace === dep.namespace)) {
+      res.push(dep);
+    }
+  }
+  return res;
 }
 
-function processRelativeSymbols({ comDefs, comImportsStr, componentName, toJSON, namespaceToComDefs }: IProps): ISymbolValue[] {
-  const { canvasCode, modulesCode } = genUiCode({ json: toJSON, namespaceToComDefs });
+async function getImportsStr(comLibs: IProps['comLibs'], getMaterialContent: GetMaterialContent, json: ToJSON) {
+  const comDeps = getComDeps(json);
+
+  let comDefs = '';
+  let comImportsVueStr = '';
+  let comImportsReactStr = '';
+  /** 通过namespace查询组件信息 */
+  let namespaceToComDefs: any = {};
+
+  const comlibDeps = await Promise.all(
+    comLibs.map(async (item: any) => {
+      const { namespace } = item;
+      const res = await getComlibContent(item, getMaterialContent);
+      return {
+        namespace,
+        deps: res,
+      };
+    }),
+  );
+  const { newComDefs } = collectModuleCom(comDeps, comlibDeps);
+
+  newComDefs.forEach((item: any, index: number) => {
+    namespaceToComDefs[item.namespace] = item;
+    comImportsVueStr += `import ${item.runtimeName} from "${item.libraryName}/es/${item.runtimeName}"` + '\n';
+
+    if (!item.rtType) {
+      // 仅需要导出ui组件
+      comImportsReactStr += `${item.runtimeName},`;
+    }
+
+    if (index === comDeps.length - 1) {
+      comDefs += `'${item.namespace}': ${item.runtimeName}`;
+    } else {
+      comDefs += `'${item.namespace}': ${item.runtimeName},` + '\n';
+    }
+  });
+
+  return {
+    comImportsReactStr,
+    comImportsVueStr,
+    comDefs,
+    namespaceToComDefs,
+  };
+}
+
+export default async function processComRelativeSymbols({ json, comLibs, getMaterialContent }: IProps): Promise<ISymbolValue[]> {
+  const { comImportsReactStr, comImportsVueStr, comDefs, namespaceToComDefs } = await getImportsStr(comLibs, getMaterialContent, json);
+
+  const { canvasCode, modulesCode } = genUiCode({ json, namespaceToComDefs });
 
   return [
-    { symbol: 'componentImports', value: comImportsStr },
+    { symbol: 'reactComponentImports', value: comImportsReactStr },
     { symbol: 'comDefs', value: `{${comDefs}}` },
-    { symbol: 'propsType', value: analysisConfigInputsTS(toJSON) + analysisOutputsTS(toJSON) },
-    { symbol: 'defaultProps', value: analysisReactDefaultProps(toJSON) },
-    { symbol: 'refType', value: analysisNormalInputsTS(toJSON) },
-    { symbol: 'componentName', value: componentName || 'Com' },
-    { symbol: 'ui', value: canvasCode },
+    { symbol: 'react-ui', value: canvasCode },
     { symbol: 'modulesCode', value: modulesCode },
+    ...await processReactRelativeSymbols(json, comLibs, getMaterialContent),
+    { symbol: 'vueComponentImports', value: comImportsVueStr },
+    ...processVueRelativeSymbols(json),
   ]
 }
-
-export { genTemplateForReact, genTemplateForReactReadme, processRelativeSymbols }

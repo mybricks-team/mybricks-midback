@@ -339,13 +339,12 @@ export default async function publishToCom(params: {
     genConfigProps.exportStr = `export const comDefs = {${componentsTemplate.componentsMapStr}};${componentsTemplate.componentsExportStr}`;
     genConfigProps.styleStr = `const styleTag = document.createElement('style')
     styleTag.id = "${fileId}";
-    styleTag.innerHTML = \`${
-      await prettier.format(await getStyleInnerHtml(transformJson), {
-        parser: 'css', // 使用babel-ts解析器，支持TSX格式
-        semi: true, // 在语句末尾添加分号
-        singleQuote: true, // 使用单引号
-        tabWidth: 2, // 缩进宽度
-      })
+    styleTag.innerHTML = \`${await prettier.format(await getStyleInnerHtml(transformJson), {
+      parser: 'css', // 使用babel-ts解析器，支持TSX格式
+      semi: true, // 在语句末尾添加分号
+      singleQuote: true, // 使用单引号
+      tabWidth: 2, // 缩进宽度
+    })
       }\`
     document.head.appendChild(styleTag)
     `;

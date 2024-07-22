@@ -1,8 +1,5 @@
-import * as fs from "fs";
-import * as path from "path";
-import { camelToKebab } from "./utils";
-import { transSchemaToVueProp } from "./utils";
-import { Schema, ToJSON } from "./types";
+import { Schema, ToJSON } from "../../types";
+import { transSchemaToVueProp } from "../../utils";
 
 const getTsTypeForSchema = (schema: Schema, mode?: 'propsType' | 'tsType') => {
   if (!schema) {
@@ -24,9 +21,9 @@ const getTsTypeForSchema = (schema: Schema, mode?: 'propsType' | 'tsType') => {
   } else {
     if (type === 'string') {
       result = 'string'
-    } else if (schema.type === 'object') {
+    } else if (type === 'object') {
       result = `{ ${Object.entries(schema.properties!)
-        .map(([key, val]) => `${key}: ${getTsTypeForSchema(val, mode)}; `)
+        .map(([key, val]: any) => `${key}: ${getTsTypeForSchema(val, mode)}; `)
         .join('')} }`
     } else if (type === 'array') {
       result = `${getTsTypeForSchema(schema.items, mode)}[]`
@@ -51,7 +48,7 @@ function genVueDefineProps(json: ToJSON) {
   const mainStyle = slot!.style
   const curRelOutputIds: string[] = []
 
-  inputs!.forEach((item) => {
+  inputs?.forEach((item) => {
     if (item?.type === 'config') {
       comTypeConfig[item.id] = {
         title: item.title,
@@ -78,7 +75,7 @@ function genVueDefineProps(json: ToJSON) {
     }
   })
 
-  outputs!.forEach((item) => {
+  outputs?.forEach((item) => {
     // 过滤已经被关联过的 output
     if (!curRelOutputIds.includes(item.id)) {
       comTypeConfig[item.id] = {
@@ -96,8 +93,6 @@ function genVueDefineProps(json: ToJSON) {
   let setupPropsStr = ''
   let methodsStr = ''
   let styleStr = ''
-  // let interfaceStr = ''
-
 
   Object.keys(comTypeConfig).forEach((key) => {
     const item = comTypeConfig[key]
@@ -152,71 +147,18 @@ function genVueDefineProps(json: ToJSON) {
     styleStr,
     defineTplProps
   }
-
 }
 
-function genTemplateForVue(params: any) {
-  const {
-    json,
-    transformJson,
-    extractFns,
-    envType,
-    envList,
-    i18nLangContent,
-    comImportsStr,
-    comDefs,
-    sourceLink
-  } = params
-
-  const tplFilePath = path.resolve(__dirname, "./templates/com-tpl-for-vue.txt");
-
-  let template = fs.readFileSync(tplFilePath, "utf8");
-
+export default function processVueRelativeSymbols(json: any) {
   const { propsArr, emitsArr, defineExposeArr, setupPropsStr, methodsStr, styleStr, defineTplProps } = genVueDefineProps(json)
-  template = template.replace(`--extractFns--`, extractFns)
-    .replace(`--json--`, JSON.stringify(transformJson))
-    .replace(`'--executeEnv--'`, JSON.stringify(envType))
-    .replace(`'--envList--'`, JSON.stringify(envList))
-    .replace(`'--i18nLangContent--'`, JSON.stringify(i18nLangContent))
-    .replace(`--componentImports--`, comImportsStr)
-    .replace(`--comDefs--`, `{${comDefs}}`)
-    .replace(`--url--`, sourceLink)
-    .replace(`--props--`, propsArr.map(prop => `${prop},`).join(''))
-    .replace(`--defineTplProps--`, defineTplProps)
-    .replace(`--emitsArr--`, emitsArr.join('' + '\n'))
-    .replace(`--defineExposeArr--`, JSON.stringify(defineExposeArr))
-    .replace(`--setupPropsStr--`, setupPropsStr)
-    .replace(`--methodsStr--`, methodsStr)
-    .replace(`--style--`, styleStr)
 
-  return template
-}
-
-function genTemplateForVueIndex({ componentName }: { componentName: string }) {
-  const tplFilePath = path.resolve(__dirname, "./templates/com-tpl-for-vue-index.txt");
-
-  let template = fs.readFileSync(tplFilePath, "utf8");
-
-  template = template.replace(/--componentName--/g, componentName);
-
-  return template;
-}
-
-function genTemplateForVueReadme({ componentName, sourceLink }: { componentName: string, sourceLink: string }) {
-  const tplFilePath = path.resolve(__dirname, "./templates/readme-for-vue.txt");
-
-  let template = fs.readFileSync(tplFilePath, "utf8");
-
-  template = template.replace(/--url--/g, sourceLink)
-    .replace(/--componentName--/g, componentName)
-    .replace(/--componentKebabName--/g, camelToKebab(componentName));
-
-  return template;
-}
-
-
-export {
-  genTemplateForVue,
-  genTemplateForVueIndex,
-  genTemplateForVueReadme
+  return [
+    { symbol: 'vueProps', value: propsArr.map(prop => `${prop},`).join('') },
+    { symbol: 'vueDefineTplProps', value: defineTplProps },
+    { symbol: 'vueEmitsArr', value: emitsArr.join('' + '\n') },
+    { symbol: 'vueDefineExposeArr', value: JSON.stringify(defineExposeArr) },
+    { symbol: 'vueSetupPropsStr', value: setupPropsStr },
+    { symbol: 'vueMethodsStr', value: methodsStr },
+    { symbol: 'vueStyle', value: styleStr },
+  ]
 }

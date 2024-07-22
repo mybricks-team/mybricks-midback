@@ -1,7 +1,7 @@
 'use client'
 import React, { forwardRef } from 'react'
 import { Renderer, Slot, Canvas, Module } from '@mybricks/renderer-pc'
-import { toJSON, config, comDefs, --components-imports-- } from './config'
+import { toJSON, config, comDefs, --componentImports-- } from './config'
 import 'antd/dist/antd.css'
 
 interface IProps {

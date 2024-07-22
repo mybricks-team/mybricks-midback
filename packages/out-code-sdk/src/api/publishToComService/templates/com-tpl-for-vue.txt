@@ -14,7 +14,7 @@ import { ref, defineComponent } from 'vue'
 import type { PropType } from 'vue';
 import RendererComponent from '@mybricks/renderer-pc/toVue'
 import { toJSON, config } from './config'
--- components-imports --
+--componentImports--
 
 export default defineComponent({
   props: {

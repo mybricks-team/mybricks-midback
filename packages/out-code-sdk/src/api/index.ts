@@ -1,5 +1,5 @@
-import publishToCom from './publishToComService'
+import replaceTemplate from './publishToComService/index2'
 
 export default {
-  publishToCom
+  replaceTemplate
 }

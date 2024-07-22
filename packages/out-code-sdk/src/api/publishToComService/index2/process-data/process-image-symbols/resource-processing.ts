@@ -1,5 +1,5 @@
 import axios from "axios";
-import Logger from "./utils/logger";
+import Logger from "../../utils/logger";
 import * as path from 'path';
 import FormData from 'form-data';
 
