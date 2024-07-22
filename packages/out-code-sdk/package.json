@@ -4,7 +4,7 @@
   "description": "SDK for publishing bricks to user's local",
   "scripts": {
     "build:api": "npm run clean && tsc --build tsconfig.json",
-    "clean": "npx rimraf tsconfig.tsbuildinfo ./src/*.js ./src/**.js ./src/**/*.js ./src/**/**/*.js ./src/**/**/**/*.js ./src/api/*.d.ts ./src/api/**.d.ts ./src/api/**/*.d.ts ./src/api/**/**/*.d.ts ./src/api/**/**/**/*.d.ts ./src/decorator/**/**/**/*.d.ts ./src/plugin/**/**/**/*.d.ts ",
+    "clean": "npx rimraf tsconfig.tsbuildinfo ./src/*.js ./src/**.js ./src/**/*.js ./src/**/**/*.js ./src/**/**/**/*.js ./src/**/**/**/**/*.js ./src/api/*.d.ts ./src/api/**.d.ts ./src/api/**/*.d.ts ./src/api/**/**/*.d.ts ./src/api/**/**/**/*.d.ts ./src/decorator/**/**/**/*.d.ts ./src/plugin/**/**/**/*.d.ts ",
     "clean:temp": "rm -rf .temp",
     "generate:npm": "mkdir .temp && cp package.json ./.temp/package.json && cp -r src/** ./.temp && cd .temp && npm publish",
     "generate:npm-beta": "mkdir .temp && cp package.json ./.temp/package.json && cp -r src/** ./.temp && cd .temp && npm publish --tag beta --registry=https://registry.npmjs.org --access=public",
