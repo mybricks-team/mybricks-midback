@@ -1,7 +1,13 @@
 {
   "name": "@mybricks/publish-to-com-sdk",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "SDK for publishing bricks to user's local",
+  "exports": {
+    "./api": {
+      "import": "./api/index.js",
+      "types": "./api/index.d.ts"
+    }
+  },
   "scripts": {
     "build:api": "npm run clean && tsc --build tsconfig.json",
     "clean": "npx rimraf tsconfig.tsbuildinfo ./src/*.js ./src/**.js ./src/**/*.js ./src/**/**/*.js ./src/**/**/**/*.js ./src/api/*.d.ts ./src/api/**.d.ts ./src/api/**/*.d.ts ./src/api/**/**/*.d.ts ./src/api/**/**/**/*.d.ts ./src/decorator/**/**/**/*.d.ts ./src/plugin/**/**/**/*.d.ts ",
