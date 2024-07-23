@@ -37,7 +37,7 @@
     "@mybricks/com-utils": "1.0.0",
     "@mybricks/comlib-core": "^0.0.44",
     "@mybricks/plugin-connector-http": "1.2.17",
-    "@mybricks/render-core": "^0.0.1",
+    "@mybricks/render-core": "0.0.5",
     "@mybricks/render-web": "^1.2.80",
     "veaury": "^2.3.16"
   },

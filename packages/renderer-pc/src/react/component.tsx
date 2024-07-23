@@ -17,6 +17,11 @@ const findComById = ({ comAry, comId }) => {
           return res
         }
       }
+    } else if (com.elements) {
+      const res = findComById({ comAry: com.elements, comId })
+        if (res) {
+          return res
+        }
     }
   }
 
@@ -68,6 +73,7 @@ export function Component({
           const scopeProps = refs.get({
             comId: id,
             slotId,
+            slot,
             scope: currentScope,
           });
 
