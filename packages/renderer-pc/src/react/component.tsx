@@ -5,6 +5,24 @@ import { RendererContext } from ".";
 import { CanvasContext } from "./canvas";
 import { useCheckPermissions } from "./hooks";
 
+// TODO: 后续可以把数据抽出去，不用这样遍历查找
+const findComById = ({ comAry, comId }) => {
+  for (let com of comAry) {
+    if (com.id === comId) {
+      if (com.def) {
+        return com
+      } else if (com.elements) {
+        const res = findComById({ comAry: com.elements, comId })
+        if (res) {
+          return res
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
 export function Component({
   id,
   children,
@@ -28,7 +46,8 @@ export function Component({
     props: { itemWrap },
   } = useContext(SlotContext);
   const { name, proxySlots, parentSlot, comDef, comProps } = useMemo(() => {
-    const { name, def, slots } = slot.comAry.find((com) => com.id === id);
+    const { name, def, slots } = findComById({ comAry: slot.style.layout === "smart" ? slot.layoutTemplate : slot.comAry, comId: id  })
+    // const { name, def, slots } = slot.comAry.find((com) => com.id === id);
     const comProps = refs.get({ comId: id, scope });
     const comDef = getComDef(def);
     const proxySlots = new Proxy(
