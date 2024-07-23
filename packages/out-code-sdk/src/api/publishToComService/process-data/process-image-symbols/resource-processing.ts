@@ -33,11 +33,11 @@ export function analysisAllResourceUrls(json: any, origin: string): string[] {
         const regex = /^url\(([\w\W]*)\)/;
         const url = str.match(regex)?.[1];
         if (url) {
-          if (url.startsWith(origin)) urls.push(url);
+          if (url.startsWith('http')) urls.push(url);
           else urls.push(`${origin}${url}`);
         }
       } else {
-        if (str.startsWith(origin)) urls.push(str);
+        if (str.startsWith('http')) urls.push(str);
         else urls.push(`${origin}${str}`);
       }
     }
