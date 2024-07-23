@@ -242,6 +242,7 @@ export function init({ json, env, comDefs, comProps, observable }) {
           ref(refs);
         },
         getComDef,
+        // @ts-ignore
         scenesOperate,
       },
       {
