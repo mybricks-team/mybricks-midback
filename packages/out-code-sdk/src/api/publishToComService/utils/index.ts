@@ -1,19 +1,16 @@
-import { GetMaterialContent, Schema, ToJSON } from "../types";
+import { ComlibAllowMap, GetMaterialContent, Schema, ToJSON } from "../types";
 import { getGlobalLogger } from './global-logger';
-
-const ComlibModuleMap: Record<string, string> = {
-  'mybricks.normal-pc': '@mybricks/comlib-pc-normal',
-  'mybricks.basic-comlib': '@mybricks/comlib-basic',
-};
 
 // 获取指定组件库内的组件信息
 export async function getComlibContent(
   comlib: { namespace: string; version: string },
+  comlibAllowMap: ComlibAllowMap,
   getMaterialContent: GetMaterialContent,
 ): Promise<string[]> {
   const Logger = getGlobalLogger();
+
   // 排除不支持的组件库
-  if (!ComlibModuleMap[comlib.namespace]) {
+  if (!comlibAllowMap[comlib.namespace]) {
     Logger.error(
       `can not find node module for comlib ${comlib.namespace}@${comlib.version}`,
     );
@@ -67,7 +64,7 @@ function getComponentName({
     }, '');
 }
 
-export function collectModuleCom(coms: any, comlibDeps: any[]) {
+export function collectModuleCom(coms: any, comlibDeps: any[], comlibAllowMap: Record<string, string>) {
   const res = {} as Record<string, any>;
   const newComDefs: any = [];
 
@@ -78,7 +75,7 @@ export function collectModuleCom(coms: any, comlibDeps: any[]) {
     if (!comlib) {
       throw new Error(`can not find comlib module for com ${com.namespace}`);
     }
-    const module = ComlibModuleMap[comlib.namespace];
+    const module = comlibAllowMap[comlib.namespace];
     if (!res[module]) {
       res[module] = [];
     }

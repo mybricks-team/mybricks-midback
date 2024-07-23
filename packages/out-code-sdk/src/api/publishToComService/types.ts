@@ -3,9 +3,9 @@ export type Schema =
   | { type: 'object'; properties?: Record<string, Schema> }
   | { type: 'array'; items: Schema }
   | {
-      type: 'indexObject';
-      properties: { key: { type: 'string' }; value: { type: 'string' } };
-    }
+    type: 'indexObject';
+    properties: { key: { type: 'string' }; value: { type: 'string' } };
+  }
   | { type: 'tuple'; items: Schema[] }
   | { type: 'enum'; items: { type: 'string' | 'number'; value: string }[] };
 
@@ -74,3 +74,5 @@ export type GetMaterialContent = (params: {
   version?: string;
   codeType?: string;
 }) => Promise<any>;
+
+export type ComlibAllowMap = Record<string, string>;

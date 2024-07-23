@@ -1,10 +1,5 @@
 import { getGlobalLogger } from "../../utils/global-logger";
-import { GetMaterialContent, Scene, ToJSON } from "../../types";
-
-const comlibModuleMap: Record<string, string> = {
-  'mybricks.normal-pc': '@mybricks/comlib-pc-normal',
-  'mybricks.basic-comlib': '@mybricks/comlib-basic',
-}
+import { ComlibAllowMap, GetMaterialContent, Scene, ToJSON } from "../../types";
 
 function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -21,7 +16,7 @@ function getComponentName({ namespace, rtType }: { namespace: string, rtType: st
   }, "");
 }
 
-const collectModuleCom = (coms: any, comlibDeps: any[]) => {
+const collectModuleCom = (coms: any, comlibDeps: any[], comlibAllowMap: ComlibAllowMap) => {
   const res = {} as Record<string, any>
   const newComDefs: any = []
 
@@ -30,7 +25,7 @@ const collectModuleCom = (coms: any, comlibDeps: any[]) => {
     if (!comlib) {
       throw new Error(`can not find comlib module for com ${com.namespace}`)
     }
-    const module = comlibModuleMap[comlib.namespace]
+    const module = comlibAllowMap[comlib.namespace]
     if (!res[module]) {
       res[module] = []
     }
@@ -52,11 +47,15 @@ const collectModuleCom = (coms: any, comlibDeps: any[]) => {
   }
 }
 // 获取指定组件库内的组件信息
-const getComlibContent = async (comlib: { namespace: string, version: string }, getMaterialContent: GetMaterialContent): Promise<string[]> => {
+const getComlibContent = async (
+  comlib: { namespace: string, version: string },
+  comlibAllowMap: ComlibAllowMap,
+  getMaterialContent: GetMaterialContent
+): Promise<string[]> => {
   const Logger = getGlobalLogger();
-  
+
   // 排除不支持的组件库
-  if (!comlibModuleMap[comlib.namespace]) {
+  if (!comlibAllowMap[comlib.namespace]) {
     Logger.error(`can not find node module for comlib ${comlib.namespace}@${comlib.version}`)
     return []
     // throw new Error(`can not find node module for comlib ${comlib.namespace}`)
@@ -131,18 +130,18 @@ function getComDeps(json: ToJSON) {
   return res
 }
 
-export default async function processReactRelativeSymbols(json: ToJSON, comLibs: any, getMaterialContent: GetMaterialContent) {
+export default async function processReactRelativeSymbols(json: ToJSON, comLibs: any, comlibAllowMap: ComlibAllowMap, getMaterialContent: GetMaterialContent) {
   let importComponentsStr = ''
   let componentsMapStr = ''
   let componentsExportStr = ''
 
   const comlibDeps = await Promise.all(comLibs.map(async (item: any) => {
     const { namespace } = item
-    const res = await getComlibContent(item, getMaterialContent)
+    const res = await getComlibContent(item, comlibAllowMap, getMaterialContent)
     return { namespace, deps: res }
   }))
   const comDeps = getComDeps(json)
-  const { newComDefs } = collectModuleCom(comDeps, comlibDeps)
+  const { newComDefs } = collectModuleCom(comDeps, comlibDeps, comlibAllowMap)
 
   newComDefs.forEach((item: any, index: number) => {
     importComponentsStr += `import ${item.runtimeName}Def from "${item.libraryName}/es/${item.runtimeName}"` + '\n'

@@ -1,4 +1,5 @@
 import { IParams } from "..";
+import { ComlibAllowMap } from "../types";
 import { analysisConfigInputsTS, analysisNormalInputsTS, analysisOutputsTS, analysisReactDefaultProps, camelToKebab } from "../utils";
 import { extractCodeFn } from "../utils/extractCodeFn";
 import processComRelativeSymbols from "./process-com-relative-symbols";
@@ -19,8 +20,15 @@ export async function processData(params: IParams) {
   })();
 
   const { transformJson, extractFns } = extractCodeFn(json);
+  const comlibAllowMap = (params.allowComlibs || [])?.reduce((pre, cur) => {
+    pre[cur.namespace] = cur.packageName;
+    return pre;
+  }, {
+    'mybricks.normal-pc': '@mybricks/comlib-pc-normal',
+    'mybricks.basic-comlib': '@mybricks/comlib-basic',
+  } as ComlibAllowMap);
 
-  const comRelativeSymbols = await processComRelativeSymbols({ json: transformJson, comLibs: json.configuration.comLibs, fileId, getMaterialContent: getMaterialContent });
+  const comRelativeSymbols = await processComRelativeSymbols({ json: transformJson, comLibs: json.configuration.comLibs, fileId, comlibAllowMap, getMaterialContent: getMaterialContent });
 
   const { symbols: imageSymbols, staticResources } = await processImageSymbols(json, origin, staticResourceToCDN, uploadCDNUrl);
 

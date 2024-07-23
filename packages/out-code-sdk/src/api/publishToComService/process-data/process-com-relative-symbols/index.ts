@@ -1,5 +1,5 @@
 import { ISymbolValue } from "..";
-import { GetMaterialContent, Scene, ToJSON } from "../../types";
+import { ComlibAllowMap, GetMaterialContent, Scene, ToJSON } from "../../types";
 import { collectModuleCom, getComlibContent } from "../../utils";
 import processReactRelativeSymbols from "./react-relative-symbols";
 import { processStyleRelativeSymbols } from "./style-relative-symbols";
@@ -9,6 +9,7 @@ interface IProps {
   json: any;
   comLibs: any;
   fileId: number;
+  comlibAllowMap: ComlibAllowMap;
   getMaterialContent: GetMaterialContent;
 }
 
@@ -265,7 +266,7 @@ function getComDeps(json: ToJSON) {
   return res;
 }
 
-async function getImportsStr(comLibs: IProps['comLibs'], getMaterialContent: GetMaterialContent, json: ToJSON) {
+async function getImportsStr(comLibs: IProps['comLibs'], comlibAllowMap: ComlibAllowMap, getMaterialContent: GetMaterialContent, json: ToJSON) {
   const comDeps = getComDeps(json);
 
   let comDefs = '';
@@ -277,14 +278,14 @@ async function getImportsStr(comLibs: IProps['comLibs'], getMaterialContent: Get
   const comlibDeps = await Promise.all(
     comLibs.map(async (item: any) => {
       const { namespace } = item;
-      const res = await getComlibContent(item, getMaterialContent);
+      const res = await getComlibContent(item, comlibAllowMap, getMaterialContent);
       return {
         namespace,
         deps: res,
       };
     }),
   );
-  const { newComDefs } = collectModuleCom(comDeps, comlibDeps);
+  const { newComDefs } = collectModuleCom(comDeps, comlibDeps, comlibAllowMap);
 
   newComDefs.forEach((item: any, index: number) => {
     namespaceToComDefs[item.namespace] = item;
@@ -310,8 +311,8 @@ async function getImportsStr(comLibs: IProps['comLibs'], getMaterialContent: Get
   };
 }
 
-export default async function processComRelativeSymbols({ json, comLibs, fileId, getMaterialContent }: IProps): Promise<ISymbolValue[]> {
-  const { comImportsReactStr, comImportsVueStr, comDefs, namespaceToComDefs } = await getImportsStr(comLibs, getMaterialContent, json);
+export default async function processComRelativeSymbols({ json, comLibs, fileId, comlibAllowMap, getMaterialContent }: IProps): Promise<ISymbolValue[]> {
+  const { comImportsReactStr, comImportsVueStr, comDefs, namespaceToComDefs } = await getImportsStr(comLibs, comlibAllowMap, getMaterialContent, json);
 
   const { canvasCode, modulesCode } = genUiCode({ json, namespaceToComDefs });
 
@@ -320,7 +321,7 @@ export default async function processComRelativeSymbols({ json, comLibs, fileId,
     { symbol: 'comDefs', value: `{${comDefs}}` },
     { symbol: 'reactUI', value: canvasCode },
     { symbol: 'modulesCode', value: modulesCode },
-    ...await processReactRelativeSymbols(json, comLibs, getMaterialContent),
+    ...await processReactRelativeSymbols(json, comLibs, comlibAllowMap, getMaterialContent),
     { symbol: 'vueComponentImports', value: comImportsVueStr },
     ...processVueRelativeSymbols(json),
     ...await processStyleRelativeSymbols(fileId, json)

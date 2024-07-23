@@ -1,19 +1,35 @@
 import { setGlobalLogger, getGlobalLogger } from './utils/global-logger';
 import type { LoggerType } from './utils/global-logger';
 import { GetMaterialContent, ToJSON } from './types';
-import { processData } from './process-data';
+import { ISymbolValue, processData } from './process-data';
 import { hasRequiredProperties } from './utils';
 
 export interface IParams {
-  json: ToJSON & { configuration: any };
+  json: ToJSON & {
+    configuration: {
+      comLibs: {
+        coms: string;
+        editJs: string;
+        id: string;
+        namespace: string;
+        rtJs: string;
+        version: string;
+      },
+      i18nLangContent?: Record<string, {
+        "id": string,
+        "content": Record<string, string>
+      }>,
+      envList?: string[];
+    }
+  };
   fileId: number;
   componentName: string;
   envType: string;
   hostname: string;
-  toLocalType: string;
   origin: string;
   staticResourceToCDN: boolean;
   uploadCDNUrl?: string;
+  allowComlibs?: { namespace: string, packageName: string }[];
   getMaterialContent: GetMaterialContent;
 }
 
@@ -48,7 +64,7 @@ function checkParams(params: IParams) {
 export default async function replaceTemplate(
   params: IParams,
   templateArray: string[],
-  options?: { Logger?: LoggerType }
+  options?: { Logger?: LoggerType, symbolValues?: ISymbolValue[] }
 ) {
   setGlobalLogger(options?.Logger || { info: console.log, error: console.error });
 
@@ -56,8 +72,10 @@ export default async function replaceTemplate(
 
   const { symbols, staticResources } = await processData(params);
 
+  const mergedSymbols = [...(options?.symbolValues || []), ...symbols];
+
   const codes = templateArray.map((template) => {
-    symbols.forEach((symbolValue) => {
+    mergedSymbols.forEach((symbolValue) => {
       const { symbol, value } = symbolValue;
       template = template.replace(new RegExp(`--${symbol}--`, 'g'), value);
     })
