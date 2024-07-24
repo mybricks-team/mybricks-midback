@@ -15,6 +15,18 @@ type LatestComlib = {
   version: string;
 };
 
+interface ComlibOption {
+  lib: ComLibType | undefined,
+  libs?: Array<ComLibType>
+  index?: number
+}
+
+interface ComOption {
+  com: ComType[] | undefined,
+  mySelfComlib: ComLibType
+  index?: number
+}
+type OperateOption = ComOption | ComlibOption
 interface ComLibType {
   id: string;
   namespace: string;
@@ -35,6 +47,8 @@ enum CMD {
   ADD_JS_COM = 'addJSCom',
   DELETE_COM_LIB = "deleteComLib",
   UPGRADE_COM_LIB = "upgradeComLib",
+  /** 添加组件库，自己定的key */
+  ADD_COM_LIB = 'addComLib'
 }
 
 interface LibDesc extends ComLibType {
@@ -44,4 +58,4 @@ interface LibDesc extends ComLibType {
   comNamespace?: string;
 }
 
-export { type ComType, LatestComlib, ComLibType, CMD, LibDesc };
+export { type ComType, LatestComlib, ComLibType, CMD, LibDesc, OperateOption, ComOption, ComlibOption };

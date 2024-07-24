@@ -9,15 +9,29 @@ const onAddCom = () =>
       if (!myselfComLib) {
         resolve({});
       }
-      const com = await materialServerIns.config.onAddCom();
-      const index = myselfComLib.comAray.findIndex(
-        (item) => item.namespace === com.namespace
-      );
-      if (index >= 0) {
-        myselfComLib.comAray.splice(index, 1, com);
-      } else {
-        myselfComLib.comAray.push(com);
-      }
+       // 添加组件可能选择多个 addOrUpdateComponents
+       const newComs = await materialServerIns.config.onAddCom();
+       const newComLib =  await getComlibsByNamespaceAndVersion(newComs)
+       newComLib?.comAray.forEach(com => {
+         const index = myselfComLib.comAray.findIndex(
+           (item) => item.namespace === com.namespace
+         );
+         if (index >= 0) {
+           myselfComLib.comAray.splice(index, 1, com);
+         } else {
+           myselfComLib.comAray.push(com);
+         }
+       });
+      // const com = await materialServerIns.config.onAddCom();
+      // const index = myselfComLib.comAray.findIndex(
+      //   (item) => item.namespace === com.namespace
+      // );
+      // if (index >= 0) {
+      //   myselfComLib.comAray.splice(index, 1, com);
+      // } else {
+      //   myselfComLib.comAray.push(com);
+      // }
+      debugger
       resolve(myselfComLib);
     } catch (error) {
       reject(error);
@@ -34,7 +48,7 @@ export const onAddUICom = () =>
       // addOrUpdateComponents
       const newComs = await materialServerIns.config.onAddUICom();
       const newComLib =  await getComlibsByNamespaceAndVersion(newComs)
-      newComLib.comAray.forEach(com => {
+      newComLib?.comAray.forEach(com => {
         const index = myselfComLib.comAray.findIndex(
           (item) => item.namespace === com.namespace
         );
@@ -45,7 +59,7 @@ export const onAddUICom = () =>
         }
       });
       resolve(myselfComLib);
-      debugger
+      // debugger
     } catch (error) {
       reject(error);
     }
@@ -58,15 +72,20 @@ export  const onAddJSCom = () =>
         if (!myselfComLib) {
           resolve({});
         }
-        const com = await materialServerIns.config.onAddCom();
-        const index = myselfComLib.comAray.findIndex(
-          (item) => item.namespace === com.namespace
-        );
-        if (index >= 0) {
-          myselfComLib.comAray.splice(index, 1, com);
-        } else {
-          myselfComLib.comAray.push(com);
-        }
+        // const com = await materialServerIns.config.onAddJSCom();
+        // addOrUpdateComponents
+        const newComs = await materialServerIns.config.onAddJSCom();
+        const newComLib =  await getComlibsByNamespaceAndVersion(newComs)
+        newComLib?.comAray.forEach(com => {
+          const index = myselfComLib.comAray.findIndex(
+            (item) => item.namespace === com.namespace
+          );
+          if (index >= 0) {
+            myselfComLib.comAray.splice(index, 1, com);
+          } else {
+            myselfComLib.comAray.push(com);
+          }
+        });
         resolve(myselfComLib);
       } catch (error) {
         reject(error);

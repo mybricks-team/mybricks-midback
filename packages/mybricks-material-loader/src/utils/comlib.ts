@@ -1,3 +1,4 @@
+import { ComLibType } from "src/global";
 import { SourceEnum, MY_SELF_ID } from "../constant";
 import { loadScript } from "../loader/loadScript";
 
@@ -67,7 +68,7 @@ export class ComboComlibURL {
   }
 }
 
-export const getMySelfLibComsFromUrl = (url) => {
+export const getMySelfLibComsFromUrl = (url): Promise<ComLibType| any> => {
 
   if (url?.split('components=')?.[1]?.length === 0) {
     window['__comlibs_edit_'].unshift({
@@ -81,7 +82,7 @@ export const getMySelfLibComsFromUrl = (url) => {
   }
 
   return new Promise((resolve, reject) => {
-    loadScript(url,).then(({ styles }) => {
+    loadScript(url).then(({ styles }) => {
       /** 添加之后会有多组件存储于__comlibs_edit_需要合并下 */
       const firstComIdx = window['__comlibs_edit_'].findIndex(
         (lib) => lib.id === MY_SELF_ID,

@@ -17,13 +17,18 @@ const loader = async (lib: ComLibType) => {
   }
   try {
     const { styles } = await loadScript(lib.editJs);
-    const loadedLib = window[SourceEnum.ComLib_Edit].find(
+    let loadedLib = window[SourceEnum.ComLib_Edit].find(
       (winLib: any) =>
         winLib.namespace === lib.namespace || winLib.id === lib.id
     );
-    loadedLib.id = lib.id;
-    loadedLib.namespace = lib.namespace;
-    loadedLib._styleAry = styles;
+    debugger
+    try {
+      loadedLib.id = lib.id ?? loadedLib.id;
+      loadedLib.namespace = lib.namespace ?? loadedLib.namespace;
+      loadedLib._styleAry = styles;
+    } catch (error) {
+    }
+
     try {
       if (
         lib.latestComlib &&
