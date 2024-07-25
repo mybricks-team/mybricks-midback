@@ -161,6 +161,8 @@ function OutCodeDirItem(props: {
       }
     },
     hasPermissionFn: variableContext.hasPermissionFn,
+    publishToComUrl: constantContext.publishToComUrl,
+    publishToComDownloadUrl: constantContext.publishToComDownloadUrl,
   })
 
   const codeToLocal = async (handle?: FileSystemDirectoryHandle) => {

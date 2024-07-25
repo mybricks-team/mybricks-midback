@@ -21,7 +21,9 @@ interface Props {
       comLibs: any[]
     }
   }
-  hasPermissionFn: string
+  hasPermissionFn: string,
+  publishToComUrl: string,
+  publishToComDownloadUrl: string,
 }
 
 function stringToArrayBuffer(str: string) {
@@ -54,6 +56,8 @@ const useGenCode = ({
   contextInfo,
   getParam,
   hasPermissionFn,
+  publishToComUrl,
+  publishToComDownloadUrl,
 }: Props) => {
   const [localSaveLoading, setLocalSaveLoading] = useState(false)
 
@@ -89,7 +93,7 @@ const useGenCode = ({
       return await axios({
         method: 'post',
         timeout: 60 * 1000,
-        url: '/api/pcpage/publishToCom',
+        url: publishToComUrl,
         data: {
           toLocalType,
           userId: contextInfo.userId,
@@ -111,7 +115,7 @@ const useGenCode = ({
       return await axios({
         method: 'post',
         timeout: 60 * 1000,
-        url: '/api/pcpage/publishToComDownload',
+        url: publishToComDownloadUrl,
         responseType: 'blob', // 指定响应的数据类型为 blob
         headers: { 'Content-Type': 'application/json' },
         data: {
