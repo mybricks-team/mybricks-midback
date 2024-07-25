@@ -4,6 +4,7 @@ import css from './css.less'
 import htmlTpt from './pub-tpt.html'
 import localePlugin from '@mybricks/plugin-locale'
 import tools from '@mybricks/plugin-tools'
+import { upgradeLibComlibsData, latestComlibData,  localComlibData } from './data'
 import PcSpaDesigner, {
   type ComLibType,
   MaterialServerConfig,

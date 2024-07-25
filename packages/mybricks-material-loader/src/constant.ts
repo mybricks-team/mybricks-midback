@@ -4,4 +4,7 @@ const SourceEnum = {
   CloudComponentDependentComponents: "CloudComponentDependentComponents",
   MySelfId: "_myself_",
 };
-export { SourceEnum };
+
+const MY_SELF_ID = SourceEnum.MySelfId;
+
+export { SourceEnum, MY_SELF_ID };

@@ -1,5 +1,6 @@
 import materialServerIns from "../materialService";
 import { getMyselfComLib } from "../util";
+import { CMD } from "../global";
 
 const onDeleteCom = (namespace: string) =>
   new Promise(async (resolve, reject) => {
@@ -15,7 +16,9 @@ const onDeleteCom = (namespace: string) =>
         myselfComLib.comAray[index]
       );
       if (ret) {
+        const com = myselfComLib.comAray[index]
         myselfComLib.comAray.splice(index, 1);
+        materialServerIns.config.operateCallback(CMD.DELETE_COM, {com, mySelfComlib: myselfComLib, index: index})
       }
       resolve(myselfComLib);
     } catch (error) {

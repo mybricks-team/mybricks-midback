@@ -2,7 +2,7 @@ import initComLib from "./crud/initComLib";
 import { upgradeComLib, upgradeLatestComLib } from "./crud/upgradeComLib";
 import deleteComLib from "./crud/deleteComLib";
 import insertComLib from "./crud/insertComLib";
-import onAddCom from "./crud/onAddCom";
+import onAddCom, { onAddJSCom, onAddUICom } from "./crud/onAddCom";
 import onUpgradeCom from "./crud/onUpgradeCom";
 import onDeleteCom from "./crud/onDeleteCom";
 import { initGlobal } from "./util";
@@ -32,6 +32,14 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
         switch (cmd) {
           case CMD.ADD_COM:
             let ret = await onAddCom();
+            resolve(ret);
+            break;
+          case CMD.ADD_UI_COM:
+            ret = await onAddUICom();
+            resolve(ret);
+            break;
+          case CMD.ADD_JS_COM:
+            ret = await onAddJSCom();
             resolve(ret);
             break;
           case CMD.DELETE_COM:
