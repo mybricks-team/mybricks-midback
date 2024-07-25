@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/publish-to-com-sdk",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "SDK for publishing bricks to user's local",
   "scripts": {
     "build:api": "npm run clean && tsc --build tsconfig.json",
@@ -73,7 +73,6 @@
     "@mybricks/render-utils": "^0.0.45",
     "axios": ">=1.2.0",
     "form-data": "^4.0.0",
-    "prettier": "^3.3.3",
-    "prettier-plugin-vue": "^1.1.6"
+    "prettier": "^3.3.3"
   }
 }

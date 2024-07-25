@@ -39,7 +39,7 @@ async function createOutCodeDirItem(variableContext: VariableContext, constantCo
       cancelText: '取消',
       width: 600,
       content: (
-        <Form form={form} labelCol={{ span: 5 }} wrapperCol={{ span: 19 }}>
+        <Form form={form} labelCol={{ span: 5 }} wrapperCol={{ span: 19 }} initialValues={{ type: 'react' }}>
           <Form.Item name='description' label='标签' rules={[{ required: true, message: '标签不能为空' }]}
             tooltip='用于区分同名文件夹（由于浏览器安全策略，无法拿到本地文件系统的真实路径，因此无法直接显示出码文件夹路径，只能通过标签区分）'>
             <Input placeholder="请输入出码文件夹标签" />
@@ -52,7 +52,7 @@ async function createOutCodeDirItem(variableContext: VariableContext, constantCo
               : <Form.Item label='文件夹路径'>由于浏览器安全策略, 非 https 无法直接访问本地文件系统, 所以会以下载的方式进行出码, 无需配置出码文件夹路径</Form.Item>
           }
           <Form.Item name='type' label='出码类型' rules={[{ required: true, message: '出码类型不能为空' }]}>
-            <Select options={[{ label: 'Vue3', value: 'vue' }, { label: 'React', value: 'react' }]} />
+            <Select options={[{ label: 'React', value: 'react' }, { label: 'Vue3', value: 'vue' }]} />
           </Form.Item>
         </Form>
       ),
