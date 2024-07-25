@@ -2,7 +2,6 @@ import { ComLibType } from "src/global";
 import { SourceEnum, MY_SELF_ID } from "../constant";
 import { loadScript } from "../loader/loadScript";
 
-
 export const getValidUrl = (url = '/api/material/components/combo') => {
   const tempPrefix = location.origin || 'https://xxx.com'
   if (url.indexOf('://') !== -1) {
@@ -71,7 +70,7 @@ export class ComboComlibURL {
 export const getMySelfLibComsFromUrl = (url): Promise<ComLibType| any> => {
 
   if (url?.split('components=')?.[1]?.length === 0) {
-    window['__comlibs_edit_'].unshift({
+    window[SourceEnum.ComLib_Edit].unshift({
       comAray: [],
       id: '_myself_',
       title: '我的组件',
@@ -82,23 +81,24 @@ export const getMySelfLibComsFromUrl = (url): Promise<ComLibType| any> => {
   }
 
   return new Promise((resolve, reject) => {
-    loadScript(url).then(({ styles }) => {
+    myRequire([url], () => {
+      reject(new Error('加载我的组件失败'))
+    }).then(({ styles }) => {
       /** 添加之后会有多组件存储于__comlibs_edit_需要合并下 */
-      const firstComIdx = window['__comlibs_edit_'].findIndex(
+      const firstComIdx = window[SourceEnum.ComLib_Edit].findIndex(
         (lib) => lib.id === MY_SELF_ID,
       );
-      const lastComIndex = window['__comlibs_edit_'].findLastIndex(
+      const lastComIndex = window[SourceEnum.ComLib_Edit].findLastIndex(
         (lib) => lib.id === MY_SELF_ID,
       );
       if (firstComIdx !== lastComIndex) {
-        window['__comlibs_edit_'][firstComIdx].comAray = [
-          ...window['__comlibs_edit_'][lastComIndex].comAray,
+        window[SourceEnum.ComLib_Edit][firstComIdx].comAray = [
+          ...window[SourceEnum.ComLib_Edit][lastComIndex].comAray,
         ];
-        window['__comlibs_edit_'].splice(lastComIndex, 1);
+        window[SourceEnum.ComLib_Edit].splice(lastComIndex, 1);
       }
       setTimeout(() => resolveSelfLibStyle(styles), 1500);
-      // console.log('加载', window['__comlibs_edit_'])
-      resolve(window['__comlibs_edit_'][firstComIdx]);
+      resolve(window[SourceEnum.ComLib_Edit][firstComIdx]);
     }).catch(err => {
         reject(new Error('加载我的组件失败'))
     })
@@ -144,33 +144,6 @@ export function resolveSelfLibStyle(styles) {
     });
   }
 }
-
-
-// export function myRequire(arr, onError): Promise<{ styles: any; rnStyles: any }> {
-//   return new Promise((resolve, reject) => {
-//     if (!(arr instanceof Array)) {
-//       console.error("arr is not a Array");
-//       return false;
-//     }
-
-//     let REQ_TOTAL = 0,
-//       EXP_ARR = [],
-//       REQLEN = arr.length;
-
-//     // const styles: any = [];
-//     const rnStyles: any = [];
-//     Promise.all(arr.map(req_item => loadScript(req_item))).then(allData => {
-//       const styles = allData.map(item => item.styles)
-//       console.log('allData', allData, styles)
-//       resolve(styles as any)
-//     })
-
-
-//     // arr.forEach(function (req_item, index, arr) {
-//     //   const { styles } = loadScript(req_item)
-//     // });
-//   });
-// }
 
 let styleCount = 0
 

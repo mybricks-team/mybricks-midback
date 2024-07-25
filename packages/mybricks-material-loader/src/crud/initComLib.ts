@@ -11,27 +11,43 @@ const init = (libs: Array<ComLibType | string>) => {
   return new Promise(async (resolve, reject) => {
     let myselfComLib = getMyselfComLib(libs);
     libs = libs.filter((lib) => (lib as ComLibType)?.id !== SourceEnum.MySelfId);
-    console.log('mySelf', myselfComLib, libs, materialServerIns.config)
+    // latestComlibs 也是从传入的libs中来
+    const latestComlibs = libs.filter(lib => (lib as ComLibType).latestComlib).map(lLib => (lLib as ComLibType).latestComlib)
     if(myselfComLib && materialServerIns.config.hasMaterialApp) {
       myselfComLib = await getComlibsByNamespaceAndVersion(myselfComLib?.comAray)
     }
-    // const { styles } = await myRequire(
-    //   libs.map((lib) => lib?.editJs ?? lib),
-    //   (error) => {
-    //     Promise.reject(error);
-    //   }
-    // );
+    if (!libs.length) {
+      resolve([]);
+    }
+
+    const { styles } = await myRequire(
+      libs.map((lib) => (lib as ComLibType)?.editJs ?? lib),
+      (error) => {
+        Promise.reject(error);
+      }
+    );
+    extraCaseProcess(libs, styles);
     try {
-      // loader 接收 ComLibType 格式的数据，对于lib为'localhost:2000'
-      let loadedLibs =  await Promise.all(libs.map((lib) => loader(((lib as ComLibType)?.editJs ? lib :  { editJs: lib }) as ComLibType)));
-      // let allStyles = await Promise.all(libs.map(lib => loadScript((lib as ComLibType).editJs ?? lib as string) ))
-      debugger
-      // let loadedLibs
-      debugger
-      // if(libs.some(item => typeof item === 'string')) {
-        loadedLibs  = window[SourceEnum.ComLib_Edit]
-      // }
-      // debugger
+        let loadedLibs  = window[SourceEnum.ComLib_Edit]
+         /**
+         * insert latestComlib for upgrade
+         */
+        latestComlibs.forEach((latestLib) => {
+          try {
+            const shouldUpdateLib = window[SourceEnum.ComLib_Edit].find(
+              (lib) =>
+                (lib.namespace === latestLib.namespace || lib.id === latestLib.id) &&
+                compareVersions(latestLib.version, lib.version) > 0
+            );
+            if (shouldUpdateLib) {
+              shouldUpdateLib.latestComlib = latestLib;
+            }
+          } catch (error) {
+            console.warn(
+              `[初始化组件库]: ${latestLib.namespace} 组件库是测试版本，无法进行在线升级`
+            );
+          }
+        });
       /**
        * sort with namespace of lib
        */
@@ -41,14 +57,48 @@ const init = (libs: Array<ComLibType | string>) => {
         let bIndex = namespaceArr.indexOf(b.namespace);
         return aIndex - bIndex;
       });
-      if(myselfComLib) {
-        loadedLibs.unshift(myselfComLib);
-      }
       resolve(loadedLibs)
     } catch (error) {
       reject(error);
     }
   });
 };
+
+function extraCaseProcess(libs, styles) {
+  /**
+   * insert styles
+   */
+  const comlibIndex = window[SourceEnum.ComLib_Edit].findIndex(
+    (comlib) => comlib.id !== "_myself_"
+  );
+
+  if (comlibIndex !== -1) {
+    window[SourceEnum.ComLib_Edit][comlibIndex]._styleAry = styles;
+  }
+  /**
+   * 兼容中间没有namespace存量页面数据
+   */
+  window[SourceEnum.ComLib_Edit].forEach((winLib) => {
+    if (!winLib.namespace) {
+      const lib = libs.find((lib) => lib?.id === winLib.id);
+      if (lib) {
+        winLib.namespace = lib?.namespace;
+      }
+    }
+  });
+
+  /**
+   * without namespace tips
+   */
+  const libWithoutNamespace = window[SourceEnum.ComLib_Edit].filter(
+    (lib) => !lib.namespace && lib.id !== "_myself_"
+  );
+  if (libWithoutNamespace.length) {
+    const titleStr = libWithoutNamespace.map((lib) => lib.title).join("、");
+    console.error(
+      `组件库【${titleStr}】未找到namespace，无法进行更新、删除操作`
+    );
+  }
+}
 
 export default init;

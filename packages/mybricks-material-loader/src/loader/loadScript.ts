@@ -10,6 +10,7 @@ const loadScript = (src: string) => {
     const _headAppendChild = document.head.appendChild;
     document.head.appendChild = (ele: any) => {
       if (ele && ele.tagName?.toLowerCase() === "style") {
+        // ele.id = "mybricks_" + uuid(7);
         styles.push(ele);
       } else {
         _headAppendChild.call(document.head, ele);

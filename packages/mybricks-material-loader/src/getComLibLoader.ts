@@ -7,7 +7,6 @@ import onUpgradeCom from "./crud/onUpgradeCom";
 import onDeleteCom from "./crud/onDeleteCom";
 import { initGlobal } from "./util";
 import { ComLibType, LibDesc, CMD } from "./global";
-import materialService from "./materialService";
 
 const resolveLibField = (lib: any) => {
   return {
@@ -28,7 +27,6 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
       return resolve(initLibs);
     }
     const { cmd, comNamespace } = libDesc;
-    console.log('cmd', cmd, materialService.comlibs)
     try {
       if (cmd) {
         switch (cmd) {

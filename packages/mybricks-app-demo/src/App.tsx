@@ -40,60 +40,30 @@ export default function MyDesigner() {
     },
   })
 
-  const [comLibs, setComLibs] = useState<Array<ComLibType>>(
-    // [
-    //   {
-    //     id: '@mybricks/comlib-pc-normal',
-    //     // "namespace": "mybricks.basic-comlib",
-    //     editJs:
-    //       'https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.8.30/2024-07-15_21-26-07/edit.js',
-    //   },
-    //   {
-    //     id: '@mybricks/comlib-basic',
-    //     // "namespace": "mybricks.normal-pc",
-    //     editJs: `https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.54/2024-07-11_21-36-05/edit.js`,
-    //   },
-    // ]
-    // latestComlibData
-    // localComlibData
-    upgradeLibComlibsData
-    // [
-    // {
-    //   "id": "7182",
-    //   "namespace": "mybricks.basic-comlib",
-    //   "editJs": "https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.39/2024-05-30_16-27-18/edit.js",
-    // },
-    // {
-    //     "id": "7632",
-    //     "namespace": "mybricks.normal-pc",
-    //     "editJs": "https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.7.79/2024-06-20_11-07-24/edit.js",
-    // }],
-  //   [
-  //   {
-  //     id: '12',
-  //     namespace: 'mybricks.normal-pc',
-  //     title: '通用PC组件库',
-  //     editJs:
-  //       'https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.25/2024-03-04_20-51-40/edit.js',
-  //       // 'http://localhost:8001/libEdt.js',
-  //   },
-  //   {
-  //     id: '313',
-  //     namespace: 'mybricks.basic-comlib',
-  //     title: '基础组件库',
-  //     editJs:
-  //       'https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.16/2024-03-01_16-59-05/edit.js',
-  //     latestComlib: {
-  //       id: '313',
-  //       namespace: 'mybricks.basic-comlib',
-  //       title: '基础组件库',
-  //       version: '1.1.20',
-  //       editJs:
-  //         'https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.20/2024-03-11_15-47-14/edit.js',
-  //     },
-  //   },
-  // ]
-)
+  const [comLibs, setComLibs] = useState<Array<ComLibType>>([
+    {
+      id: '12',
+      namespace: 'mybricks.normal-pc',
+      title: '通用PC组件库',
+      editJs:
+        'https://assets.mybricks.world/comlibs/mybricks.normal-pc/1.5.25/2024-03-04_20-51-40/edit.js',
+    },
+    {
+      id: '313',
+      namespace: 'mybricks.basic-comlib',
+      title: '基础组件库',
+      editJs:
+        'https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.16/2024-03-01_16-59-05/edit.js',
+      latestComlib: {
+        id: '313',
+        namespace: 'mybricks.basic-comlib',
+        title: '基础组件库',
+        version: '1.1.20',
+        editJs:
+          'https://assets.mybricks.world/comlibs/mybricks.basic-comlib/1.1.20/2024-03-11_15-47-14/edit.js',
+      },
+    },
+  ])
 
   const [gptOpen, setGptOpen] = useState(false)
   const [gptValue, setGptValue] = useState('')

@@ -11,16 +11,18 @@ export type MaterialServerConfig = Partial<{
   onAddUICom: () => Promise<ComType[]>
   onUpgradeCom: (com: ComType) => Promise<ComType>;
   onDeleteCom: (com: ComType) => Promise<boolean>;
-  getLibExternals: ({ namespace, version }) => Promise<any>
+  /**
+   * 获取组件库的依赖，有需要的话，传递获取库依赖的方法后，loader内部会执行升级依赖操作
+   */
+  getLibExternals?: ({ namespace, version }) => Promise<any>
   hasMaterialApp?: boolean
+  /** 操作回调函数 */
   operateCallback?: (cmd: CMD, options: OperateOption) => void
 }>;
 class MaterialService {
   config: MaterialServerConfig = {};
-  comlibs: ComLibType[] = []
-  set(config: MaterialServerConfig, comlibs?: ComLibType[]) {
+  set(config: MaterialServerConfig) {
     this.config = { ...this.config, ...config };
-    this.comlibs = comlibs || []
   }
 }
 

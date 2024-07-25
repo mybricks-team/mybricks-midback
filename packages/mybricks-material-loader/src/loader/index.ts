@@ -21,11 +21,10 @@ const loader = async (lib: ComLibType) => {
       (winLib: any) =>
         winLib.namespace === lib.namespace || winLib.id === lib.id
     );
-    debugger
     try {
       loadedLib.id = lib.id ?? loadedLib.id;
       loadedLib.namespace = lib.namespace ?? loadedLib.namespace;
-      loadedLib._styleAry = styles;
+      loadedLib._styleAry = styles
     } catch (error) {
     }
 

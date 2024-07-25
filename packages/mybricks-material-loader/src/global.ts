@@ -13,6 +13,9 @@ type ComType = {
 type LatestComlib = {
   namespace: string;
   version: string;
+  coms?: string
+  editJs?: string
+  rtJs?: string
 };
 
 interface ComlibOption {
@@ -31,6 +34,7 @@ interface ComLibType {
   id: string;
   namespace: string;
   title: string;
+  version?: string
   comAray?: Array<ComType>;
   defined?: boolean;
   editJs: string;
