@@ -8,6 +8,7 @@ export interface NormalRendererProps {
     i18nLangContent;
     silent?;
     extractFns;
+    getCloudJSON;
   };
   comDefs: any;
   props: any;

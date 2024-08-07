@@ -12,10 +12,11 @@ import { Component } from "./component";
 import { Slot } from "./slot";
 import { Canvas } from "./canvas";
 import { Module } from "./module";
+import { Cloud } from "./cloud";
 import { init, generateEnv, generateRef } from "../basic";
 import type { NormalRendererProps } from "../basic";
 
-export { Component, Slot, Canvas, Module };
+export { Component, Slot, Canvas, Module, Cloud };
 
 hijackReactcreateElement({});
 
@@ -60,9 +61,11 @@ export const Renderer = forwardRef((props: RendererProps, ref: any) => {
           env,
           getComDef,
           getModuleJSON,
+          getCloudJSON: props.config.getCloudJSON,
           canvasStatusMap,
           runExecutor,
           permissions,
+          observable,
           logger: {
             error(...args) {
               console.error(...args);

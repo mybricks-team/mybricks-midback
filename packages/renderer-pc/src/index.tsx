@@ -1,4 +1,4 @@
-import { Renderer, Canvas, Slot, Component, Module } from './react'
+import { Renderer, Canvas, Slot, Component, Module, Cloud } from './react'
 
 export {
   Renderer,
@@ -6,6 +6,7 @@ export {
   Slot,
   Component,
   Module,
+  Cloud,
 }
 
 export default {
@@ -14,4 +15,5 @@ export default {
   Slot,
   Component,
   Module,
+  Cloud,
 }
