@@ -1,4 +1,4 @@
-import React, { forwardRef, useLayoutEffect, useRef, useState } from 'react'
+import React, { forwardRef, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Spin, Alert } from 'antd'
 import Core from './core'
 
@@ -18,6 +18,23 @@ const RendererCloud = forwardRef(
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
 
+    // 添加主题变量样式
+    function appendThemeVarsStyle() {
+      const THEME_VARS_STYLE = comMeta.current?.fileId + '__themeVarsStyle__';
+      if (window[THEME_VARS_STYLE]) {
+        const style = document.createElement('style')
+        style.setAttribute('data-id', THEME_VARS_STYLE)
+        style.innerHTML = window[THEME_VARS_STYLE]
+        document.head.appendChild(style)
+      }
+    }
+    // 移除主题变量样式
+    function removeThemeVarsStyle() {
+      const THEME_VARS_STYLE = comMeta.current?.fileId + '__themeVarsStyle__';
+      const style = document.querySelector(`style[data-id="${THEME_VARS_STYLE}"]`)
+      if (style) { style.remove() }
+    }
+
     useLayoutEffect(() => {
       comMeta.current = getComMetaForUrl(comUrl)
 
@@ -25,10 +42,12 @@ const RendererCloud = forwardRef(
 
       if (window[MY_BRICKS_CLOUD]?.[comKey]) {
         setLoading(false)
+        appendThemeVarsStyle();
       } else {
         loadScript(comUrl, {
           success: () => {
             setLoading(false)
+            appendThemeVarsStyle();
           },
           failed: (msg) => {
             setError(msg)
@@ -36,6 +55,8 @@ const RendererCloud = forwardRef(
           },
         })
       }
+
+      return () => { removeThemeVarsStyle(); }
     }, [comUrl, loading])
 
     if (error) {
