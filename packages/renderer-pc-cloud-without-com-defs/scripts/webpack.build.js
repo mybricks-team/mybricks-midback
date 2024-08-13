@@ -25,7 +25,7 @@ module.exports = {
     {
       react: 'react',
       'react-dom': 'react-dom',
-      antd: 'antd',
+      antd: 'nocobasemyantd',
       '@ant-design/icons': '@ant-design/icons',
       '@ant-design/icons-svg': '@ant-design/icons-svg'
     },

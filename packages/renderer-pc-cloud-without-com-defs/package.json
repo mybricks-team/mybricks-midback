@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/renderer-pc-cloud-without-com-defs",
-  "version": "0.0.6",
+  "version": "0.0.7-beta.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
