@@ -13,13 +13,37 @@ interface IProps {
   getMaterialContent: GetMaterialContent;
 }
 
-function genUiCode({ json, namespaceToComDefs }: any) {
+function genUiCode({ json, namespaceToComDefs, cloudComs }: {
+  json: any;
+  namespaceToComDefs: any;
+  cloudComs?: { title: string, namespace: string, id: string, json: any }[];
+}) {
   /** 场景代码 */
   let canvasCode = "";
   /** 模块代码 */
   let modulesCode = "";
+  /** 云组件代码 */
+  let cloudComsCode = "";
   const { modules, scenes } = json;
   const moduleIdToIndex: any = {};
+
+  if (cloudComs) {
+    cloudComs.forEach(com => {
+      const { title, namespace, id, json } = com;
+      cloudComsCode = cloudComsCode + `
+      /** 云组件 - ${title} */
+        function Cloud${id}({ id }: CloudComProps) {
+            return (
+              <Cloud namespace="${namespace}" comId={id}>
+                ${
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        getBaeJsonCode(json, false)
+        }
+              </Cloud>
+          );
+      `;
+    });
+  }
 
   if (modules) {
     Object.entries(modules).forEach(
@@ -208,6 +232,12 @@ function genUiCode({ json, namespaceToComDefs }: any) {
     }
     ${modulesCode}
     ` : "",
+    cloudComsCode: cloudComsCode ? `interface CloudComProps {
+      /** 云组件ID */
+      id: string;
+    }
+    ${cloudComsCode}
+  ` : "",
   };
 }
 
@@ -293,13 +323,13 @@ async function getImportsStr(comLibs: IProps['comLibs'], comlibAllowMap: ComlibA
 
     if (!item.rtType) {
       // 仅需要导出ui组件
-      comImportsReactStr += `${item.runtimeName},`;
+      comImportsReactStr += `${item.runtimeName}, `;
     }
 
     if (index === comDeps.length - 1) {
-      comDefs += `'${item.namespace}': ${item.runtimeName}`;
+      comDefs += `'${item.namespace}': ${item.runtimeName} `;
     } else {
-      comDefs += `'${item.namespace}': ${item.runtimeName},` + '\n';
+      comDefs += `'${item.namespace}': ${item.runtimeName}, ` + '\n';
     }
   });
 
@@ -314,13 +344,14 @@ async function getImportsStr(comLibs: IProps['comLibs'], comlibAllowMap: ComlibA
 export default async function processComRelativeSymbols({ json, comLibs, fileId, comlibAllowMap, getMaterialContent }: IProps): Promise<ISymbolValue[]> {
   const { comImportsReactStr, comImportsVueStr, comDefs, namespaceToComDefs } = await getImportsStr(comLibs, comlibAllowMap, getMaterialContent, json);
 
-  const { canvasCode, modulesCode } = genUiCode({ json, namespaceToComDefs });
+  const { canvasCode, modulesCode, cloudComsCode } = genUiCode({ json, namespaceToComDefs });
 
   return [
     { symbol: 'reactComponentImports', value: comImportsReactStr },
-    { symbol: 'comDefs', value: `{${comDefs}}` },
+    { symbol: 'comDefs', value: `{${comDefs} } ` },
     { symbol: 'reactUI', value: canvasCode },
     { symbol: 'modulesCode', value: modulesCode },
+    { symbol: 'cloudComsCode', value: cloudComsCode },
     ...await processReactRelativeSymbols(json, comLibs, comlibAllowMap, getMaterialContent),
     { symbol: 'vueComponentImports', value: comImportsVueStr },
     ...processVueRelativeSymbols(json),
