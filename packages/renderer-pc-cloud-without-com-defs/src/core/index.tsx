@@ -9,6 +9,7 @@ import { render as renderUI } from '@mybricks/render-web'
 import { parseQuery } from '../utils'
 import { runJs } from '@mybricks/com-utils'
 import { call as connectorCall } from '@mybricks/plugin-connector-http/runtime/index'
+import { call as nocobaseConnectorCall } from '@mybricks/nocobase-service-interface/runtime/index'
 
 // if (!window.React) {
 //   window.React = React
@@ -90,9 +91,9 @@ export default forwardRef((props: RendererProps, ref: any) => {
           showErrorNotification: false,
           toCode: true, // 出码
           callConnector(connector, params, connectorConfig = {}) {
-            // const plugin =
-            //   window[connector.connectorName] ||
-            //   window['@mybricks/plugins/service']
+            const call = connector.connectorName === '@mybricks/nocobase-service-interface'
+              ? nocobaseConnectorCall
+              : connectorCall
             //@ts-ignore
             const MYBRICKS_HOST = window?.MYBRICKS_HOST
 
@@ -122,7 +123,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
                 (con) => con.id === connector.id
               )
 
-            return connectorCall({ ...connector, ...curConnector }, newParams, {
+            return call({ ...connector, ...curConnector }, newParams, {
               ...connectorConfig,
               /** http-sql表示为领域接口 */
               before: (options) => {
