@@ -25,6 +25,9 @@ module.exports = {
     {
       react: 'react',
       'react-dom': 'react-dom',
+      antd: 'antd',
+      '@ant-design/icons': '@ant-design/icons',
+      '@ant-design/icons-svg': '@ant-design/icons-svg'
     },
   ],
   experiments: {
