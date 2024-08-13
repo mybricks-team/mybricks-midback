@@ -41,6 +41,10 @@ interface ComLibType {
   latestComlib?: LatestComlib & ComLibType;
 }
 
+export type ContentComlibs = Array<
+  { id: number | string; namespace: string } & Record<string, unknown>
+>;
+
 enum CMD {
   UPGRADE_COM = "upgradeCom",
   DELETE_COM = "deleteCom",

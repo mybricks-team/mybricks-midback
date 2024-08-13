@@ -1,4 +1,4 @@
-import { ComLibType, ComType, CMD, OperateOption } from "./global";
+import { ComLibType, ComType, CMD, OperateOption, ContentComlibs } from "./global";
 export type MaterialServerConfig = Partial<{
   onAddComLib: () => Promise<ComLibType>;
   onDeleteComLib: (
@@ -14,7 +14,8 @@ export type MaterialServerConfig = Partial<{
   /**
    * 获取组件库的依赖，有需要的话，传递获取库依赖的方法后，loader内部会执行升级依赖操作
    */
-  getLibExternals?: ({ namespace, version }) => Promise<any>
+  getLibExternalsAPI?: ({ namespace, version }) => Promise<any>
+  getLatestComLibsAPI?: (namespace: string[]) => Promise<ContentComlibs>
   hasMaterialApp?: boolean
   /** 操作回调函数 */
   operateCallback?: (cmd: CMD, options: OperateOption) => void

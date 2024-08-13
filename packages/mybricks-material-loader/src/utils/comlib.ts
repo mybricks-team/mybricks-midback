@@ -147,12 +147,23 @@ export function resolveSelfLibStyle(styles) {
 
 let styleCount = 0
 
+
 function createScript(src, index) {
   var script = document.createElement('script')
   script.setAttribute('src', src)
   script.setAttribute('index', index)
   return script
 }
+// 保存原始的 createElement 和 appendChild 方法
+const originalCreateElement = document.createElement;
+
+// 用于存储加载样式的 script 信息
+const styleSources = [];
+
+function checkIsMyRequireLibs(libs, stackStr) {
+  return libs.some(item => stackStr.includes(item))
+}
+
 export function myRequire(arr, onError): Promise<{ styles: any }> {
   return new Promise((resolve, reject) => {
     if (!(arr instanceof Array)) {
@@ -168,17 +179,23 @@ export function myRequire(arr, onError): Promise<{ styles: any }> {
     // const rnStyles: any = []
 
     const _headAppendChild = document.head.appendChild
-    // const _headInsertBefore = document.head.insertBefore
 
-    document.head.appendChild = (ele: any) => {
-      if (ele && ele.tagName?.toLowerCase() === 'style') {
-        ele.id = 'mybricks_' + styleCount
-        styles.push(ele)
-        styleCount++
+    document.head.appendChild = function(ele) {
+      if (ele instanceof HTMLStyleElement) {
+          // 在添加样式时，可以记录或者处理相关逻辑
+          // 捕获当前调用栈
+          const stack = new Error().stack || '';
+          const scriptSource =  stack.split('\n')[2]; // 获取调用栈中的第三行
+          if (checkIsMyRequireLibs(arr, scriptSource)) {
+            ele.id = 'mybricks_' + styleCount
+            // debugger
+            styleCount++
+            styles.push(ele);
+            // console.log(`Style added from: ${scriptSource}`,);
+          }
       }
-      _headAppendChild.call(document.head, ele)
-      return ele
-    }
+      return _headAppendChild.call(this, ele);
+    };
 
 
     arr.forEach(function (req_item, index, arr) {

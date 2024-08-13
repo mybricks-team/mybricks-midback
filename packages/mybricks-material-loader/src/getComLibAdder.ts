@@ -12,9 +12,6 @@ const getComLibAdder = (libs: Array<ComLibType>) => () => {
       resolve(upgradeLib);
     } else {
       const insertedLib = await insertComLib(material);
-      materialServerIns.config.operateCallback(CMD.ADD_COM_LIB, {
-        lib: insertedLib as ComLibType
-      })
       resolve(insertedLib);
     }
   });

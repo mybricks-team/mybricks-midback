@@ -26,7 +26,7 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
       const initLibs = await initComLib(libs);
       return resolve(initLibs);
     }
-    const { cmd, comNamespace } = libDesc;
+    const { cmd, comNamespace } = libDesc ?? {};
     try {
       if (cmd) {
         switch (cmd) {
@@ -55,6 +55,7 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
             resolve(true);
             break;
           case CMD.UPGRADE_COM_LIB:
+            debugger
             const upgradeLib = await upgradeLatestComLib(
               resolveLibField(libDesc),
               libs
