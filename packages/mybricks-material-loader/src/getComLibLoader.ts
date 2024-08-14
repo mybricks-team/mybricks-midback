@@ -55,7 +55,6 @@ const getComLibLoader = (libs: Array<ComLibType>) => (libDesc: LibDesc) => {
             resolve(true);
             break;
           case CMD.UPGRADE_COM_LIB:
-            debugger
             const upgradeLib = await upgradeLatestComLib(
               resolveLibField(libDesc),
               libs
