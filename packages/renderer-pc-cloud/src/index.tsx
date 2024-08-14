@@ -21,9 +21,17 @@ const RendererCloud = forwardRef(
     // 添加主题变量样式
     function appendThemeVarsStyle() {
       const THEME_VARS_STYLE = comMeta.current?.fileId + '__themeVarsStyle__';
+      const styleTag = document.querySelector("style[data-id='597123209740357__themeVarsStyle__']");
+      // 同个组件多次渲染的情况下，得确保只添加一次主题变量样式
+      if (styleTag) {
+        const cnt = Number(styleTag.getAttribute("data-from-com-cnt"));
+        styleTag.setAttribute("data-from-com-cnt", `${cnt + 1}`)
+        return;
+      }
       if (window[THEME_VARS_STYLE]) {
         const style = document.createElement('style')
         style.setAttribute('data-id', THEME_VARS_STYLE)
+        style.setAttribute('data-from-com-cnt', '1')
         style.innerHTML = window[THEME_VARS_STYLE]
         document.head.appendChild(style)
       }
@@ -32,7 +40,14 @@ const RendererCloud = forwardRef(
     function removeThemeVarsStyle() {
       const THEME_VARS_STYLE = comMeta.current?.fileId + '__themeVarsStyle__';
       const style = document.querySelector(`style[data-id="${THEME_VARS_STYLE}"]`)
-      if (style) { style.remove() }
+      if (!style) return;
+      const cnt = Number(style.getAttribute("data-from-com-cnt"))
+      // 同个组件多次渲染的情况下，得确保全部组件都被卸载后才移除样式
+      if (cnt > 1) {
+        style.setAttribute("data-from-com-cnt", `${cnt - 1}`)
+      } else {
+        style.remove();
+      }
     }
 
     useLayoutEffect(() => {
