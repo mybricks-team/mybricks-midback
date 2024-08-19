@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/renderer-pc-cloud-without-com-defs",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "dependencies": {
     "@mybricks/com-utils": "1.0.0",
     "@mybricks/comlib-basic": "0.0.6",
-    "@mybricks/comlib-pc-normal": "0.0.19",
+    "@mybricks/comlib-pc-normal": "0.0.21",
     "@mybricks/nocobase-service-interface": "^0.0.1",
     "@mybricks/plugin-connector-http": "1.2.17",
     "@mybricks/render-web": "1.3.21-beta.0"
