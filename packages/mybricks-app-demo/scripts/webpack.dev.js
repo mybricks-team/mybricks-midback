@@ -11,6 +11,7 @@ module.exports = Object.assign(
       // ['tpl']: path.resolve(__dirname, `../src/Template.tsx`),
       ['renderer']: path.resolve(__dirname, `../src/renderer/Index.tsx`),
       ['aiDemo']: path.resolve(__dirname, `../src/aiDemoPage/index.tsx`),
+      ['build']: path.resolve(__dirname, `../src/build/index.tsx`),
     },
   },
 
