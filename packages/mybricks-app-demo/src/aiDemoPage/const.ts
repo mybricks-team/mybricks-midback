@@ -1,0 +1,93 @@
+export const getDefaultProjectFiles = ({ buildTarget }) => ({
+  '/index.less': '',
+  '/index.tsx': `import "./index.less"
+  export default function App() {
+    return <h1>Hello world</h1>
+  }
+  `,
+  '/app.jsx': `
+  import React, { StrictMode } from "react";
+  import { createRoot } from "react-dom/client";
+  
+  import Component from "./index.tsx";
+  
+  const root = createRoot(document.getElementById("root"));
+  root.render(
+    <StrictMode>
+      <Component />
+    </StrictMode>
+  )
+  `,
+  '/package.json': `
+  {
+    "dependencies": {
+      "react": "^18.0.0",
+      "react-dom": "^18.0.0",
+      "antd": "^4.24.16"
+    },
+    "main": "/index.tsx",
+    "scripts": {
+      "build": "vite build",
+      "dev": "vite"
+    },
+    "devDependencies": {
+      "@babel/preset-typescript": "latest",
+        "vite": "^5.2.0",
+        "@vitejs/plugin-react": "^4.0.0",
+      "css-loader": "^7.1.2",
+      "less": "^4.2.0"
+    }
+  }
+  `,
+  '/vite.config.js': `
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+
+export default defineConfig({
+plugins: [react()],
+ build: {
+  outDir: 'dist',
+  cssCodeSplit: false, // 禁用 CSS 代码分割
+  rollupOptions: {
+    input: {
+      main: ${buildTarget === 'page' ? "'/app.jsx'" : "'/index.tsx'"},
+    },
+    output: {
+     manualChunks: undefined,
+      entryFileNames: 'bundle.js',
+      chunkFileNames: 'bundle.js',
+      assetFileNames: 'bundle.[ext]'
+    }
+  },
+},
+server: {
+  headers: {
+    "Cross-Origin-Embedder-Policy": "require-corp",
+    "Cross-Origin-Opener-Policy": "same-origin",
+  },
+},
+ css: {
+  preprocessorOptions: {
+    less: {
+      javascriptEnabled: true,
+    },
+  },
+  extract: false
+},
+});
+`, '/index.html': `
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React + TS</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/app.jsx"></script>
+  </body>
+</html>
+`
+})

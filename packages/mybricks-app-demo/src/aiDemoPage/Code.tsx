@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { SandpackProvider, Sandpack, SandpackLayout, SandpackPreview, SandpackCodeEditor, useSandpack, useTranspiledCode } from "@codesandbox/sandpack-react";
 import { ProjectFilesContext } from ".";
 // import { Build } from "./NodeboxBuild";
 
-function Code() {
+function Code({ setActiveFile }) {
   const { sandpack } = useSandpack();
   const { files, activeFile } = sandpack;
   const { projectFiles, updateProjectFilesFromSrc } = useContext(ProjectFilesContext)
@@ -20,23 +20,29 @@ function Code() {
     }
   }, [files])
 
+  useEffect(() => {
+    setActiveFile(activeFile)
+  }, [activeFile])
+
   return <SandpackLayout>
     <SandpackCodeEditor />
-    <SandpackPreview actionsChildren={
+    {/* <SandpackPreview actionsChildren={
       <button onClick={getCode}>
         Get Code
       </button>
-    } />
+    } /> */}
   </SandpackLayout>
 }
 export default () => {
+
   const { projectFiles, updateProjectFilesFromSrc } = useContext(ProjectFilesContext)
+  const [activeFile, setActiveFile] = useState("/index.tsx")
   return <SandpackProvider
     template="react"
     files={projectFiles}
     options={{
       visibleFiles: ["/index.tsx", "/index.less"],
-      activeFile: "/index.tsx",
+      activeFile
     }}
     customSetup={{
       entry: '/app.js',
@@ -57,6 +63,6 @@ export default () => {
       },
     }}
   >
-    <Code />
+    <Code setActiveFile={setActiveFile} />
   </SandpackProvider>
 }

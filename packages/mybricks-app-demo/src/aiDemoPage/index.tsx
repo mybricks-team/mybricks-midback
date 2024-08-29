@@ -4,8 +4,8 @@ import { Button, Input, Spin } from 'antd'
 import genAICom from './gen-ai-com'
 import styles from './styles.less'
 import { useProjectFiles } from './useProjectFiles'
-import ComponentPreview from './ComponentPreview'
-import BuildButton from './BuildButton'
+import Code from './Code'
+import Preview from './Preview'
 
 const container = document.getElementById('root')
 const root = ReactDOM.createRoot(container)
@@ -53,10 +53,10 @@ function MyApp() {
                 <pre>{result['index.tsx']}</pre>
                 <h3>index.less</h3>
                 <pre>{result['index.less']}</pre> */}
-          <ComponentPreview />
+          <Code />
         </div>
       </Spin>
-      <BuildButton projectFiles={projectFiles} />
+      <Preview />
     </div>
   </ProjectFilesContext.Provider>
   )
