@@ -95,3 +95,18 @@ export default async function (userPrompt: string) {
 
   return res as { "index.tsx": string, "index.less": string };
 }
+
+export function extractThirdPartyPackages(code: string): string[] {
+  const importRegex = /import\s+(?:[\w\s{},*]+\s+from\s+)?['"]([^.'"][^'"]+)['"]/g;
+  const packages: Set<string> = new Set();
+
+  let match;
+  while ((match = importRegex.exec(code)) !== null) {
+    const packageName = match[1];
+    if (packageName !== 'react') {
+      packages.add(packageName.split('/')[0]);
+    }
+  }
+
+  return Array.from(packages);
+}
