@@ -13,22 +13,18 @@ interface ProjectFiles {
 const preInstallDependencies = ['react', 'react-dom', 'antd']
 
 export const extractDependencies = (code: string) => {
-  const importRegex = /import\s+(?:(?:\w+(?:\s*,\s*{[^}]*})?)|(?:{[^}]*}))\s+from\s+['"]([^'"]+)['"]/g;
-  const dependencies = new Set<string>();
+  const importRegex = /import\s+(?:[\w\s{},*]+\s+from\s+)?['"]([^.'"][^'"]+)['"]/g;
+  const packages: Set<string> = new Set();
+
   let match;
   while ((match = importRegex.exec(code)) !== null) {
-    // Check for dependencies starting with '@'
-    if (match[1].startsWith('@')) {
-      const [scope, packageName] = match[1].split('/');
-      dependencies.add(`${scope}/${packageName}`);
-    } else {
-      const packageName = match[1].split('/')[0];
-      if (!packageName.startsWith('.') && !preInstallDependencies.includes(packageName)) {
-        dependencies.add(packageName);
-      }
+    const packageName = match[1];
+    if (packageName !== 'react') {
+      packages.add(packageName.split('/')[0]);
     }
   }
-  return Array.from(dependencies);
+
+  return Array.from(packages);
 };
 
 export function useProjectFiles(srcFiles: {
