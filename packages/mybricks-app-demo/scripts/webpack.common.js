@@ -48,6 +48,20 @@ module.exports = {
     static: {
       directory: outputPath,
     },
+    // headers: {
+    //   'Cross-Origin-Embedder-Policy': 'credentialless',
+    //   'Cross-Origin-Opener-Policy': 'same-origin',
+    // },
+    setupMiddlewares: (middlewares, devServer) => {
+      devServer.app.use((req, res, next) => {
+        if (req.url === '/build.html') {
+          res.setHeader('Cross-Origin-Embedder-Policy', 'credentialless');
+          res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+        }
+        next();
+      });
+      return middlewares;
+    },
     port: 8000,
     host: '0.0.0.0',
     // compress: true,
