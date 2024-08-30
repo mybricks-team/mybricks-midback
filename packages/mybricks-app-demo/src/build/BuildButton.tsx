@@ -1,12 +1,13 @@
 import { WebContainer } from '@webcontainer/api';
-import { Button } from 'antd';
+import { Button, Input, message } from 'antd';
 import React, { useRef, useEffect, useState } from 'react';
-
+import upload, { getComponentVersion } from './upload';
 
 export default () => {
   const [isBuilding, setIsBuilding] = useState(false);
   const iframeRef = useRef(null);
   const containerRef = useRef(null);
+  const [version, setVersion] = useState('1.0.0');
 
   const runCommand = async (...command) => {
     const process = await containerRef.current.spawn(...command);
@@ -33,7 +34,7 @@ export default () => {
 
     // Clean up
     URL.revokeObjectURL(downloadLink.href);
-    window.close()
+    // message.success('下载成功')
   }
 
   const getProjectFiles = () => {
@@ -126,10 +127,23 @@ export default () => {
   }
 
   const build = async () => {
+    const startTime = Date.now();
     await mount()
     await runCommand('npm', ['install'])
     await runCommand('npm', ['run', 'build'])
+    message.success(`构建成功，用时: ${Date.now() - startTime}ms`)
     await donwloadFile('./dist/bundle.js')
+  }
+
+  const publish = async () => {
+    const bundleContent = await containerRef.current.fs.readFile('./dist/bundle.js', 'utf-8');
+
+    const res = await upload(bundleContent, version)
+    if (res.code === -1) {
+      message.error(res.message)
+    } else {
+      message.success(res.message)
+    }
   }
 
   const dev = async () => {
@@ -165,17 +179,25 @@ export default () => {
     }
   }
 
+  // useEffect(() => {
+  //   handleBuild()
+  // }, [])
   useEffect(() => {
-    handleBuild()
+    getComponentVersion('AI生成的组件').then(v => setVersion(v))
   }, [])
   return (
     <>
       <Button type='primary' className='mt-4 ml-4' onClick={handleBuild} disabled={isBuilding}>
         {isBuilding ? 'Building...' : 'Build'}
       </Button>
-      {/* <Button type='primary' className='mt-4 ml-4' onClick={handleDev} disabled={isBuilding}>
-        {isBuilding ? 'Building...' : 'dev'}
-      </Button> */}
+      <Input
+        defaultValue='1.0.0'
+        value={version}
+        onChange={(e) => setVersion(e.target.value)}
+      />
+      <Button type='primary' className='mt-4 ml-4' onClick={publish} disabled={isBuilding}>
+        {isBuilding ? 'publishing...' : 'publish'}
+      </Button>
     </>
   );
 }

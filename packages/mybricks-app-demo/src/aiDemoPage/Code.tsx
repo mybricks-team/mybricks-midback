@@ -24,13 +24,13 @@ function Code({ setActiveFile }) {
     setActiveFile(activeFile)
   }, [activeFile])
 
-  return <SandpackLayout>
+  return <SandpackLayout >
     <SandpackCodeEditor />
-    {/* <SandpackPreview actionsChildren={
+    <SandpackPreview actionsChildren={
       <button onClick={getCode}>
         Get Code
       </button>
-    } /> */}
+    } />
   </SandpackLayout>
 }
 export default () => {
@@ -47,8 +47,10 @@ export default () => {
     customSetup={{
       entry: '/app.js',
       dependencies: {
-        "antd": "^4.24.16",
-        "@ant-design/charts": "latest",
+        ...Object.entries(JSON.parse(projectFiles['/package.json']).dependencies).reduce((acc, [key, value]) => {
+          acc[key] = value;
+          return acc;
+        }, {}),
         "@babel/preset-typescript": "latest",
         // "react": "^18.3.1",
         // "react-dom": "^18.3.1",

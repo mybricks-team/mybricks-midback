@@ -1,5 +1,6 @@
 import { getDefaultProjectFiles } from './const';
 import { useEffect, useState } from 'react';
+import _debounce from 'lodash/debounce';
 
 interface ProjectFiles {
   '/index.tsx': string;
@@ -9,6 +10,27 @@ interface ProjectFiles {
   '/vite.config.js': string;
 }
 
+const preInstallDependencies = ['react', 'react-dom', 'antd']
+
+export const extractDependencies = (code: string) => {
+  const importRegex = /import\s+(?:(?:\w+(?:\s*,\s*{[^}]*})?)|(?:{[^}]*}))\s+from\s+['"]([^'"]+)['"]/g;
+  const dependencies = new Set<string>();
+  let match;
+  while ((match = importRegex.exec(code)) !== null) {
+    // Check for dependencies starting with '@'
+    if (match[1].startsWith('@')) {
+      const [scope, packageName] = match[1].split('/');
+      dependencies.add(`${scope}/${packageName}`);
+    } else {
+      const packageName = match[1].split('/')[0];
+      if (!packageName.startsWith('.') && !preInstallDependencies.includes(packageName)) {
+        dependencies.add(packageName);
+      }
+    }
+  }
+  return Array.from(dependencies);
+};
+
 export function useProjectFiles(srcFiles: {
   'index.tsx': string;
   'index.less': string;
@@ -17,31 +39,12 @@ export function useProjectFiles(srcFiles: {
 } = {} as any) {
   const { buildTarget = 'page' } = options;
   const [projectFiles, setProjectFiles] = useState<ProjectFiles>(getDefaultProjectFiles({ buildTarget }));
-  const extractDependencies = (code: string) => {
-    const importRegex = /import\s+(?:(?:\w+(?:\s*,\s*{[^}]*})?)|(?:{[^}]*}))\s+from\s+['"]([^'"]+)['"]/g;
-    const dependencies = new Set<string>();
-    let match;
-    while ((match = importRegex.exec(code)) !== null) {
-      // Check for dependencies starting with '@'
-      if (match[1].startsWith('@')) {
-        const [scope, packageName] = match[1].split('/');
-        dependencies.add(`${scope}/${packageName}`);
-      } else {
-        const packageName = match[1].split('/')[0];
-        if (!packageName.startsWith('.')) {
-          dependencies.add(packageName);
-        }
-      }
-    }
-    return Array.from(dependencies);
-  };
+
+
 
   const updatePackageJson = (newDependencies: string[]) => {
     const packageJson = JSON.parse(getDefaultProjectFiles({ buildTarget })['/package.json']);
     newDependencies.forEach(dep => {
-      if (['react', 'react-dom', 'antd'].includes(dep)) {
-        return
-      }
       if (!packageJson.dependencies[dep]) {
         packageJson.dependencies[dep] = 'latest';
       }
@@ -62,7 +65,7 @@ export function useProjectFiles(srcFiles: {
     }
   }, [projectFiles['/index.tsx']]);
 
-  const updateProjectFilesFromSrc = (srcFiles: {
+  const updateProjectFilesFromSrc = _debounce((srcFiles: {
     'index.tsx': string;
     'index.less': string;
   }) => {
@@ -73,7 +76,7 @@ export function useProjectFiles(srcFiles: {
     }
     console.log(`files`, files)
     setProjectFiles(files)
-  }
+  }, 50)
 
   useEffect(() => {
     updateProjectFilesFromSrc(srcFiles)

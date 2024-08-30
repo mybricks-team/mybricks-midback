@@ -45,19 +45,26 @@ import react from "@vitejs/plugin-react";
 
 export default defineConfig({
 plugins: [react()],
+define: {
+    'process.env': {}
+  },
  build: {
   outDir: 'dist',
   cssCodeSplit: false, // 禁用 CSS 代码分割
+  lib: {
+    entry: '/index.tsx', 
+    name: 'MybricksComDef',
+    fileName: () => "bundle.js",
+    formats: ['umd']
+  },
   rollupOptions: {
-    input: {
-      main: ${buildTarget === 'page' ? "'/app.jsx'" : "'/index.tsx'"},
-    },
+    external: ['react', 'react-dom'],
     output: {
-     manualChunks: undefined,
-      entryFileNames: 'bundle.js',
-      chunkFileNames: 'bundle.js',
-      assetFileNames: 'bundle.[ext]'
-    }
+     globals: {
+      react: 'React',
+      'react-dom': 'ReactDOM',
+     }
+    },
   },
 },
 server: {

@@ -134,10 +134,11 @@ export default () => {
     }
   }
 
+
   return (
     <>
       <iframe className='w-full h-[300px] border border-gray-300' ref={iframeRef} allow='cross-origin-isolated' />
-      <Button type='primary' className='mt-4 ml-4' onClick={handleBuild} disabled={isBuilding}>
+      <Button type='primary' className='mt-4 ml-4' onClick={save} disabled={isBuilding}>
         {isBuilding ? 'Building...' : 'Build'}
       </Button>
     </>

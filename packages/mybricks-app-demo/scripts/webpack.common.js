@@ -48,10 +48,10 @@ module.exports = {
     static: {
       directory: outputPath,
     },
-    headers: {
-      'Cross-Origin-Embedder-Policy': 'credentialless',
-      'Cross-Origin-Opener-Policy': 'same-origin',
-    },
+    // headers: {
+    //   'Cross-Origin-Embedder-Policy': 'credentialless',
+    //   'Cross-Origin-Opener-Policy': 'same-origin',
+    // },
     setupMiddlewares: (middlewares, devServer) => {
       devServer.app.use((req, res, next) => {
         if (req.url === '/build.html') {
