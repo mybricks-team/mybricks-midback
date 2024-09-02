@@ -137,12 +137,17 @@ export default () => {
 
   const publish = async () => {
     const bundleContent = await containerRef.current.fs.readFile('./dist/bundle.js', 'utf-8');
+    setIsBuilding(true);
+    try {
+      const res = await upload(bundleContent, version)
+      if (res.code === -1) {
+        message.error(res.message)
+      } else {
+        message.success(res.message)
+      }
 
-    const res = await upload(bundleContent, version)
-    if (res.code === -1) {
-      message.error(res.message)
-    } else {
-      message.success(res.message)
+    } finally {
+      setIsBuilding(false);
     }
   }
 

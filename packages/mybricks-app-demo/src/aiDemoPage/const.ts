@@ -27,7 +27,7 @@ export const getDefaultProjectFiles = ({ buildTarget }) => ({
     },
     "main": "/index.tsx",
     "scripts": {
-      "build": "vite build",
+      "build": "npx vite build",
       "dev": "vite"
     },
     "devDependencies": {
