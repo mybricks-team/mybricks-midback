@@ -25,20 +25,23 @@ function getQuestion(userPrompt: string) {
 \`\`\`
 <filename>index.tsx</filename>
 <code>
-xxx
+  xxx
 </code>
 
 <filename>index.less</filename>
 <code>
-xxx
+  xxx
 </code>
+
+<deps>["依赖组件1@1.0.0", "依赖组件2@3.0.0"]</deps>
 \`\`\`
-只需要按照指定返回格式返回 index.tsx 和 index.less 的代码，不要其他信息
+只需要按照指定返回格式返回 index.tsx、index.less 的代码和依赖组件列表，不要其他信息
 
 下面是用户需求:
-\`\`\`
+\`\`\` 
 ${userPrompt}
-\`\`\` `
+\`\`\`
+`
 }
 
 // const model = "anthropic/claude-3.5-sonnet:beta";
@@ -52,7 +55,7 @@ export default async function (userPrompt: string) {
   // 计时
   const startTime = Date.now();
 
-  const messages: Array<{ role: 'user' | 'assistant', content: string }> = [];
+  const messages = [] as { role: string, content: string }[];
   messages.push({ role: 'user', content: q });
 
   console.log('开始询问');
@@ -73,10 +76,11 @@ export default async function (userPrompt: string) {
 
   const filenamePattern = /<filename>(.*?)<\/filename>/g;
   const codePattern = /<code>(.*?)<\/code>/gs;
+  const depsPattern = /<deps>(.*?)<\/deps>/gs;
 
-  let match: RegExpExecArray | null;
-  const filenames: string[] = [];
-  const codes: string[] = [];
+  let match;
+  const filenames = [] as string[];
+  const codes = [] as string[];
 
   while ((match = filenamePattern.exec(output)) !== null) {
     filenames.push(match[1]);
@@ -86,27 +90,23 @@ export default async function (userPrompt: string) {
     codes.push(match[1]);
   }
 
-  const res: Record<string, string> = {};
+  const res = {}  as { "index.tsx": string, "index.less": string, "deps": string[] };
+  if ((match = depsPattern.exec(output)) !== null) {
+    try {
+      res.deps = JSON.parse(match[1]);
+    } catch (e) {
+      res.deps = [];
+      console.error('deps 解析失败', e);
+    }
+  }
+
   for (let i = 0; i < filenames.length; i++) {
     const filename = filenames[i];
     const code = codes[i];
     res[filename] = code;
   }
 
-  return res as { "index.tsx": string, "index.less": string };
-}
 
-export function extractThirdPartyPackages(code: string): string[] {
-  const importRegex = /import\s+(?:[\w\s{},*]+\s+from\s+)?['"]([^.'"][^'"]+)['"]/g;
-  const packages: Set<string> = new Set();
 
-  let match;
-  while ((match = importRegex.exec(code)) !== null) {
-    const packageName = match[1];
-    if (packageName !== 'react') {
-      packages.add(packageName.split('/')[0]);
-    }
-  }
-
-  return Array.from(packages);
+  return res as { "index.tsx": string, "index.less": string, "deps": string[] };
 }
