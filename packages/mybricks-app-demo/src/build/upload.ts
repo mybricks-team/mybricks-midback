@@ -18,7 +18,11 @@ const shapeComponent = (rawJs: string, version = '1.0.0') => {
     data: {},
     input: [],
     output: [],
-    editors: '() => ({})',
+    editors: encodeURIComponent(`(function(){return function(){return {
+      '@resize': {
+        options: ['width', 'height']
+      }
+    } }})()`),
     upgrade: '',
     runtime: encodeURIComponent(`(function(){${rawJs} return MybricksComDef;})()`),
     deps: []
@@ -91,8 +95,6 @@ export const getComponentVersion = async (keyword: string) => {
     url: `https://my.mybricks.world/mybricks-material/api/material/list?pageSize=50&page=1&keyword=${encodeURIComponent(keyword)}&scopeStatus=&type=component&tags=react&scene=&userId=24`,
   })
   console.log(`res`, res)
-  if (res.data.data.list[0].namespace === namespace) {
-    return res.data.data.list[0].version
-  }
-  return '1.0.1';
+  const comp = res.data.data.list.find((c: any) => c.namespace === namespace)
+  return comp?.version || '1.0.1';
 }

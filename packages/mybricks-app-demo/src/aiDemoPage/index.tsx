@@ -18,7 +18,7 @@ export const ProjectFilesContext = createContext({
 });
 
 function MyApp() {
-    const [result, setResult] = useState({ "index.tsx": "", "index.less": "" });
+  const [result, setResult] = useState({ "index.tsx": "", "index.less": "", deps: [] as string[] });
   const [loading, setLoading] = useState(false);
   const { projectFiles, updateProjectFilesFromSrc } = useProjectFiles(result, { buildTarget: 'component' });
   const handleSendMessage = async (prompt: string, response: (response: string) => void) => {

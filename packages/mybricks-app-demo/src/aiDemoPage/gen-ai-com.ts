@@ -90,7 +90,7 @@ export default async function (userPrompt: string) {
     codes.push(match[1]);
   }
 
-  const res = {}  as { "index.tsx": string, "index.less": string, "deps": string[] };
+  const res = {} as { "index.tsx": string, "index.less": string, "deps": string[] };
   if ((match = depsPattern.exec(output)) !== null) {
     try {
       res.deps = JSON.parse(match[1]);

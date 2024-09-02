@@ -23,15 +23,24 @@ function Code({ setActiveFile }) {
   useEffect(() => {
     setActiveFile(activeFile)
   }, [activeFile])
-
-  return <SandpackLayout >
-    <SandpackCodeEditor />
-    <SandpackPreview actionsChildren={
-      <button onClick={getCode}>
-        Get Code
-      </button>
-    } />
-  </SandpackLayout>
+  useEffect(() => {
+    if (sandpack.error) {
+      console.log("Preview error:", sandpack.error);
+    }
+  }, [sandpack.error]);
+  return (
+    <SandpackLayout style={{ flexDirection: 'column' }} className="h-[calc(100vh-200px)]">
+      <SandpackCodeEditor style={{ height: '50%' }} />
+      <SandpackPreview
+        style={{ height: '50%' }}
+        actionsChildren={
+          <button onClick={getCode}>
+            Get Code
+          </button>
+        }
+      />
+    </SandpackLayout>
+  );
 }
 export default () => {
 
@@ -42,7 +51,7 @@ export default () => {
     files={projectFiles}
     options={{
       visibleFiles: ["/index.tsx", "/index.less"],
-      activeFile
+      activeFile,
     }}
     customSetup={{
       entry: '/app.js',

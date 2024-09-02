@@ -23,7 +23,7 @@ export const getDefaultProjectFiles = ({ buildTarget }) => ({
     "dependencies": {
       "react": "^18.0.0",
       "react-dom": "^18.0.0",
-      "antd": "^4.24.16"
+      "antd": "^5.0.0"
     },
     "main": "/index.tsx",
     "scripts": {
