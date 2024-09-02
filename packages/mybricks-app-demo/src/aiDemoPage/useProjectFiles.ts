@@ -55,7 +55,7 @@ export function useProjectFiles(srcFiles: {
         [packageName, version] = dep.split('@');
       }
       if (!packageJson.dependencies[packageName]) {
-        packageJson.dependencies[packageName] = version;
+        packageJson.dependencies[packageName] = `^${version}`;
       }
     });
     newDependencies.forEach(dep => {

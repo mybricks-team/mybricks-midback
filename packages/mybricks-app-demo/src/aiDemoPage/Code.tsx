@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { SandpackProvider, Sandpack, SandpackLayout, SandpackPreview, SandpackCodeEditor, useSandpack, useTranspiledCode } from "@codesandbox/sandpack-react";
 import { ProjectFilesContext } from ".";
 // import { Build } from "./NodeboxBuild";
@@ -47,6 +47,14 @@ export default () => {
 
   const { projectFiles, updateProjectFilesFromSrc } = useContext(ProjectFilesContext)
   const [activeFile, setActiveFile] = useState("/index.tsx")
+  const deps = useMemo(() => {
+    return Object.entries(JSON.parse(projectFiles['/package.json']).dependencies).reduce((acc, [key, value]) => {
+      acc[key] = value;
+      return acc;
+    }, {})
+  }, [projectFiles['/package.json']])
+
+  console.log(`isntall deps`, deps)
   return <SandpackProvider
     template="react"
     files={projectFiles}
@@ -57,10 +65,7 @@ export default () => {
     customSetup={{
       entry: '/app.js',
       dependencies: {
-        ...Object.entries(JSON.parse(projectFiles['/package.json']).dependencies).reduce((acc, [key, value]) => {
-          acc[key] = value;
-          return acc;
-        }, {}),
+        ...deps,
         "@babel/preset-typescript": "latest",
         // "react": "^18.3.1",
         // "react-dom": "^18.3.1",
