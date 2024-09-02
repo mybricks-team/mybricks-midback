@@ -37,7 +37,7 @@ const ChatBox = ({ messages }) => {
   );
 };
 
-const ChatInput = ({ onSendMessage }) => {
+const ChatInput = ({ onSendMessage, onReset }) => {
   const [inputValue, setInputValue] = React.useState('');
 
   const handleSend = () => {
@@ -64,12 +64,14 @@ const ChatInput = ({ onSendMessage }) => {
         onKeyDown={handleKeyDown}
       />
       <button className="send" onClick={handleSend}>发送</button>
+      <button className="send" onClick={onReset}>新的对话</button>
     </div>
   );
 };
 
 interface IChatAppProps {
   onSendMessage: (content: string, response: (response: string) => void) => void;
+  onReset: () => void;
 }
 
 const ChatApp = (props: IChatAppProps) => {
@@ -112,7 +114,7 @@ const ChatApp = (props: IChatAppProps) => {
   return (
     <div className="lite-chatmaster">
       <ChatBox messages={messages} />
-      <ChatInput onSendMessage={handleSendMessage} />
+      <ChatInput onSendMessage={handleSendMessage} onReset={props.onReset} />
     </div>
   );
 };

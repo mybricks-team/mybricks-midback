@@ -6,7 +6,7 @@ import { ProjectFilesContext } from ".";
 function Code({ setActiveFile }) {
   const { sandpack } = useSandpack();
   const { files, activeFile } = sandpack;
-  const { projectFiles, updateProjectFilesFromSrc } = useContext(ProjectFilesContext)
+  const { projectFiles, updateProjectFilesFromSrc, setComponentError } = useContext(ProjectFilesContext)
   const getCode = () => {
     console.log(`files`, files)
   }
@@ -26,6 +26,7 @@ function Code({ setActiveFile }) {
   useEffect(() => {
     if (sandpack.error) {
       console.log("Preview error:", sandpack.error);
+      // setComponentError(sandpack.error)
     }
   }, [sandpack.error]);
   return (
