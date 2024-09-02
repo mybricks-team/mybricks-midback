@@ -114,7 +114,10 @@ const ChatApp = (props: IChatAppProps) => {
   return (
     <div className="lite-chatmaster">
       <ChatBox messages={messages} />
-      <ChatInput onSendMessage={handleSendMessage} onReset={props.onReset} />
+      <ChatInput onSendMessage={handleSendMessage} onReset={()=>{
+        props.onReset();
+        setMessages([]);
+      }} />
     </div>
   );
 };
