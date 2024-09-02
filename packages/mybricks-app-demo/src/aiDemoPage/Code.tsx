@@ -26,7 +26,7 @@ function Code({ setActiveFile }) {
   useEffect(() => {
     if (sandpack.error) {
       console.log("Preview error:", sandpack.error);
-      // setComponentError(sandpack.error)
+      setComponentError(sandpack.error.message)
     }
   }, [sandpack.error]);
   return (
