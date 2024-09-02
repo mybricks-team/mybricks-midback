@@ -26,8 +26,8 @@ function Code({ setActiveFile }) {
   useEffect(() => {
     if (sandpack.error) {
       console.log("Preview error:", sandpack.error);
-      setComponentError(sandpack.error.message)
     }
+    setComponentError(sandpack.error?.message || null)
   }, [sandpack.error]);
   return (
     <SandpackLayout style={{ flexDirection: 'column' }} className="h-[calc(100vh-200px)]">

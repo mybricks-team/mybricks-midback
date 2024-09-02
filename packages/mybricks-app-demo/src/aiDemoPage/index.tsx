@@ -17,7 +17,7 @@ export const ProjectFilesContext = createContext({
   projectFiles: {},
   updateProjectFilesFromSrc: (srcFiles: { 'index.tsx': string; 'index.less': string }) => { },
   componentError: null as string | null,
-  setComponentError: (error: string) => { }
+  setComponentError: (error: string | null) => { }
 });
 
 function MyApp() {
