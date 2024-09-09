@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function getGenerateComponenetQuestion(userPrompt: string) {
+function getGenerateComponentQuestion(userPrompt: string) {
   return `你是一名专业的前端开发人员。你来完成用户的需求。
 开发一个 React 组件，在 React@18 的工程中运行。
 基础要求：
@@ -130,7 +130,7 @@ export default class AIGenerate {
   constructor() { }
 
   async initGenerateComponent(userPrompt: string) {
-    await this.talk(getGenerateComponenetQuestion(userPrompt));
+    await this.talk(getGenerateComponentQuestion(userPrompt));
   }
 
   async fixComponent(errorMsg: string) {
