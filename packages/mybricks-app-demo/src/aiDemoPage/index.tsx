@@ -31,7 +31,7 @@ function MyApp() {
     setLoading(true);
     try {
       if (aiRef.current) {
-        await aiRef.current.talk(prompt);
+        await aiRef.current.userContinueTalk(prompt);
         setResult(aiRef.current.resultComponent);
         response(JSON.stringify(aiRef.current.resultComponent));
       } else {
