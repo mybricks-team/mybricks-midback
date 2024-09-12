@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { Button, Input, Spin } from 'antd'
-import AIGenerate from './gen-ai-com2'
+import AIGenerate from './gen-ai-com4'
 import { useProjectFiles } from './useProjectFiles'
 import Code from './Code'
 import ChatApp from './Chat'
@@ -32,14 +32,26 @@ function MyApp() {
     try {
       if (aiRef.current) {
         await aiRef.current.userContinueTalk(prompt);
-        setResult(aiRef.current.resultComponent);
-        response(JSON.stringify(aiRef.current.resultComponent));
+        setResult({
+          ...aiRef.current.resultComponent,
+          "index.tsx": aiRef.current.resultComponent["index.jsx"],
+        });
+        response(JSON.stringify({
+          ...aiRef.current.resultComponent,
+          "index.tsx": aiRef.current.resultComponent["index.jsx"],
+        }));
       } else {
         const ai = new AIGenerate();
         aiRef.current = ai;
         await ai.initGenerateComponent(prompt);
-        setResult(ai.resultComponent);
-        response(JSON.stringify(ai.resultComponent));
+        setResult({
+          ...ai.resultComponent,
+          "index.tsx": ai.resultComponent["index.jsx"],
+        });
+        response(JSON.stringify({
+          ...ai.resultComponent,
+          "index.tsx": ai.resultComponent["index.jsx"],
+        }));
       }
     } finally {
       setLoading(false);
@@ -51,7 +63,10 @@ function MyApp() {
     try {
       if (aiRef.current && componentError) {
         await aiRef.current.fixComponent(componentError);
-        setResult(aiRef.current.resultComponent);
+        setResult({
+          ...aiRef.current.resultComponent,
+          "index.tsx": aiRef.current.resultComponent["index.jsx"],
+        });
         setComponentError(null);
       }
     } finally {
