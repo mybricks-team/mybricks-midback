@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom'
 import { Button, Input, Spin } from 'antd'
-import AIGenerate from './gen-ai-com4'
+import AIGenerate from './gen-ai-com5'
 import { useProjectFiles } from './useProjectFiles'
 import Code from './Code'
 import ChatApp from './Chat'
