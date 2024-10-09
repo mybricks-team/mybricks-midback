@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/renderer-pc-cloud",
-  "version": "1.0.3",
+  "version": "1.0.4-beta.2",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -17,8 +17,8 @@
   "license": "ISC",
   "dependencies": {
     "@mybricks/com-utils": "1.0.0",
-    "@mybricks/plugin-connector-http": "1.2.17",
-    "@mybricks/render-web": "1.3.18"
+    "@mybricks/plugin-connector-http": "1.2.21",
+    "@mybricks/render-web": "1.3.30"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.24.1",
