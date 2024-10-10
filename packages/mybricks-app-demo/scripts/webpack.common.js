@@ -41,6 +41,7 @@ module.exports = {
       },
       '@ant-design/icons': 'icons',
       '@mybricks/editors-pc-common': 'pcEditors',
+        'https://w1.beckwai.com/kos/nlav12333/cdm-thumbnai/letetr_test_model0.96057.js': 'MyComponent'
     },
   ],
   devtool: 'cheap-source-map', //devtool: 'cheap-source-map',
