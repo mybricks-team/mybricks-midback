@@ -5,10 +5,10 @@ import htmlTpt from './pub-tpt.html'
 import localePlugin from '@mybricks/plugin-locale'
 import tools from '@mybricks/plugin-tools'
 import { upgradeLibComlibsData, latestComlibData,  localComlibData } from './data'
-import PcSpaDesigner, {
-  type ComLibType,
-  MaterialServerConfig,
-} from '@mybricks/mybricks-pcspa-sdk'
+// import PcSpaDesigner, {
+//   type ComLibType,
+//   MaterialServerConfig,
+// } from '@mybricks/mybricks-pcspa-sdk'
 
 const getQuery = () => {
   return location.search.replace(/\?/, '')
@@ -166,7 +166,7 @@ export default function MyDesigner() {
           <button onClick={publish}>发布到本地</button>
         </div>
         <div className={css.designer}>
-          {pageContent.pageSchema && (
+          {/* {pageContent.pageSchema && (
             <PcSpaDesigner
               pageContent={pageContent}
               ref={designerRef}
@@ -210,7 +210,7 @@ export default function MyDesigner() {
                 },
               }}
             />
-          )}
+          )} */}
         </div>
       </div>
     </>

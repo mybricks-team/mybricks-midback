@@ -1,4 +1,5 @@
 const path = require('path')
+const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
 
 // const ignoreWarningPlugin = require('./_ignoreWarningPlugin')
 
@@ -6,7 +7,7 @@ const WebpackBar = require('webpackbar')
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 
 const outputPath = path.resolve(__dirname, `../targets`)
-
+console.log('__dirname', __dirname, path.resolve(__dirname,"../remote-component.config.js" ) )
 module.exports = {
   mode: 'development',
   output: {
@@ -16,7 +17,9 @@ module.exports = {
     library: '[name]',
   },
   resolve: {
-    alias: {},
+    alias: {
+      "remote-component.config.js": path.resolve(__dirname,"../remote-component.config.js" )
+    },
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   externals: [
@@ -39,9 +42,12 @@ module.exports = {
         amd: 'antd',
         root: 'antd',
       },
+      // '@m-ui/icons': '@m-ui/icons',
+      // '@m-ui/react': '@m-ui/react',
       '@ant-design/icons': 'icons',
       '@mybricks/editors-pc-common': 'pcEditors',
-        'https://w1.beckwai.com/kos/nlav12333/cdm-thumbnai/letetr_test_model0.96057.js': 'MyComponent'
+      // 'MyTestComponent': ''
+      // 'https://w1.beckwai.com/kos/nlav12333/cdm-thumbnai/letetr_test_model0.96057.js': 'MyComponent'
     },
   ],
   devtool: 'cheap-source-map', //devtool: 'cheap-source-map',
@@ -149,6 +155,8 @@ module.exports = {
   },
   plugins: [
     new WebpackBar(),
+    new NodePolyfillPlugin(),
+
     // new ignoreWarningPlugin(),   // All warnings will be ignored
     // new BundleAnalyzerPlugin({
     //   analyzerMode: 'static',
