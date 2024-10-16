@@ -1,4 +1,4 @@
-import React, { useEffect, lazy, useState, Suspense } from 'react'
+import React, { useEffect, lazy, useState, Suspense,memo, useMemo } from 'react'
 import ReactDOM from 'react-dom'
 // import App from './App'
 // vite打包, APp 那个
@@ -22,12 +22,21 @@ export interface RendererUrlCom {
   link?: string
 }
 
-export default  function RendererUrlCom(props: RendererUrlCom) {
+const RendererUrlCom = memo((props: RendererUrlCom) => {
   const { url = urls[0], comProps} = props
   let newDeps = getLocalDeps(deps, {})
 
   const [Com, setCom] = useState(undefined)
-  const Comp4 = lazy(() => loadJSPure(url, newDeps))
+
+  // useEffect(() => {
+  //   console.log('111')
+  //   loadJSPure(RenderComCDN, newDeps).then(res => {
+  //     console.log('res === loadJs ',res)
+  //     setCom(res.default)
+  //   })
+
+  // }, [])
+  const Comp4 = useMemo((() => lazy(() => loadJSPure(url, newDeps))), [])
   // console.log(json)
   console.log('Com', Com)
 
@@ -35,10 +44,13 @@ export default  function RendererUrlCom(props: RendererUrlCom) {
   return (
     <div>
       <div>Demo Load JsPure</div>
+      {/* {Com && <Com {...comProps} />} */}
       <Suspense fallback={<div>Loading...</div>}>
         <Comp4 {...comProps} />
       </Suspense>
     </div>
   )
-}
+})
 
+
+export default RendererUrlCom

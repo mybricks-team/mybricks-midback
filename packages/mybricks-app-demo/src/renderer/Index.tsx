@@ -1,8 +1,10 @@
 import React, { useEffect, lazy, useState, Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { RenderComCDN } from './constants'
-import { Divider, message } from 'antd'
+import { Divider, message, Button } from 'antd'
 import RendererUrlCom from './RenderUrlCom'
+import RemoteApp from './components/remoteApp'
+
 import { deps, getLocalDeps } from './constants'
 // // import {} from '@'
 
@@ -12,6 +14,8 @@ const DemoUrl = 'https://w1.beckwai.com/kos/nlav12333/cdm-thumbnai/Button_Wed0.3
 
 // 搭建地址 https://lingzhu.staging.kuaishou.com/sketch/lowCode/designer/?appKey=yzj_letter_com_group&outAppKey=letter_com_group&tenant=yzj&orderId=2428901041503&resourceCode=local_btn_1&use-declare=1
 const DemoUrl2 = 'https://w1.beckwai.com/kos/nlav12333/cdm-thumbnai/local_btn0.49611.js'
+
+const demo3 = 'https://cdnfile.corp.kuaishou.com/kc/files/a/kael-mui-demo/chrome-plugin-upload/2024-10-15/1728995191592.102ca58d6b6a91ec.js'
 const container = document.getElementById('root')
 // react 18
 // const root = ReactDOM.createRoot(container)
@@ -44,6 +48,9 @@ function RendererDemo() {
       message.success('成功点击')
     }
   }
+
+  const [props1, setProps1] = useState(RenderComCDNProps)
+
   const comp4Props ={
     label1: '传入的标签1',
     label2: '传入的标签2',
@@ -71,16 +78,29 @@ function RendererDemo() {
       cloudDemoUrl2Ref = ref
     }
   }
+
+  const handleClick = () => {
+    setProps1((prev) => ({...prev, label1: '更新后的label111', label2: '测试'+ Math.random().toFixed(6) }))
+    // cloudRef.setDataSource(new Array(10).fill(0).map((item, idx) => {
+    //   return  {
+    //     age: 11 +idx,
+    //     address: '杭州' + idx,
+    //     name: '啦啦啦'
+    //   }
+    // }))
+  }
   return (
     <div>
       <div>Hello 渲染云组件 Demo </div>
-      {/* <RendererJsDemo  /> */}
-      <RendererUrlCom url={RenderComCDN} comProps={RenderComCDNProps}  />
+      <Button onClick={handleClick}> 点击更改第一个组件的属性</Button>
+
+      <RendererUrlCom url={RenderComCDN} comProps={props1}  />
       <Divider />
       <RendererUrlCom url={DemoUrl} comProps={comp4Props}  />
       <Divider />
       <RendererUrlCom url={DemoUrl2} comProps={DemoUrl2Props}  />
       <Divider />
+      {/* <RendererUrlCom url={demo3} comProps={RenderComCDNProps}  /> */}
 
 
 
