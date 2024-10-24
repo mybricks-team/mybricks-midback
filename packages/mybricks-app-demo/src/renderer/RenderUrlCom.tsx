@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 // import App from './App'
 // vite打包, APp 那个
 import { RenderComCDN } from './constants'
-
 import { deps, getLocalDeps } from './constants'
 import { loadCjs, loadJSPure } from './utils/loadCjs'
 import { message } from 'antd'
@@ -28,22 +27,20 @@ const RendererUrlCom = memo((props: RendererUrlCom) => {
 
   const [Com, setCom] = useState(undefined)
 
-  // useEffect(() => {
-  //   console.log('111')
-  //   loadJSPure(RenderComCDN, newDeps).then(res => {
-  //     console.log('res === loadJs ',res)
-  //     setCom(res.default)
-  //   })
+  useEffect(() => {
+    console.log('111')
+    loadJSPure(url, newDeps).then(res => {
+      console.log('res === loadJs ',res)
+      setCom(res.default)
+    })
 
-  // }, [])
-  const Comp4 = useMemo((() => lazy(() => loadJSPure(url, newDeps))), [])
-  // console.log(json)
-  console.log('Com', Com)
+  }, [])
+    const Comp4 = useMemo((() => lazy(() => loadJSPure(url, newDeps))), [])
+  console.log(Comp4)
 
   
   return (
     <div>
-      <div>Demo Load JsPure</div>
       {/* {Com && <Com {...comProps} />} */}
       <Suspense fallback={<div>Loading...</div>}>
         <Comp4 {...comProps} />

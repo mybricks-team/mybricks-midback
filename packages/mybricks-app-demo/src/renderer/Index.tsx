@@ -1,112 +1,98 @@
-import React, { useEffect, lazy, useState, Suspense } from 'react'
-import ReactDOM from 'react-dom'
-import { RenderComCDN } from './constants'
-import { Divider, message, Button } from 'antd'
-import RendererUrlCom from './RenderUrlCom'
-import RemoteApp from './components/remoteApp'
+import React, { useEffect, lazy, useState, Suspense } from "react";
+import ReactDOM from "react-dom";
+import { RenderComCDN } from "./constants";
+import { Divider, message, Button } from "antd";
+import RendererUrlCom from "./RenderUrlCom";
+import "@m-ui/react/dist/@m-ui/react.css";
+import "@m-ui/react/dist/@m-ui/react.less";
+import RenderCom from './render-com'
+import { deps, getLocalDeps } from "./constants";
 
-import { deps, getLocalDeps } from './constants'
-// // import {} from '@'
-
-console.log('reactDom', ReactDOM)
 // DemoUrl resourceCode=Button_Wed_1
-const DemoUrl = 'https://w1.beckwai.com/kos/nlav12333/cdm-thumbnai/Button_Wed0.34476.js'
+
+// 发布后的UMD 资源链接
+const demo4 =
+  "https://f2.eckwai.com/kos/nlav12333/unpkg/lz/Form_demo_g2/1.0.0/index.umd.js";
+
+  const DemoUrl = 'https://w1.beckwai.com/kos/nlav12333/cdm-thumbnai/Button_Wed0.34476.js'
 
 // 搭建地址 https://lingzhu.staging.kuaishou.com/sketch/lowCode/designer/?appKey=yzj_letter_com_group&outAppKey=letter_com_group&tenant=yzj&orderId=2428901041503&resourceCode=local_btn_1&use-declare=1
 const DemoUrl2 = 'https://w1.beckwai.com/kos/nlav12333/cdm-thumbnai/local_btn0.49611.js'
 
 const demo3 = 'https://cdnfile.corp.kuaishou.com/kc/files/a/kael-mui-demo/chrome-plugin-upload/2024-10-15/1728995191592.102ca58d6b6a91ec.js'
-const container = document.getElementById('root')
-// react 18
-// const root = ReactDOM.createRoot(container)
 
-// root.render(<MyApp />)
 
-// react 17
-
-ReactDOM.render(<MyApp />, document.getElementById('root'));
+const  RenderComType = 'https://cdnfile.corp.kuaishou.com/kc/files/a/kael-mui-demo/chrome-plugin-upload/2024-10-24/1729759199008.0ac9ef7df537fd42.js'
+const button ='https://cdnfile.corp.kuaishou.com/kc/files/a/kael-mui-demo/chrome-plugin-upload/2024-10-14/1728914111742.253c11471b90d5b1.js'
+ReactDOM.render(<MyApp />, document.getElementById("root"));
 function MyApp() {
-  return <RendererDemo />
+  return <RendererDemo />;
 }
 
-
 function RendererDemo() {
-  let newDeps = getLocalDeps(deps, {})
+  let newDeps = getLocalDeps(deps, {});
 
-  const [Com, setCom] = useState(undefined)
+  const [Com, setCom] = useState(undefined);
 
-  let cloudRef, cloudRenderRef, cloudDemoUrl2Ref
+  let cloudRef, cloudRenderRef, cloudDemoUrl2Ref, cloudRef4;
 
-  const RenderComCDNProps = {
-    label1: '测试111',
-    label2: '测试222',
-    label3: '测试333',
+  const [props1, setProps1] = useState({
+    formReady: (form) => {
+      form.setFieldsValue({
+        name: "标签名字",
+        sex: "man",
+        num: 1100,
+      });
+    },
+    label: "选项",
+    options: [
+      {
+        label: "电商",
+        value: "电商",
+      },
+      {
+        label: "商业化",
+        value: "商业化",
+      },
+    ],
+    submit(data) {
+      message.success("提交数据 本地调用1:" + JSON.stringify(data));
+    },
     getRef: (ref) => {
-      cloudRenderRef = ref
+      cloudRef4 = ref;
     },
-    click: () => {
-      message.success('成功点击')
-    }
-  }
-
-  const [props1, setProps1] = useState(RenderComCDNProps)
-
-  const comp4Props ={
-    label1: '传入的标签1',
-    label2: '传入的标签2',
-    label3: '传入的标签3',
-    label4: '熊出没',
-    textClick: () => {
-      message.info('点击了文本进行按钮加载设置')
-      cloudRef?.setLoading(!cloudRef.loading)
-    },
-    getRef: (ref) => {
-      cloudRef = ref
-    }
-  }
-
-  const DemoUrl2Props = {
-    label: '啦啦啦-外部',
-    btn: '啦啦啦-按钮',
-    click: () => {
-      message.success('点击')
-    },
-    calClick: () => {
-      message.success('调用---')
-    },
-    getRef:(ref) => {
-      cloudDemoUrl2Ref = ref
-    }
-  }
+  });
 
   const handleClick = () => {
-    setProps1((prev) => ({...prev, label1: '更新后的label111', label2: '测试'+ Math.random().toFixed(6) }))
-    // cloudRef.setDataSource(new Array(10).fill(0).map((item, idx) => {
-    //   return  {
-    //     age: 11 +idx,
-    //     address: '杭州' + idx,
-    //     name: '啦啦啦'
-    //   }
-    // }))
+    const val = Math.random().toFixed(2);
+    setProps1((prev) => ({
+      ...prev,
+      label: "更新后的标签" + Math.random().toFixed(1),
+      options: [
+        { label: "更新label" + val, value: "更新label" + val },
+        { label: "AAA" + val, value: "AAA" + val },
+      ],
+    }));
+  };
+
+  const callInner = () => {
+    cloudRef4.click()
+    message.success('内部数据config'+ JSON.stringify(cloudRef4.config))
   }
   return (
     <div>
       <div>Hello 渲染云组件 Demo </div>
-      <Button onClick={handleClick}> 点击更改第一个组件的属性</Button>
+      <Button onClick={handleClick}> 点击demo组件的label options属性</Button>
+      {/* <RendererUrlCom url={demo4} comProps={props1} /> */}
+      <button onClick={callInner}>调用云组件内部click</button>
 
-      <RendererUrlCom url={RenderComCDN} comProps={props1}  />
+      {/* <RendererUrlCom url={RenderComCDN} comProps={props1}  />
       <Divider />
-      <RendererUrlCom url={DemoUrl} comProps={comp4Props}  />
+      <RendererUrlCom url={DemoUrl} comProps={{}}  /> */}
       <Divider />
-      <RendererUrlCom url={DemoUrl2} comProps={DemoUrl2Props}  />
-      <Divider />
-      {/* <RendererUrlCom url={demo3} comProps={RenderComCDNProps}  /> */}
-
-
-
+      {/* <RendererUrlCom url={button} comProps={{label: 'AAA'}}  /> */}
+      <RendererUrlCom url={RenderComType} comProps={{ label: 'AAa'}} />
+      <RenderCom  />
     </div>
-  )
+  );
 }
-
-
-
