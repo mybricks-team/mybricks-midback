@@ -5,10 +5,12 @@ import React, {
   forwardRef,
   useImperativeHandle,
 } from 'react'
-import { render as renderUI } from '@mybricks/render-web'
+import { render as renderUI, hijackReactcreateElement } from '@mybricks/render-web'
 import { parseQuery } from '../utils'
 import { runJs } from '@mybricks/com-utils'
 import { call as connectorCall } from '@mybricks/plugin-connector-http/runtime/index'
+
+hijackReactcreateElement({});
 
 // if (!window.React) {
 //   window.React = React
