@@ -1,5 +1,6 @@
 const path = require('path')
 const CopyPlugin = require('copy-webpack-plugin')
+// const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
 
 const outputType = process.env.OUTPUT_TYPE
 
@@ -25,7 +26,10 @@ module.exports = {
     {
       react: 'react',
       'react-dom': 'react-dom',
-      antd: 'nocobasemyantd',
+      // antd: 'nocobasemyantd',
+      antd: 'antd',
+      moment: 'moment',
+      dayjs: 'dayjs',
       '@ant-design/icons': '@ant-design/icons',
       '@ant-design/icons-svg': '@ant-design/icons-svg'
     },
@@ -84,5 +88,11 @@ module.exports = {
       },
     ],
   },
-  plugins: [],
+  plugins: [
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: "static",
+    // }),
+  ],
 }
+
+
