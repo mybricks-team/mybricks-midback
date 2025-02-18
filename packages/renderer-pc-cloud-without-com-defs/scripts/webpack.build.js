@@ -28,7 +28,7 @@ module.exports = {
       'react-dom': 'react-dom',
       // antd: 'nocobasemyantd',
       antd: 'antd',
-      moment: 'moment',
+      moment: 'dayjs',
       dayjs: 'dayjs',
       '@ant-design/icons': '@ant-design/icons',
       '@ant-design/icons-svg': '@ant-design/icons-svg'
