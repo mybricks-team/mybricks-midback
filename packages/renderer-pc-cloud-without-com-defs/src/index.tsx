@@ -13,6 +13,9 @@ const RendererCloud = forwardRef(
     const comDefs = useMemo(() => {
       return Object.values(ComlibPCNormal).concat(Object.values(ComlibBasic)).reduce((acc, cur) => {
         acc[cur.namespace] = cur
+        const split = cur.namespace.split(".");
+        split.splice(split.length - 1, 0, "antd5");
+        acc[split.join(".")] = cur
         return acc
       }, {})
     }, [])
