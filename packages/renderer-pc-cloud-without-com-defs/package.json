@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/renderer-pc-cloud-without-com-defs",
-  "version": "0.0.10-next.9",
+  "version": "0.0.10-next.10",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -17,7 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@mybricks/com-utils": "1.0.0",
-    "@mybricks/comlib-ai-pc": "0.0.1-next.3",
+    "@mybricks/comlib-ai-pc": "0.0.1-next.4",
     "@mybricks/comlib-basic": "0.0.6",
     "@mybricks/comlib-pc-normal": "0.0.22-next.10",
     "@mybricks/nocobase-service-interface": "^0.0.1",
