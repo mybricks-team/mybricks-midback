@@ -1,7 +1,10 @@
 import React, { forwardRef, useMemo } from 'react'
 import * as ComlibPCNormal from '@mybricks/comlib-pc-normal/es';
 import * as ComlibBasic from '@mybricks/comlib-basic/es'
+import * as ComlibPCAi from '@mybricks/comlib-ai-pc';
 import Core from './core'
+
+window.React = React;
 
 interface IProps {
   toJSON: any;
@@ -11,7 +14,7 @@ interface IProps {
 const RendererCloud = forwardRef(
   ({ comUrl, toJSON, ...comProps }: IProps, ref: any) => {
     const comDefs = useMemo(() => {
-      return Object.values(ComlibPCNormal).concat(Object.values(ComlibBasic)).reduce((acc, cur) => {
+      return Object.values(ComlibPCNormal).concat(Object.values(ComlibBasic)).concat(Object.values(ComlibPCAi)).reduce((acc, cur) => {
         acc[cur.namespace] = cur
         const split = cur.namespace.split(".");
         split.splice(split.length - 1, 0, "antd5");

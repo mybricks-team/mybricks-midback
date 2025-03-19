@@ -1,6 +1,6 @@
 {
   "name": "@mybricks/renderer-pc-cloud-without-com-defs",
-  "version": "0.0.10-next.3",
+  "version": "0.0.10-next.9",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -17,8 +17,9 @@
   "license": "ISC",
   "dependencies": {
     "@mybricks/com-utils": "1.0.0",
+    "@mybricks/comlib-ai-pc": "0.0.1-next.3",
     "@mybricks/comlib-basic": "0.0.6",
-    "@mybricks/comlib-pc-normal": "0.0.22-next.9",
+    "@mybricks/comlib-pc-normal": "0.0.22-next.10",
     "@mybricks/nocobase-service-interface": "^0.0.1",
     "@mybricks/plugin-connector-http": "1.2.17",
     "@mybricks/render-web": "1.3.48-next.0"
@@ -44,8 +45,8 @@
   "peerDependencies": {
     "@ant-design/icons": "^4.7.0",
     "antd": "^4.21.6",
-    "moment": "^2.29.1",
     "dayjs": "^1.11.13",
+    "moment": "^2.29.1",
     "react": ">=16.9.0",
     "react-dom": ">=16.9.0"
   }
