@@ -3,6 +3,8 @@ import * as ComlibPCNormal from '@mybricks/comlib-pc-normal/es';
 import * as ComlibBasic from '@mybricks/comlib-basic/es'
 import * as ComlibPCAi from '@mybricks/comlib-ai-pc';
 import Core from './core'
+import zhCN from "antd/lib/locale/zh_CN"
+import { ConfigProvider } from "antd"
 
 window.React = React;
 
@@ -23,13 +25,17 @@ const RendererCloud = forwardRef(
       }, {})
     }, [])
 
-    return <Core
-      ref={ref}
-      json={toJSON}
-      comDefs={comDefs}
-      props={comProps}
-      onLoaded={() => { comProps.onLoaded?.(ref); }}
-    />;
+    return (
+      <ConfigProvider locale={zhCN}>
+        <Core
+          ref={ref}
+          json={toJSON}
+          comDefs={comDefs}
+          props={comProps}
+          onLoaded={() => { comProps.onLoaded?.(ref); }}
+        />
+      </ConfigProvider>
+    )
   }
 )
 
