@@ -27,6 +27,9 @@ interface RendererProps {
   }
   comDefs: any
   props: any
+  extCallConnector?: {
+    before?: (options: any) => any
+  }
   className?: string
   style?: React.CSSProperties
   onLoaded?: () => void
@@ -43,6 +46,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
     props: { _console = {}, ...comProps },
     className,
     style,
+    extCallConnector
   } = props
 
   const currentLocale = config?.locale || navigator.language
@@ -128,7 +132,7 @@ export default forwardRef((props: RendererProps, ref: any) => {
               ...connectorConfig,
               /** http-sql表示为领域接口 */
               before: (options) => {
-                return {
+                const result = {
                   ...options,
                   url: shapeUrlByEnv(
                     config?.envList,
@@ -137,6 +141,8 @@ export default forwardRef((props: RendererProps, ref: any) => {
                     MYBRICKS_HOST
                   ),
                 }
+
+                return extCallConnector?.before?.(result) || result
               },
             })
           },
