@@ -45,9 +45,10 @@ export default forwardRef((props: RendererProps, ref: any) => {
     comDefs,
     props: { _console = {}, ...comProps },
     className,
-    style,
-    extCallConnector
+    style
   } = props
+
+  const extCallConnector = props.props?.extCallConnector
 
   const currentLocale = config?.locale || navigator.language
 
